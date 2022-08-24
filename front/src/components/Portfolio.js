@@ -16,7 +16,6 @@ function Portfolio() {
   const [isFetchCompleted, setIsFetchCompleted] = useState(false);
   const userState = useContext(UserStateContext);
   const [isEditFormEditing, setIsEditFormEditing] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
   const fetchPorfolioOwner = async (ownerId) => {
     // 유저 id를 가지고 "/users/유저id" 엔드포인트로 요청해 사용자 정보를 불러옴.
     const res = await Api.get("users", ownerId);
@@ -64,9 +63,7 @@ function Portfolio() {
         <Col>
           <div>
             <Education
-              setIsEditing={setIsEditing}
               isEditable={portfolioOwner.id === userState.user?.id}
-              isEditing={isEditing}
               setIsEditFormEditing={setIsEditFormEditing}
               isEditFormEditing={isEditFormEditing}
             />

@@ -1,112 +1,72 @@
-import { Card } from "react-bootstrap";
+import {Card} from "react-bootstrap";
 import React from "react";
-import { useState } from "react";
+import {useState} from "react";
 import EducationForm from "./EducationForm";
-
 import EducationCard from "./EducationCard";
+
 const Education = ({
-  isEditable,
-  setIsEditing,
-  isEditing,
-  setIsEditFormEditing,
-  isEditFormEditing,
-}) => {
-  const [educations, setEducations] = useState([
-    {
-      schoolName: "엘리스코딩학교",
-      major: "컴퓨터공학과",
-      position: "학사졸업",
-    },
-  ]);
+                       isEditable,
+                       setIsEditFormEditing,
+                       isEditFormEditing,
+                   }) => {
 
-  const addEducation = (text) => {
-    const newEducations = [...educations, { text }];
-    setEducations(newEducations);
-  };
+    const [isAdding, setIsAdding] = useState(false);
+    const toggleAddEducationForm = () => {
+        setIsAdding(!isAdding);
+    };
 
-  function addForm() {
-    console.log(educations);
-    setIsEditing(true);
-  }
-  console.log(setIsEditFormEditing);
+    const [educations, setEducations] = useState([]);
 
-  return (
-    <Card className="mb-2 ms-3 mr-5 ">
-      <Card.Body>
-        <Card.Title>학력</Card.Title>
+    // 추가 - 확인 함수
+    const confirmAddEducation = (targetEducation) => {
+        // TODO : 학교이름, 전공 유효성 검사
+        targetEducation.id = Date.now();
+        const resultEducations = [...educations, targetEducation];
+        setEducations([...resultEducations]);
+        setIsAdding(false);
+    };
 
-        <EducationCard
-          educations={educations}
-          setIsEditFormEditing={setIsEditFormEditing}
-          addEducation={addEducation}
-          setEducations={setEducations}
-          isEditFormEditing={isEditFormEditing}
-        />
-        {/* {isEditFormEditing ? (
-          <EducationEditForm
-            setIsEditFormEditing={setIsEditFormEditing}
-            addEducation={addEducation}
-            setEducations={setEducations}
-            educations={educations}
-          />
-        ) : null} */}
-      </Card.Body>
+    const cancelAddEducation = () => {
+        setIsAdding(false);
+    };
 
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        {isEditable ? (
-          <button className="btn btn-primary" onClick={addForm}>
-            +
-          </button>
-        ) : null}
-      </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "flex-end",
-          margin: "0 0 1rem 0",
-        }}
-      >
-        {isEditing ? (
-          <EducationForm
-            setIsEditing={setIsEditing}
-            addEducation={addEducation}
-            setEducations={setEducations}
-            educations={educations}
-          />
-        ) : null}
-      </div>
-    </Card>
-  );
+    return (
+        <Card className="mb-2 ms-3 mr-5 ">
+            <Card.Body>
+                <Card.Title>학력</Card.Title>
+                <EducationCard educations={educations} setEducations={setEducations}/>
+            </Card.Body>
+
+            <div style={{display: "flex", justifyContent: "center"}}>
+                {isEditable ? (
+                    <button className="btn btn-primary" onClick={toggleAddEducationForm}>
+                        +
+                    </button>
+                ) : null}
+            </div>
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "flex-end",
+                    margin: "0 0 1rem 0",
+                }}
+            >
+                {isAdding ? (
+                    <EducationForm
+                        onConfirm={confirmAddEducation}
+                        onCancel={cancelAddEducation}
+                        education={{
+                            id: null,
+                            schoolName: "",
+                            major: "",
+                            position: "재학중",
+                        }}
+                    />
+                ) : null}
+            </div>
+        </Card>
+    );
 };
 
-// function Education({ isEditable }) {
-//   // useState 훅을 통해 isEditing 상태를 생성함.
-//   const [isEditing, setIsEditing] = useState(false);
-//   // useState 훅을 통해 user 상태를 생성함.
-//   const [user, setUser] = useState(null);
-
-//   // useEffect(() => {
-//   //   // "users/유저id" 엔드포인트로 GET 요청을 하고, user를 response의 data로 세팅함.
-//   //   Api.get("users", portfolioOwnerId).then((res) => setUser(res.data));
-//   // }, [portfolioOwnerId]);
-
-//   return (
-//     <>
-//       {isEditing ? (
-//         <UserEditForm
-//           user={user}
-//           setIsEditing={setIsEditing}
-//           setUser={setUser}
-//         />
-//       ) : (
-//         <UserCard
-//           user={user}
-//           setIsEditing={setIsEditing}
-//           isEditable={isEditable}
-//         />
-//       )}
-//     </>
-//   );
-// }
 export default Education;
