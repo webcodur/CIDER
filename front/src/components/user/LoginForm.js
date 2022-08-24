@@ -5,7 +5,7 @@ import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import * as Api from "../../api";
 import { DispatchContext } from "../../App";
 
-function LoginForm() {
+function LoginForm({isEditable}) {
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
 
@@ -64,6 +64,8 @@ function LoginForm() {
       <Row className="justify-content-md-center mt-5">
         <Col lg={8}>
           <Form onSubmit={handleSubmit}>
+
+            
             <Form.Group controlId="loginEmail">
               <Form.Label>이메일 주소</Form.Label>
               <Form.Control
@@ -78,6 +80,7 @@ function LoginForm() {
                 </Form.Text>
               )}
             </Form.Group>
+
 
             <Form.Group controlId="loginPassword" className="mt-3">
               <Form.Label>비밀번호</Form.Label>
@@ -94,6 +97,7 @@ function LoginForm() {
               )}
             </Form.Group>
 
+
             <Form.Group as={Row} className="mt-3 text-center">
               <Col sm={{ span: 20 }}>
                 <Button variant="primary" type="submit" disabled={!isFormValid}>
@@ -102,6 +106,7 @@ function LoginForm() {
               </Col>
             </Form.Group>
 
+
             <Form.Group as={Row} className="mt-3 text-center">
               <Col sm={{ span: 20 }}>
                 <Button variant="light" onClick={() => navigate("/register")}>
@@ -109,6 +114,8 @@ function LoginForm() {
                 </Button>
               </Col>
             </Form.Group>
+
+
           </Form>
         </Col>
       </Row>

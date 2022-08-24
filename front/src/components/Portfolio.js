@@ -2,20 +2,25 @@ import React, { useContext, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container, Col, Row } from "react-bootstrap";
 
+import Award from './award/Award';
+import Certificate from './certificate/Certificate';
+import Education from './education/Education';
+import Project from './project/Project';
+
 import { UserStateContext } from "../App";
 import * as Api from "../api";
 import User from "./user/User";
 
 function Portfolio() {
+
   const navigate = useNavigate();
   const params = useParams();
-  // useState 훅을 통해 portfolioOwner 상태를 생성함.
-  const [portfolioOwner, setPortfolioOwner] = useState(null);
-  // fetchPorfolioOwner 함수가 완료된 이후에만 (isFetchCompleted가 true여야) 컴포넌트가 구현되도록 함.
+  const [portfolioOwner, setPortfolioOwner] = useState(null); 
+  // fetchPorfolioOwner 함수가 완료되면(isFetchCompleted가 true) 컴포넌트 구현
   // 아래 코드를 보면, isFetchCompleted가 false이면 "loading..."만 반환되어서, 화면에 이 로딩 문구만 뜨게 됨.
   const [isFetchCompleted, setIsFetchCompleted] = useState(false);
   const userState = useContext(UserStateContext);
-
+ 
   const fetchPorfolioOwner = async (ownerId) => {
     // 유저 id를 가지고 "/users/유저id" 엔드포인트로 요청해 사용자 정보를 불러옴.
     const res = await Api.get("users", ownerId);
@@ -51,21 +56,22 @@ function Portfolio() {
     return "loading...";
   }
 
+  let isEditable = ((portfolioOwner.id === userState.user?.id) ? true : false)
+
   return (
     <Container fluid>
       <Row>
         <Col md="3" lg="3">
           <User
             portfolioOwnerId={portfolioOwner.id}
-            isEditable={portfolioOwner.id === userState.user?.id}
+            isEditable={isEditable}
           />
         </Col>
         <Col>
-
-          <div style={{ textAlign: "center" }}>
-            학력 목록, 수상이력 목록, 프로젝트 목록, 자격증 목록 만들기
-          </div>
-
+          <Education isEditable={isEditable}/>
+          <Award isEditable={isEditable}/>
+          <Project isEditable={isEditable}/>
+          <Certificate isEditable={isEditable}/>
         </Col>
       </Row>
     </Container>
