@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "../../../src/index.css";
 import EducationEditForm from "./EducationEditForm";
 function EducationCard({
@@ -10,6 +10,21 @@ function EducationCard({
 }) {
   console.log(setIsEditFormEditing);
   // console.log(educations[0].schoolName);
+
+  const [targetIndex, setTargetIndex] = useState(-1);
+
+  // 편집
+  const editEducation = (index) => {
+    console.log(isEditFormEditing, educations, index);
+    if(isEditFormEditing && targetIndex === index) {
+      setIsEditFormEditing(false);
+      setTargetIndex(-1);
+    } else {
+      setIsEditFormEditing(true);
+      setTargetIndex(index);
+    }
+  }
+
   return (
     <div>
       <div>
@@ -30,7 +45,7 @@ function EducationCard({
                   <button
                     type="button"
                     className="mr-3 btn btn-outline-info btn-sm"
-                    onClick={() => setIsEditFormEditing(true)}
+                    onClick={() => editEducation(index)}
                   >
                     편집
                   </button>
@@ -42,7 +57,7 @@ function EducationCard({
                   </button>
                 </div>
               </div>
-              {isEditFormEditing && educations.id ==  ? (
+              {isEditFormEditing && (index === targetIndex) ? (
                 <EducationEditForm
                   setIsEditFormEditing={setIsEditFormEditing}
                   addEducation={addEducation}

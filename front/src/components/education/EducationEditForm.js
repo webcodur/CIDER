@@ -8,7 +8,7 @@ const EducationEditForm = ({
   educations,
 }) => {
   console.log(educations);
-  const [schoolName, setSchoolName] = useState(educations[index].schoolName);
+  const [schoolName, setSchoolName] = useState(educations.schoolName);
   const [major, setMajor] = useState();
   const [position, setPosition] = useState();
 
