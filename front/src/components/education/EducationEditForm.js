@@ -6,25 +6,30 @@ const EducationEditForm = ({
   addEducation,
   setEducations,
   educations,
+  // index,
 }) => {
-  console.log(educations);
   const [schoolName, setSchoolName] = useState(educations.schoolName);
-  const [major, setMajor] = useState();
-  const [position, setPosition] = useState();
-
-  console.log();
-
+  const [major, setMajor] = useState(educations.major);
+  const [position, setPosition] = useState(educations.position);
+  const idnum = Date.now();
+  // console.log(index, "index");
+  // const findIndex = educations.findIndex();
+  // const copyeducation = [{ ...educations }];
+  // console.log([...educations]);
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setEducations([
-      ...educations,
+      // { ...educations },
       {
         schoolName: schoolName,
         major: major,
+        position: position,
+        id: idnum,
       },
     ]);
-    console.log({ ...educations });
+    // console.log(copyeducation);
+    // console.log(educations);
+    // console.log({ ...educations });
     setIsEditFormEditing(false);
   };
 
@@ -65,7 +70,7 @@ const EducationEditForm = ({
             id="radio-add-1"
             class="form-check-input"
             value="재학중"
-            // checked={educations[0].position === "재학중"}
+            checked={educations.position === "재학중"}
             onChange={handleChange}
           ></input>
           <label title="" for="radio-add-1" class="form-check-label">
@@ -79,7 +84,7 @@ const EducationEditForm = ({
             id="radio-add-2"
             class="form-check-input"
             value="학사졸업"
-            // checked={educations[0].position === "학사졸업"}
+            checked={educations.position === "학사졸업"}
             onChange={handleChange}
           ></input>
           <label title="" for="radio-add-2" class="form-check-label">
@@ -94,7 +99,7 @@ const EducationEditForm = ({
             class="form-check-input"
             value="석사졸업"
             onChange={handleChange}
-            // checked={educations[0].position === "석사졸업"}
+            checked={educations.position === "석사졸업"}
           ></input>
           <label title="" for="radio-add-3" class="form-check-label">
             석사졸업
@@ -108,7 +113,7 @@ const EducationEditForm = ({
             class="form-check-input"
             value="박사졸업"
             onChange={handleChange}
-            // checked={educations[0].position === "박사졸업"}
+            checked={educations.position === "박사졸업"}
           ></input>
           <label title="" for="radio-add-4" class="form-check-label">
             박사졸업

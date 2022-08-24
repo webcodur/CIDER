@@ -13,7 +13,22 @@ const Education = ({
 }) => {
   const [educations, setEducations] = useState([
     {
-      schoolName: "엘리스코딩학교",
+      schoolName: "엘리스코딩학교1",
+      major: "컴퓨터공학과",
+      position: "학사졸업",
+    },
+    {
+      schoolName: "엘리스코딩학교2",
+      major: "컴퓨터공학과",
+      position: "학사졸업",
+    },
+    {
+      schoolName: "엘리스코딩학교3",
+      major: "컴퓨터공학과",
+      position: "학사졸업",
+    },
+    {
+      schoolName: "엘리스코딩학교4",
       major: "컴퓨터공학과",
       position: "학사졸업",
     },
@@ -28,7 +43,7 @@ const Education = ({
     console.log(educations);
     setIsEditing(true);
   }
-  console.log(setIsEditFormEditing);
+  // console.log(setIsEditFormEditing);
 
   return (
     <Card className="mb-2 ms-3 mr-5 ">
