@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container, Col, Row } from "react-bootstrap";
-
 import { UserStateContext } from "../App";
 import * as Api from "../api";
 import User from "./user/User";
 import Education from "./education/Education";
+
 function Portfolio() {
   const navigate = useNavigate();
   const params = useParams();
@@ -15,7 +15,8 @@ function Portfolio() {
   // 아래 코드를 보면, isFetchCompleted가 false이면 "loading..."만 반환되어서, 화면에 이 로딩 문구만 뜨게 됨.
   const [isFetchCompleted, setIsFetchCompleted] = useState(false);
   const userState = useContext(UserStateContext);
-
+  const [isEditFormEditing, setIsEditFormEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const fetchPorfolioOwner = async (ownerId) => {
     // 유저 id를 가지고 "/users/유저id" 엔드포인트로 요청해 사용자 정보를 불러옴.
     const res = await Api.get("users", ownerId);
@@ -61,8 +62,14 @@ function Portfolio() {
           />
         </Col>
         <Col>
-          <div style={{ textAlign: "center" }}>
-            <Education isEditable={portfolioOwner.id === userState.user?.id} />
+          <div>
+            <Education
+              setIsEditing={setIsEditing}
+              isEditable={portfolioOwner.id === userState.user?.id}
+              isEditing={isEditing}
+              setIsEditFormEditing={setIsEditFormEditing}
+              isEditFormEditing={isEditFormEditing}
+            />
           </div>
         </Col>
       </Row>
