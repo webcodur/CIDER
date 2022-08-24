@@ -1,31 +1,38 @@
 import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import { useState } from "react";
 
-const AwardForm = (
-    props
-  ) => {
+const AwardEditForm = ( props ) => {
 
   const [awards, setAwards]   = useState('')
   const [details, setDetails] = useState('')
   
+  
 
-  const handleSubmit = async (e) => {
+  const 편집본제출 = async (e) => {
     e.preventDefault();
-    
-    // 빈 값에 대해선 작업하지 않음
+    console.log('props.htmlID',props.htmlID)
+    console.log('awards',awards)
+
     if((awards)===''){return}
-    
-    // 입력값에서 배열 만들기
-    const dt = new Date()
-    const timeID = dt.getTime()
-    
-    console.log(timeID)
-    const 현재값 = [awards, details, timeID]
-    props.setArr((기존값) => [현재값, ...기존값]);
+
+    props.setArr((기존값)=>{
+      let temp = 기존값.slice()
+      temp.forEach((ele,idx)=>{
+        if(ele[2] === (props.htmlID*1)){
+          ele[0] = awards
+          ele[1] = details
+        }
+      })
+      console.log(temp)
+      return temp
+    })
 
     // 제출 시 입력창 초기화
     setAwards('')
     setDetails('')
+
+    // 제출 시 편집창 닫기
+
   };
 
   return (
@@ -33,7 +40,7 @@ const AwardForm = (
       <Container>
         <Row>
           <Col>
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={편집본제출}>
 
 
               <Form.Group controlId="awardsID">
@@ -65,7 +72,7 @@ const AwardForm = (
                   <Button
                     variant="primary ms-3"
                     type="submit"
-                    onSubmit={handleSubmit}
+                    onSubmit={편집본제출}
                   >
                     확인
                   </Button>
@@ -85,6 +92,9 @@ const AwardForm = (
       </Container>
     </>
   );
-};
 
-export default AwardForm;
+}
+
+
+
+export default AwardEditForm;

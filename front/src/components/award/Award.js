@@ -4,8 +4,8 @@ import { useState } from 'react';
 import AwardCard from "./AwardCard";
 import AwardForm from "./AwardForm";
 
-
-const Award = ({ isEditable }) => {
+// portfolioOwnerId={portfolioOwner.id}
+const Award = (props) => {
   
   const [isEditing, setIsEditing] = useState(false)
   const [arr, setArr] = useState([])
@@ -14,7 +14,16 @@ const Award = ({ isEditable }) => {
     <Card className="mb-2 ms-3 mr-5">
       <Card.Body>
         <Card.Title>수상 이력</Card.Title>
-        <AwardCard arr={arr} setArr={setArr}></AwardCard>
+        {arr.map((ele, idx)=>{
+          return <>
+            <AwardCard 
+              key={ele}  
+              arr={arr} 
+              idx={idx}
+              setArr={setArr}>
+            </AwardCard>
+          </>
+        })}
         <div
           style={{
             display: 'flex',
@@ -26,7 +35,7 @@ const Award = ({ isEditable }) => {
           <Button
             className="btn btn-primary"
             onClick={() => setIsEditing(true)}
-            style={!isEditable?{display:'none'}:{display:'block'}}
+            style={!props.isEditable?{display:'none'}:{display:'block'}}
           >
             +
           </Button>

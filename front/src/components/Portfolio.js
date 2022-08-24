@@ -68,10 +68,18 @@ function Portfolio() {
           />
         </Col>
         <Col>
-          <Education isEditable={isEditable}/>
-          <Award isEditable={isEditable}/>
-          <Project isEditable={isEditable}/>
-          <Certificate isEditable={isEditable}/>
+          <Education 
+          isEditable={isEditable}/>
+          
+          <Award 
+          isEditable={isEditable} 
+          portfolioOwnerId={portfolioOwner.id}/>
+          
+          <Project 
+          isEditable={isEditable}/>
+          
+          <Certificate 
+          isEditable={isEditable}/>
         </Col>
       </Row>
     </Container>
