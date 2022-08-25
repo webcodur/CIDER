@@ -27,6 +27,7 @@ function EducationCard({ educations, setEducations }) {
       ...targetEducation,
     };
     setEducations([...resultEducations]);
+    // setEducations();
     cancelEditEducation();
   };
 
@@ -50,7 +51,7 @@ function EducationCard({ educations, setEducations }) {
             <p key={education.id}>
               <div className="align-items-center row margin_tb10">
                 <div className="col">
-                  <div>{education.schoolName}</div>
+                  <div>{education.school}</div>
                   <div>
                     {education.major}({education.position})
                   </div>
