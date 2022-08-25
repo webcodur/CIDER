@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import "../../../src/index.css";
 import EducationForm from "./EducationForm";
 
-function EducationCard({ educations, setEducations }) {
+function EducationCard({ educations, setEducations, isEditable }) {
   const [isEditing, setIsEditing] = useState(false);
+  const [byEditbtn, setByEditbtn] = useState(false);
   const [targetId, setTargetId] = useState(null);
   const toggleEditEducationForm = (id) => {
     if (targetId === id && isEditing) {
@@ -43,12 +44,18 @@ function EducationCard({ educations, setEducations }) {
     setEducations(educations.filter((education) => education.id !== id));
   };
 
+  const EditHandle = () => {
+    // toggleEditEducationForm(education.id);
+    setByEditbtn(true);
+    console.log(byEditbtn);
+  };
+
   return (
     <div>
       <div>
         {educations.map((education, index) => {
           return (
-            <p key={education.id}>
+            <div key={education.id}>
               <div className="align-items-center row margin_tb10">
                 <div className="col">
                   <div>{education.school}</div>
@@ -56,25 +63,30 @@ function EducationCard({ educations, setEducations }) {
                     {education.major}({education.position})
                   </div>
                 </div>
-                <div
-                  className="col-lg-1 col"
-                  style={{ width: "150px", height: "35px", display: "flex" }}
-                >
-                  <button
-                    type="button"
-                    className="mr-3 btn btn-outline-info btn-sm"
-                    onClick={() => toggleEditEducationForm(education.id)}
+                {isEditable ? (
+                  <div
+                    className="col-lg-1 col"
+                    style={{ width: "150px", height: "35px", display: "flex" }}
                   >
-                    편집
-                  </button>
-                  <button
-                    type="button"
-                    className="mr-3 btn btn-outline-info btn-sm"
-                    onClick={() => onRemove(education.id)}
-                  >
-                    삭제
-                  </button>
-                </div>
+                    <button
+                      type="button"
+                      className="mr-3 btn btn-outline-info btn-sm"
+                      onClick={() => {
+                        toggleEditEducationForm(education.id);
+                        EditHandle();
+                      }}
+                    >
+                      편집
+                    </button>
+                    <button
+                      type="button"
+                      className="mr-3 btn btn-outline-info btn-sm"
+                      onClick={onRemove}
+                    >
+                      삭제
+                    </button>
+                  </div>
+                ) : null}
               </div>
               {isEditing && education.id === targetId && (
                 <EducationForm
@@ -83,9 +95,10 @@ function EducationCard({ educations, setEducations }) {
                   }}
                   onConfirm={confirmEditEducation}
                   onCancel={cancelEditEducation}
+                  byEditbtn={byEditbtn}
                 />
               )}
-            </p>
+            </div>
           );
         })}
       </div>

@@ -21,18 +21,19 @@ const educationService = {
     return educationList;
   },
 
-  getMyEducation: async function ({ id: id }) {
-    const education = await Education.findById({ id: id });
+  getMyEducation: async function ({ id }) {
+    const education = await Education.findById({ id });
     return education;
   },
 
   updateEducation: async function ({ id: educationId, toUpdate }) {
-    const education = await Education.findById({ id: educationId });
+    let education = await Education.findById({ id: educationId });
+
     if (toUpdate.school) {
       const fieldToUpdate = "school";
       const newValue = toUpdate.school;
       education = await Education.update({
-        id: educationId,
+        educationId,
         fieldToUpdate,
         newValue,
       });
@@ -42,7 +43,7 @@ const educationService = {
       const fieldToUpdate = "major";
       const newValue = toUpdate.major;
       education = await Education.update({
-        id: educationId,
+        educationId,
         fieldToUpdate,
         newValue,
       });
@@ -52,7 +53,7 @@ const educationService = {
       const fieldToUpdate = "position";
       const newValue = toUpdate.position;
       education = await Education.update({
-        id: educationId,
+        educationId,
         fieldToUpdate,
         newValue,
       });

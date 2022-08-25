@@ -28,12 +28,12 @@ const Education = ({ isEditable, paramsUserId }) => {
   const cancelAddEducation = () => {
     setIsAdding(false);
   };
-  //paramsUserId  = 선택한 유저 아이디 가져오기
   console.log();
   useEffect(() => {
     // "users/유저id" 엔드포인트로 GET 요청을 하고, user를 response의 data로 세팅함.
-    Api.get("educationList", paramsUserId).then((res) =>
-      setEducations(res.data)
+    //paramsUserId  = 선택한 유저 아이디 가져오기, 선택한 유저가 없다면 로그인한 사람의 id 값으로 세팅
+    Api.get("educationList", paramsUserId ? paramsUserId : educationid).then(
+      (res) => setEducations(res.data)
     );
   }, [paramsUserId]);
 
@@ -41,7 +41,11 @@ const Education = ({ isEditable, paramsUserId }) => {
     <Card className="mb-2 ms-3 mr-5 ">
       <Card.Body>
         <Card.Title>학력</Card.Title>
-        <EducationCard educations={educations} setEducations={setEducations} />
+        <EducationCard
+          educations={educations}
+          setEducations={setEducations}
+          isEditable={isEditable}
+        />
       </Card.Body>
 
       <div style={{ display: "flex", justifyContent: "center" }}>

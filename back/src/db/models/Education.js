@@ -21,7 +21,7 @@ const Education = {
     return education;
   },
 
-  update: async function ({ id: educationId, fieldToUpdate, newValue }) {
+  update: async function ({ educationId, fieldToUpdate, newValue }) {
     const filter = { id: educationId };
     const update = { [fieldToUpdate]: newValue };
     const option = { returnOriginal: false };
