@@ -12,6 +12,9 @@ function UserEditForm({ user, setIsEditing, setUser }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (name === "" || description === "") {
+      return console.log("빈 값은 입력이 불가 합니다.");
+    }
     console.log("user data 요청");
     // "users/유저id" 엔드포인트로 PUT 요청함.
     const res = await Api.put(`users/${user.id}`, {
@@ -46,6 +49,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
               type="email"
               placeholder="이메일"
               value={email}
+              disabled={true}
               onChange={(e) => setEmail(e.target.value)}
             />
           </Form.Group>

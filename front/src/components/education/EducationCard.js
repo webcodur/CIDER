@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../../src/index.css";
 import EducationForm from "./EducationForm";
-
+import * as Api from "../../api";
 function EducationCard({ educations, setEducations, isEditable }) {
   const [isEditing, setIsEditing] = useState(false);
   const [byEditbtn, setByEditbtn] = useState(false);
@@ -37,12 +37,20 @@ function EducationCard({ educations, setEducations, isEditable }) {
     setTargetId(null);
   };
 
-  const onRemove = (id) => {
+  const onRemove = async (educationid) => {
+    // const onRemove = (educationid) => {
     // user.id 가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듬
     // = user.id 가 id 인 것을 제거함
     // console.log("remove: ", educations, education.id, targetEducation);
-    setEducations(educations.filter((education) => education.id !== id));
+    setEducations(
+      educations.filter((education) => education.id !== educationid)
+    );
+    // alert(educationid);
+    console.log(educationid, educations);
+    await Api.delete(`educations/${educationid}`);
+    console.log("삭제 완료");
   };
+  console.log(educations);
 
   const EditHandle = () => {
     // toggleEditEducationForm(education.id);
@@ -81,7 +89,8 @@ function EducationCard({ educations, setEducations, isEditable }) {
                     <button
                       type="button"
                       className="mr-3 btn btn-outline-info btn-sm"
-                      onClick={onRemove}
+                      onClick={() => onRemove(education.id)}
+                      // onClick={onRemove(education.id)}
                     >
                       삭제
                     </button>

@@ -34,6 +34,13 @@ const Education = {
     return updatedEducation;
   },
 
+  delete: async function ({ educationId }) {
+    const education = await EducationModel.findOneAndDelete({
+      id: educationId,
+    });
+    return education;
+  },
+
   findBySchool: async function ({ school }) {
     const education = await EducationModel.findOne({ school });
     return education;

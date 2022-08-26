@@ -9,8 +9,6 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
   });
   const userState = useContext(UserStateContext);
   const id = userState.user.id;
-  // const id = "0a78272b-e89b-469a-8be1-ba367d023174";
-  console.log(education.id);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTargetEducation({
@@ -22,21 +20,33 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
   const handleConfirm = async () => {
     try {
       // "user/register" 엔드포인트로 post요청함.
+      console.log(targetEducation.school, targetEducation.major);
+      if (targetEducation.school === "" || targetEducation.major === "") {
+        return console.log("빈 값은 입력이 불가 합니다.");
+      }
+
       if (!byEditbtn) {
         //수정이 아닌 경우
         console.log("추가", byEditbtn);
+        console.log(id, targetEducation);
         await Api.post("education", {
           ...targetEducation,
           id,
-        });
+        }).then(
+          (res) => onConfirm(res.data)
+          // console.log(res.data)
+        );
       } //수정인 경우
       else {
         console.log("수정", byEditbtn);
-        await Api.put("educations/" + education.id, {
+        // await Api.put("educations/" + education.id, {
+        await Api.put(`educations/${education.id}`, {
           ...targetEducation,
           id,
         });
       }
+      console.log(targetEducation, "targetEducation");
+      // `users/${user.id}`
 
       // 로그인 페이지로 이동함.
     } catch (err) {
@@ -44,6 +54,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
     }
 
     onConfirm({ ...targetEducation });
+    // onConfirm({ ...targetEducation });
   };
 
   const handleCancel = () => {

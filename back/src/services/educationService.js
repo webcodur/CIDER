@@ -61,6 +61,11 @@ const educationService = {
 
     return education;
   },
+
+  deleteEducation: async function ({ id: educationId }) {
+    const education = await Education.delete({ educationId });
+    return education;
+  },
 };
 
 export { educationService };

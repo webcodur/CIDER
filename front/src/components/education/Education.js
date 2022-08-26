@@ -12,18 +12,20 @@ const Education = ({ isEditable, paramsUserId }) => {
 
   const [educations, setEducations] = useState([]);
   const userState = useContext(UserStateContext);
-  const educationid = userState.user.id;
-  // const educationid = "a1c1764c-3288-4174-b432-2f49afd96d9d";
-  // 추가 - 확인 함수
+  let educationid = "";
+  if (userState?.user) {
+    // 로그아웃을 했을경우 값을 넣어주기
+    educationid = userState.user.id ? userState.user.id : null;
+  }
+
   const confirmAddEducation = (targetEducation) => {
     // TODO : 학교이름, 전공 유효성 검사
-    targetEducation.id = Date.now();
+    // targetEducation.id = Date.now();
     const resultEducations = [...educations, targetEducation];
     setEducations([...resultEducations]);
+    console.log(...educations, targetEducation);
     setIsAdding(false);
   };
-  console.log(educations, "educations");
-  console.log(window.location);
 
   const cancelAddEducation = () => {
     setIsAdding(false);

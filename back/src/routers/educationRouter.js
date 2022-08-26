@@ -93,4 +93,23 @@ educationRouter.put(
   }
 );
 
+// 개별 education 삭제
+educationRouter.delete(
+  "/educations/:educationId",
+  login_required,
+  async (req, res, next) => {
+    try {
+      const educationId = req.params.educationId;
+
+      const deletedEducation = await educationService.deleteEducation({
+        id: educationId,
+      });
+
+      res.status(200).send("삭제되었습니다.");
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 export { educationRouter };
