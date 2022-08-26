@@ -5,7 +5,10 @@ import { UserStateContext } from "../App";
 import * as Api from "../api";
 import User from "./user/User";
 import Education from "./education/Education";
-
+//다크
+import { useTheme } from "../context/themeProvider";
+import AppLayout from "./AppLayout";
+import styled from "styled-components";
 function Portfolio() {
   const navigate = useNavigate();
   const params = useParams();
@@ -60,6 +63,7 @@ function Portfolio() {
         </Col>
         <Col>
           <div>
+            {/* <AppLayout> </AppLayout> */}
             <Education
               isEditable={portfolioOwner.id === userState.user?.id}
               paramsUserId={params.userId}

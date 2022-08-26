@@ -2,7 +2,9 @@ import React, { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import { UserStateContext, DispatchContext } from "../App";
-
+import { useTheme } from "../context/themeProvider";
+// import { FlexContainer } from "../style/styles";
+import ThemeToggle from "../theme/ThemeToggle";
 function Header() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -12,6 +14,7 @@ function Header() {
 
   // 전역상태에서 user가 null이 아니라면 로그인 성공 상태임.
   const isLogin = !!userState.user;
+  const [ThemeMode, toggleTheme] = useTheme();
 
   // 로그아웃 클릭 시 실행되는 함수
   const logout = () => {
@@ -27,6 +30,11 @@ function Header() {
     <Nav activeKey={location.pathname}>
       <Nav.Item className="me-auto mb-5">
         <Nav.Link disabled>안녕하세요, 포트폴리오 공유 서비스입니다.</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <ThemeToggle toggle={toggleTheme} mode={ThemeMode}>
+          DarkMode
+        </ThemeToggle>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link onClick={() => navigate("/")}>나의 페이지</Nav.Link>
