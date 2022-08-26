@@ -16,7 +16,11 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
       [name]: value,
     });
   };
-
+  const editedValues = {
+    ...targetEducation,
+    // id,
+  };
+  console.log(editedValues, "eeeeeee");
   const handleConfirm = async () => {
     try {
       // "user/register" 엔드포인트로 post요청함.
@@ -29,7 +33,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
         //수정이 아닌 경우
         console.log("추가", byEditbtn);
         console.log(id, targetEducation);
-        await Api.post("education", {
+        await Api.post("educations", {
           ...targetEducation,
           id,
         }).then(
@@ -40,10 +44,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
       else {
         console.log("수정", byEditbtn);
         // await Api.put("educations/" + education.id, {
-        await Api.put(`educations/${education.id}`, {
-          ...targetEducation,
-          id,
-        });
+        await Api.patch(`educations/${education.id}`, editedValues);
       }
       console.log(targetEducation, "targetEducation");
       // `users/${user.id}`
