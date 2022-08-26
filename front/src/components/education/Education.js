@@ -15,6 +15,7 @@ const Education = ({ isEditable, paramsUserId }) => {
   let educationid = "";
   if (userState?.user) {
     // 로그아웃을 했을경우 값을 넣어주기
+    console.log(userState.user);
     educationid = userState.user.id ? userState.user.id : null;
   }
 
@@ -30,13 +31,13 @@ const Education = ({ isEditable, paramsUserId }) => {
   const cancelAddEducation = () => {
     setIsAdding(false);
   };
-  console.log();
   useEffect(() => {
     // "users/유저id" 엔드포인트로 GET 요청을 하고, user를 response의 data로 세팅함.
     //paramsUserId  = 선택한 유저 아이디 가져오기, 선택한 유저가 없다면 로그인한 사람의 id 값으로 세팅
-    Api.get("educationList", paramsUserId ? paramsUserId : educationid).then(
+    Api.get("educations", paramsUserId ? paramsUserId : educationid).then(
       (res) => setEducations(res.data)
     );
+    console.log(educations, "rgtgrtgrg");
   }, [paramsUserId]);
 
   return (

@@ -6,18 +6,18 @@ import { educationService } from "../services/educationService";
 const educationRouter = Router();
 
 //학력 추가
-educationRouter.post("/education", login_required, async (req, res, next) => {
+educationRouter.post("/educations", login_required, async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
         "headers의 Content-Type을 application/json으로 설정해주세요"
       );
     }
-    const user_id = req.currentUserId;
+    const userId = req.currentUserId;
     const { school, major, position } = req.body;
 
     const newEducation = await educationService.addEducation({
-      user_id,
+      userId,
       school,
       major,
       position,
@@ -34,14 +34,19 @@ educationRouter.post("/education", login_required, async (req, res, next) => {
 
 // 나의 학력 조회
 educationRouter.get(
-  "/educationList/:user_id",
+  "/educations/:userId",
   login_required,
   async (req, res, next) => {
     try {
-      const { user_id } = req.params;
-      const educationList = await educationService.getMyEducationList({
-        user_id,
+      const { userId } = req.params;
+      const educationList = await educationService.getEducationList({
+        userId,
       });
+
+      if (educationList.errorMessage) {
+        throw new Error(educationList.errorMessage);
+      }
+
       res.status(200).json(educationList);
     } catch (error) {
       next(error);
@@ -49,37 +54,22 @@ educationRouter.get(
   }
 );
 
-//개별 education 조회
-educationRouter.get(
-  "/educations/:id",
-  login_required,
-  async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      const education = await educationService.getMyEducation({
-        id,
-      });
-      res.status(200).json(education);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
 // 나의 학력 편집, 업데이트
-educationRouter.put(
+educationRouter.patch(
   "/educations/:educationId",
   login_required,
   async (req, res, next) => {
     try {
-      const educationId = req.params.educationId;
-      const school = req.body.school ?? null;
-      const major = req.body.major ?? null;
-      const position = req.body.position ?? null;
+      if (is.emptyObject(req.body)) {
+        throw new Error("업데이트 할 학력 데이터를 포함하여 요청해주세요.");
+      }
+      const userId = req.currentUserId;
+      const { educationId } = req.params;
+      const toUpdate = req.body;
 
-      const toUpdate = { school, major, position };
       const updatedEducation = await educationService.updateEducation({
-        id: educationId,
+        userId,
+        educationId,
         toUpdate,
       });
 
@@ -99,13 +89,19 @@ educationRouter.delete(
   login_required,
   async (req, res, next) => {
     try {
-      const educationId = req.params.educationId;
+      const userId = req.currentUserId;
+      const { educationId } = req.params;
 
-      const deletedEducation = await educationService.deleteEducation({
-        id: educationId,
+      const deletedCount = await educationService.deleteEducation({
+        userId,
+        educationId,
       });
 
-      res.status(200).send("삭제되었습니다.");
+      if (deletedCount.errorMessage) {
+        throw new Error(deletedCount.errorMessage);
+      }
+
+      res.status(200).json(deletedCount);
     } catch (error) {
       next(error);
     }

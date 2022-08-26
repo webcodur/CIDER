@@ -16,3 +16,5 @@ export const theme = {
   lightTheme,
   darkTheme,
 };
+
+//theme에 따른 global style 지정

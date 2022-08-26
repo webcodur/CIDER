@@ -6,9 +6,9 @@ import * as Api from "../api";
 import User from "./user/User";
 import Education from "./education/Education";
 //다크
-import { useTheme } from "../context/themeProvider";
-import AppLayout from "./AppLayout";
-import styled from "styled-components";
+// import { useTheme } from "../context/themeProvider";
+// import AppLayout from "./AppLayout";
+// import styled from "styled-components";
 function Portfolio() {
   const navigate = useNavigate();
   const params = useParams();

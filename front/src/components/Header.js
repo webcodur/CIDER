@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import { UserStateContext, DispatchContext } from "../App";
 import { useTheme } from "../context/themeProvider";
+import "../index.css";
 // import { FlexContainer } from "../style/styles";
 import ThemeToggle from "../theme/ThemeToggle";
 function Header() {

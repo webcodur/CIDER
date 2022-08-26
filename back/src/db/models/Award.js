@@ -1,29 +1,29 @@
 import { AwardModel } from "../schemas/award";
 
 const Award = {
-  create: async function ({ newAward }) {
+  create: async ({ newAward }) => {
     const createdNewAward = await AwardModel.create(newAward);
     return createdNewAward;
   },
 
-  findAll: async function () {
-    const Awards = await AwardModel.find({});
-    return Awards;
+  findAllByUserId: async ({ userId }) => {
+    const AwardList = await AwardModel.find({ userId });
+    return AwardList;
   },
 
-  findByUserId: async function ({ user_id }) {
-    const Awards = await AwardModel.find({ user_id });
-    return Awards;
-  },
-
-  findById: async function ({ id }) {
-    const award = await AwardModel.findOne({ id });
+  findOneById: async ({ userId, awardId }) => {
+    const award = await AwardModel.findOne({
+      user_id: userId,
+      id: awardId,
+    });
     return award;
   },
 
-  update: async function ({ awardId, fieldToUpdate, newValue }) {
-    const filter = { id: awardId };
-    const update = { [fieldToUpdate]: newValue };
+  update: async ({ userId, awardId, update }) => {
+    const filter = {
+      user_id: userId,
+      id: awardId,
+    };
     const option = { returnOriginal: false };
 
     const updatedAward = await AwardModel.findOneAndUpdate(
@@ -34,8 +34,9 @@ const Award = {
     return updatedAward;
   },
 
-  delete: async function ({ awardId }) {
-    const award = await AwardModel.findOneAndDelete({
+  delete: async ({ userId, awardId }) => {
+    const award = await AwardModel.deleteOne({
+      used_id: userId,
       id: awardId,
     });
     return award;
