@@ -2,14 +2,15 @@ import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import { useState, useContext } from "react";
 import { UserStateContext } from "../../App";
 import * as Api from "../../api";
-import styles from './award.css'
+import styles from './project.css'
 
-const AwardEditForm = ( props ) => {
+const ProjectEditForm = ( props ) => {
   const userState = useContext(UserStateContext);
-  const id = userState.user.id;
 
-  const [award, setAward] = useState('')
+  const [project, setProject] = useState('')
   const [details, setDetails] = useState('')
+  const [startDay, setStartDay] = useState('')
+  const [endDay, setEndDay] = useState('')
   const [isMessageNecessary, setIsMessageNecessary] = useState(false)
   
   let isClicked = false;
@@ -19,28 +20,30 @@ const AwardEditForm = ( props ) => {
     
     e.preventDefault();
     isClicked = true
-    isEmpty = (award==='' || details==='') ? true : false
+    isEmpty = (project==='' || details==='' || startDay===''|| endDay === '') ? true : false
     setIsMessageNecessary(isClicked && isEmpty)
     isClicked = false
     if(isEmpty){
       isEmpty = false
       return
     }
-
+    
     // UPDATE
-    const awardID = props.eleID
-    const awardObj = {
-      title : award,
-      description : details
+    const prjID = props.eleID
+    const obj = {
+      title : project,
+      content : details,
+      startDay : startDay,
+      endDay : endDay,
     }
-    const updateRes = await Api.patch("awards", awardID, awardObj);
+    const updateRes = await Api.patch("projects", prjID, obj);
     console.log('update 직후 response :', updateRes)
     
     // GET
     getData()
 
     // 제출 시 입력창 초기화
-    setAward('')
+    setProject('')
     setDetails('')
 
     // 제출 시 편집창 닫기
@@ -48,14 +51,12 @@ const AwardEditForm = ( props ) => {
   };
 
   const getData = async () => {
-    const getRes = await Api.get("awards", id);
+    const getRes = await Api.get("projects", userState.user.id);
     const datas = getRes.data
     let dataArr = []
-    dataArr = datas.map(ele=>[ele.id, ele.title, ele.description])
+    dataArr = datas.map(ele=>[ele.id, ele.title, ele.content, ele.startDay, ele.endDay])
     props.setArr(dataArr)
   }
-
-
 
   return (
     <>
@@ -65,7 +66,7 @@ const AwardEditForm = ( props ) => {
             <Form onSubmit={편집본제출}>
 
 
-              <Form.Group controlId="awardID">
+              <Form.Group controlId="projectID">
                 <Form.Label></Form.Label>
                 {isMessageNecessary&&(
                 <div className='text-danger text-center' style={{styles}}>
@@ -77,9 +78,9 @@ const AwardEditForm = ( props ) => {
                 <Form.Control
                   type="text"
                   autoComplete="on"
-                  value={award}
-                  placeholder="수상 내역"
-                  onChange={(e) => setAward(e.target.value)}
+                  value={project}
+                  placeholder="프로젝트 제목"
+                  onChange={(e) => setProject(e.target.value)}
                 />
               </Form.Group>
 
@@ -90,8 +91,30 @@ const AwardEditForm = ( props ) => {
                   type="text"
                   autoComplete="on"
                   value={details}
-                  placeholder="상세 내역"
+                  placeholder="상세내역"
                   onChange={(e) => setDetails(e.target.value)}
+                />
+              </Form.Group>
+
+
+              <Form.Group controlId="startDayID">
+                <Form.Label></Form.Label>
+                <Form.Control
+                  type="date"
+                  autoComplete="on"
+                  value={startDay}
+                  onChange={(e) => setStartDay(e.target.value)}
+                />
+              </Form.Group>
+              
+
+              <Form.Group controlId="endDayID">
+                <Form.Label></Form.Label>
+                <Form.Control
+                  type="date"
+                  autoComplete="on"
+                  value={endDay}
+                  onChange={(e) => setEndDay(e.target.value)}
                 />
               </Form.Group>
 
@@ -123,4 +146,4 @@ const AwardEditForm = ( props ) => {
   );
 }
 
-export default AwardEditForm;
+export default ProjectEditForm;

@@ -1,44 +1,53 @@
 import AwardEditForm from './AwardEditForm'
 import { Button } from 'react-bootstrap';
-import { useState } from 'react';
+import * as Api from "../../api";
+import { useState, useContext } from 'react';
+import { UserStateContext } from "../../App";
 
 const AwardCard = ( props ) => {
-  
-const [isEditing, setIsEditing] = useState(false)
-const [htmlID, setHtmlID] = useState(false)
 
-  const arr    = props.arr    // [수상, 상세, 시간ID]
+  const userState = useContext(UserStateContext);
+  const id = userState.user.id;
+
+  const [isEditing, setIsEditing] = useState(false)
+  const [eleID, setEleID]         = useState(false)
+
+  const arr    = props.arr    
   const setArr = props.setArr
   const idx    = props.idx
-
-  const 편집하기 = (e) => {
-    setHtmlID(e.target.parentNode.id)
+  
+  const 편집 = (e) => {
+    setEleID(e.target.parentNode.parentNode.id)
     setIsEditing(true)
   }
-  
-  const 삭제하기 = (e) => {
-    const text = e.target.parentNode.id
-    setArr((기존값) => {
-      let temp = 기존값.slice()
-      temp.forEach((ele,idx) => {
-        if(ele[2] === text*1){
-          temp.splice(idx, 1)
-        }
-      });
-      return temp
-    })
+
+  const 삭제 = async (e) => {
+    // DELETE
+    const eleID = e.target.parentNode.parentNode.id
+    await Api.delete("awards", eleID);
+
+    // GET
+    const getRes = await Api.get("awards", id);
+    const datas = getRes.data
+    let dataArr = []
+    dataArr = datas.map(ele=>[ele.id, ele.title, ele.description])
+    props.setArr(dataArr)
   }
 
   return (
-    <div id={arr[idx][2]}>
-      <div> {arr[idx][0]}</div>
+    <div className='row' id={arr[idx][0]}>
+        <div className='col'>
       <div> {arr[idx][1]}</div>
-      <Button variant="btn btn-outline-info" onClick={편집하기} >편집</Button>
-      <Button variant="btn btn-outline-info" onClick={삭제하기}> 삭제</Button>
+      <div> {arr[idx][2]}</div>
+      </div>
+      <div className='col'>
+      <Button variant="btn float-end btn-outline-info mt-3" onClick={삭제}>삭제</Button>
+      <Button variant="btn float-end btn-outline-info mt-3" onClick={편집}>편집</Button>
+      </div>
       {isEditing && 
       (
         <AwardEditForm 
-        htmlID={htmlID} 
+        eleID={eleID} 
         arr={arr} 
         setArr={setArr}
         isEditing={isEditing}
@@ -46,7 +55,7 @@ const [htmlID, setHtmlID] = useState(false)
       )
     }
     </div>
-  )
+  );
 }
 
 export default AwardCard;

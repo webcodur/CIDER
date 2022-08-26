@@ -26,6 +26,7 @@ function Portfolio() {
     const res = await Api.get("users", ownerId);
     // 사용자 정보는 response의 data임.
     const ownerData = res.data;
+    console.log('ownerData.email', ownerData.email)
     // portfolioOwner을 해당 사용자 정보로 세팅함.
     setPortfolioOwner(ownerData);
     // fetchPorfolioOwner 과정이 끝났으므로, isFetchCompleted를 true로 바꿈.
@@ -68,18 +69,10 @@ function Portfolio() {
           />
         </Col>
         <Col>
-          <Education 
-          isEditable={isEditable}/>
-          
-          <Award 
-          isEditable={isEditable} 
-          portfolioOwnerId={portfolioOwner.id}/>
-          
-          <Project 
-          isEditable={isEditable}/>
-          
-          <Certificate 
-          isEditable={isEditable}/>
+          <Education   isEditable={isEditable}/>
+          <Award       isEditable={isEditable}/>
+          <Project     isEditable={isEditable}/>
+          <Certificate isEditable={isEditable}/>
         </Col>
       </Row>
     </Container>
