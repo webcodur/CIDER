@@ -3,7 +3,7 @@ import * as Api from '../../../api';
 
 import AuthContext from '../stores/AuthContext';
 import CheckButton from './CheckButton';
-import { Form, Col } from 'react-bootstrap';
+import { Form, Col, FloatingLabel } from 'react-bootstrap';
 
 const EditForm = (props) => {
   const context = useContext(AuthContext);
@@ -33,20 +33,24 @@ const EditForm = (props) => {
   return (
     <Form>
       <Form.Group>
-        <Form.Control
-          name="title"
-          type="text"
-          onChange={onChangeHandler}
-          defaultValue={props.project.title}
-        />
+        <FloatingLabel label="프로젝트 이름" className="mt-3 mb-3">
+          <Form.Control
+            name="title"
+            type="text"
+            onChange={onChangeHandler}
+            defaultValue={props.project.title}
+          />
+        </FloatingLabel>
       </Form.Group>
       <Form.Group className="mt-3">
-        <Form.Control
-          name="content"
-          type="text"
-          onChange={onChangeHandler}
-          defaultValue={props.project.content}
-        />
+        <FloatingLabel label="상세 내역" className="mb-3">
+          <Form.Control
+            name="content"
+            type="text"
+            onChange={onChangeHandler}
+            defaultValue={props.project.content}
+          />
+        </FloatingLabel>
       </Form.Group>
       <Form.Group className="mt-3 row">
         <Col className="col-auto">

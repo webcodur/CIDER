@@ -3,7 +3,7 @@ import EditDeleteButton from './EditDeleteButton';
 
 const ListForm = (props) => {
   return (
-    <Card.Text>
+    <Card.Text className="mb-4">
       <div className="align-items-center row">
         <Col>
           {props.project.title} <br />

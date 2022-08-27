@@ -3,7 +3,7 @@ import * as Api from '../../../api';
 
 import AuthContext from '../stores/AuthContext';
 import { Col, Button, Overlay, Tooltip } from 'react-bootstrap';
-import '../styles/tooltip.css';
+import '../../styles/tooltip.css';
 
 const EditDeleteButton = (props) => {
   const context = useContext(AuthContext);
@@ -12,12 +12,13 @@ const EditDeleteButton = (props) => {
 
   const checkDelete = async (id) => {
     if (isConfirm) {
+      clearTimeout(timer);
       await confirmDelete(id);
       setConfirm(false);
     }
 
     setConfirm(true);
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setConfirm(false);
     }, 2000);
   };
