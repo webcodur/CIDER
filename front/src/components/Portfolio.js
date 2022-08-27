@@ -1,10 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container, Col, Row } from "react-bootstrap";
+import Award from "./award/Award";
+import Certificate from "./certificate/Certificate";
+import Education from "./education/Education";
+import Project from "./project/Project";
 import { UserStateContext } from "../App";
 import * as Api from "../api";
 import User from "./user/User";
-import Education from "./education/Education";
 //다크
 // import { useTheme } from "../context/themeProvider";
 // import AppLayout from "./AppLayout";
@@ -12,9 +15,8 @@ import Education from "./education/Education";
 function Portfolio() {
   const navigate = useNavigate();
   const params = useParams();
-  // useState 훅을 통해 portfolioOwner 상태를 생성함.
   const [portfolioOwner, setPortfolioOwner] = useState(null);
-  // fetchPorfolioOwner 함수가 완료된 이후에만 (isFetchCompleted가 true여야) 컴포넌트가 구현되도록 함.
+  // fetchPorfolioOwner 함수가 완료되면(isFetchCompleted가 true) 컴포넌트 구현
   // 아래 코드를 보면, isFetchCompleted가 false이면 "loading..."만 반환되어서, 화면에 이 로딩 문구만 뜨게 됨.
   const [isFetchCompleted, setIsFetchCompleted] = useState(false);
   const userState = useContext(UserStateContext);
@@ -23,6 +25,7 @@ function Portfolio() {
     const res = await Api.get("users", ownerId);
     // 사용자 정보는 response의 data임.
     const ownerData = res.data;
+    console.log("ownerData.email", ownerData.email);
     // portfolioOwner을 해당 사용자 정보로 세팅함.
     setPortfolioOwner(ownerData);
     // fetchPorfolioOwner 과정이 끝났으므로, isFetchCompleted를 true로 바꿈.
@@ -47,27 +50,25 @@ function Portfolio() {
       fetchPorfolioOwner(ownerId);
     }
   }, [params, userState, navigate]);
-
   if (!isFetchCompleted) {
     return "loading...";
   }
+
+  let isEditable = portfolioOwner.id === userState.user?.id ? true : false;
+  // console.log(params.userId), "params.userId";
 
   return (
     <Container fluid>
       <Row>
         <Col md="3" lg="3">
-          <User
-            portfolioOwnerId={portfolioOwner.id}
-            isEditable={portfolioOwner.id === userState.user?.id}
-          />
+          <User portfolioOwnerId={portfolioOwner.id} isEditable={isEditable} />
         </Col>
         <Col>
           <div>
-            {/* <AppLayout> </AppLayout> */}
-            <Education
-              isEditable={portfolioOwner.id === userState.user?.id}
-              paramsUserId={params.userId}
-            />
+            <Education isEditable={isEditable} paramsUserId={params.userId} />
+            <Award isEditable={isEditable} paramsUserId={params.userId} />
+            <Project isEditable={isEditable} />
+            <Certificate isEditable={isEditable} paramsUserId={params.userId} />
           </div>
         </Col>
       </Row>

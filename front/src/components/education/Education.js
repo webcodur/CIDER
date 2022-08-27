@@ -15,10 +15,9 @@ const Education = ({ isEditable, paramsUserId }) => {
   let educationid = "";
   if (userState?.user) {
     // 로그아웃을 했을경우 값을 넣어주기
-    console.log(userState.user);
     educationid = userState.user.id ? userState.user.id : null;
   }
-
+  console.log(paramsUserId, "paramsUserId");
   const confirmAddEducation = (targetEducation) => {
     // TODO : 학교이름, 전공 유효성 검사
     // targetEducation.id = Date.now();
@@ -37,9 +36,8 @@ const Education = ({ isEditable, paramsUserId }) => {
     Api.get("educations", paramsUserId ? paramsUserId : educationid).then(
       (res) => setEducations(res.data)
     );
-    console.log(educations, "rgtgrtgrg");
   }, [paramsUserId]);
-
+  console.log("educations", paramsUserId, educationid);
   return (
     <Card className="mb-2 ms-3 mr-5 ">
       <Card.Body>
