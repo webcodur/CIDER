@@ -8,10 +8,7 @@ import Project from "./project/Project";
 import { UserStateContext } from "../App";
 import * as Api from "../api";
 import User from "./user/User";
-//다크
-// import { useTheme } from "../context/themeProvider";
-// import AppLayout from "./AppLayout";
-// import styled from "styled-components";
+
 function Portfolio() {
   const navigate = useNavigate();
   const params = useParams();
@@ -67,7 +64,10 @@ function Portfolio() {
           <div>
             <Education isEditable={isEditable} paramsUserId={params.userId} />
             <Award isEditable={isEditable} paramsUserId={params.userId} />
-            <Project isEditable={isEditable} />
+            <Project
+              portfolioOwnerId={portfolioOwner.id}
+              isEditable={isEditable}
+            />
             <Certificate isEditable={isEditable} paramsUserId={params.userId} />
           </div>
         </Col>
