@@ -1,9 +1,9 @@
-import React, { useContext, useState, useRef } from "react";
-import * as Api from "../../../api";
+import React, { useContext, useState, useRef } from 'react';
+import * as Api from '../../../api';
 
-import AuthContext from "../stores/AuthContext";
-import { Col, Button, Overlay, Tooltip } from "react-bootstrap";
-import "../../styles/tooltip.css";
+import AuthContext from '../stores/AuthContext';
+import { Col, Button, Overlay, Tooltip } from 'react-bootstrap';
+import '../../styles/tooltip.css';
 
 const EditDeleteButton = (props) => {
   const context = useContext(AuthContext);
@@ -11,16 +11,17 @@ const EditDeleteButton = (props) => {
   const target = useRef(null);
 
   const checkDelete = async (id) => {
+    const timer = () => setTimeout(() => setConfirm(false), 2000);
+
     if (isConfirm) {
       clearTimeout(timer);
-      await confirmDelete(id);
       setConfirm(false);
+      await confirmDelete(id);
     }
 
+    timer();
+
     setConfirm(true);
-    const timer = setTimeout(() => {
-      setConfirm(false);
-    }, 2000);
   };
 
   const confirmDelete = async (id) => {
