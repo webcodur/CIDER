@@ -28,6 +28,7 @@ function EducationCard({ educations, setEducations, isEditable }) {
       ...targetEducation,
     };
     setEducations([...resultEducations]);
+    // console.log(targetEducation);
     // setEducations();
     cancelEditEducation();
   };
@@ -46,16 +47,13 @@ function EducationCard({ educations, setEducations, isEditable }) {
       educations.filter((education) => education.id !== educationid)
     );
     // alert(educationid);
-    console.log(educationid, educations);
     await Api.delete(`educations/${educationid}`);
-    console.log("삭제 완료");
+    console.log("삭제 완료", educationid);
   };
-  console.log(educations);
 
   const EditHandle = () => {
     // toggleEditEducationForm(education.id);
     setByEditbtn(true);
-    console.log(byEditbtn);
   };
 
   return (

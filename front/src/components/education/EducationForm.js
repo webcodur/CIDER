@@ -18,7 +18,6 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
   };
   const editedValues = {
     ...targetEducation,
-    // id,
   };
   const handleConfirm = async (e) => {
     e.preventDefault();
@@ -36,10 +35,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
         await Api.post("educations", {
           ...targetEducation,
           id,
-        }).then(
-          (res) => onConfirm(res.data)
-          // console.log(res.data)
-        );
+        }).then((res) => onConfirm(res.data));
       } //수정인 경우
       else {
         console.log("수정", byEditbtn);
@@ -53,9 +49,6 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
     } catch (err) {
       console.log("학력 등록에 실패하셨습니다.", err);
     }
-
-    onConfirm({ ...targetEducation });
-    // onConfirm({ ...targetEducation });
   };
 
   const handleCancel = () => {
