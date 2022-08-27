@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from 'react';
+import React, { useContext, useState, useRef, useEffect } from 'react';
 import * as Api from '../../../api';
 
 import AuthContext from '../stores/AuthContext';
@@ -10,16 +10,18 @@ const EditDeleteButton = (props) => {
   const [isConfirm, setConfirm] = useState(false);
   const target = useRef(null);
 
-  const checkDelete = async (id) => {
-    const timer = () => setTimeout(() => setConfirm(false), 2000);
-
-    if (isConfirm) {
-      clearTimeout(timer);
+  useEffect(() => {
+    const timer = setTimeout(() => {
       setConfirm(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [isConfirm]);
+
+  const checkDelete = async (id) => {
+    if (isConfirm) {
       await confirmDelete(id);
     }
-
-    timer();
 
     setConfirm(true);
   };
