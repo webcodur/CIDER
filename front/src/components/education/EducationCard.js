@@ -28,7 +28,7 @@ function EducationCard({ educations, setEducations, isEditable }) {
       ...targetEducation,
     };
     setEducations([...resultEducations]);
-    // console.log(targetEducation);
+    console.log(targetEducation, "fwefwef");
     // setEducations();
     cancelEditEducation();
   };
@@ -60,9 +60,11 @@ function EducationCard({ educations, setEducations, isEditable }) {
     <div>
       <div>
         {educations.map((education, index) => {
+          {
+            console.log(education);
+          }
           return (
             <div key={education.id}>
-              {/* <div> */}
               <div className="align-items-center row margin_tb10">
                 <div className="col">
                   <div>{education.school}</div>
@@ -88,9 +90,7 @@ function EducationCard({ educations, setEducations, isEditable }) {
                     <button
                       type="button"
                       className="mr-3 btn btn-outline-info"
-                      // className="btn btn-btn float-end btn-outline-info mt-3"
                       onClick={() => onRemove(education.id)}
-                      // onClick={onRemove(education.id)}
                     >
                       삭제
                     </button>

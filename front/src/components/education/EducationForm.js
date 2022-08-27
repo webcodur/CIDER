@@ -4,12 +4,14 @@ import "../../../src/index.css";
 import { UserStateContext } from "../../App";
 import * as Api from "../../api";
 const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
+  const [data, setData] = useState();
   const [targetEducation, setTargetEducation] = useState({
     ...education,
   });
   const userState = useContext(UserStateContext);
   const id = userState.user.id;
   const handleChange = (e) => {
+    console.log(e.target);
     const { name, value } = e.target;
     setTargetEducation({
       ...targetEducation,
@@ -18,6 +20,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
   };
   const editedValues = {
     ...targetEducation,
+    // id,
   };
   const handleConfirm = async (e) => {
     e.preventDefault();
@@ -32,6 +35,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
         //수정이 아닌 경우
         console.log("추가", byEditbtn);
         console.log(id, targetEducation);
+        onConfirm({ ...targetEducation });
         await Api.post("educations", {
           ...targetEducation,
           id,
@@ -39,16 +43,17 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
       } //수정인 경우
       else {
         console.log("수정", byEditbtn);
-        // await Api.put("educations/" + education.id, {
-        await Api.patch(`educations`, education.id, editedValues);
+        await Api.patch(`educations`, education.id, editedValues).then((res) =>
+          onConfirm(res.data)
+        );
       }
       console.log(targetEducation, "targetEducation");
-      // `users/${user.id}`
 
       // 로그인 페이지로 이동함.
     } catch (err) {
       console.log("학력 등록에 실패하셨습니다.", err);
     }
+    onCancel();
   };
 
   const handleCancel = () => {
