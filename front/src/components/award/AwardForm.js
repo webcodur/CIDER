@@ -2,8 +2,7 @@ import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import { useState, useContext } from "react";
 import { UserStateContext } from "../../App";
 import * as Api from "../../api";
-import styles from "./award.css";
-
+import styles from "../styles/anime.css";
 const AwardForm = (props) => {
   const userState = useContext(UserStateContext);
 
@@ -26,14 +25,12 @@ const AwardForm = (props) => {
       title: award,
       description: details,
     };
-    console.log("awardObj", awardObj);
 
     await Api.post("awards", awardObj);
 
     const res2 = await Api.get("awards", userState.user.id);
     const datas = res2.data;
 
-    console.log("res2333", res2, userState.user.id);
     let dataArr = [];
     dataArr = datas.map((ele) => [ele.id, ele.title, ele.description]);
     props.setArr(dataArr);

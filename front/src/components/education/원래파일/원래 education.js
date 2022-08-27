@@ -4,7 +4,6 @@ import EducationForm from "./EducationForm";
 import EducationCard from "./EducationCard";
 import { UserStateContext } from "../../App";
 import * as Api from "../../api";
-
 const Education = ({ isEditable, paramsUserId }) => {
   const [isAdding, setIsAdding] = useState(false);
   const toggleAddEducationForm = () => {
@@ -19,9 +18,11 @@ const Education = ({ isEditable, paramsUserId }) => {
     educationid = userState.user.id ? userState.user.id : null;
   }
   const confirmAddEducation = (targetEducation) => {
+    // TODO : 학교이름, 전공 유효성 검사
     // targetEducation.id = Date.now();
     const resultEducations = [...educations, targetEducation];
     setEducations([...resultEducations]);
+    console.log(...educations, targetEducation);
     setIsAdding(false);
   };
 
@@ -35,6 +36,7 @@ const Education = ({ isEditable, paramsUserId }) => {
       (res) => setEducations(res.data)
     );
   }, [paramsUserId]);
+  console.log("educations", paramsUserId, educationid);
   return (
     <Card className="mb-2 ms-3 mr-5 ">
       <Card.Body>

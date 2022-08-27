@@ -1,23 +1,18 @@
 import React, { useState } from "react";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
-
+import * as Api from "../../api";
 function UserEditForm({ user, setIsEditing, setUser }) {
-  //useState로 name 상태를 생성함.
-  const [name, setName] = useState(user.name);
-  //useState로 email 상태를 생성함.
-  const [email, setEmail] = useState(user.email);
-  //useState로 description 상태를 생성함.
-  const [description, setDescription] = useState(user.description);
+  const [name, setName] = useState(user?.name);
+  const [email, setEmail] = useState(user?.email);
+  const [description, setDescription] = useState(user?.description);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (name === "" || description === "") {
       return console.log("빈 값은 입력이 불가 합니다.");
     }
-    console.log("user data 요청");
     // "users/유저id" 엔드포인트로 PUT 요청함.
-    const res = await (`users/${user.id}`,
-    {
+    const res = await Api.put(`users/${user.id}`, {
       name,
       email,
       description,

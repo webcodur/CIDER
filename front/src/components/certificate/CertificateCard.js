@@ -6,7 +6,7 @@ import { UserStateContext } from "../../App";
 
 const CertificateCard = (props) => {
   const userState = useContext(UserStateContext);
-  const id = userState.user.id;
+  const id = userState?.user?.id;
 
   const [isEditing, setIsEditing] = useState(false);
   const [eleID, setEleID] = useState(false);
@@ -23,7 +23,6 @@ const CertificateCard = (props) => {
   const 삭제 = async (e) => {
     // DELETE
     const eleID = e.target.parentNode.parentNode.id;
-    console.log(eleID);
 
     await Api.delete("certificates", eleID);
 

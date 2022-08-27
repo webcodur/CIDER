@@ -7,7 +7,7 @@ import * as Api from "../../api";
 
 const Certificate = ({ isEditable, paramsUserId }) => {
   const userState = useContext(UserStateContext);
-  const id = userState.user.id;
+  const id = userState?.user?.id;
 
   const [isEditing, setIsEditing] = useState(false);
   const [arr, setArr] = useState([]);
@@ -17,7 +17,6 @@ const Certificate = ({ isEditable, paramsUserId }) => {
   }, [paramsUserId]);
 
   async function getData() {
-    console.log("id", id);
     const getRes = await Api.get(
       "certificates",
       paramsUserId ? paramsUserId : id
@@ -26,7 +25,6 @@ const Certificate = ({ isEditable, paramsUserId }) => {
     let dataArr = [];
     dataArr = datas.map((ele) => [ele.id, ele.title, ele.content, ele.day]);
     setArr(dataArr);
-    console.log(getRes);
   }
 
   return (

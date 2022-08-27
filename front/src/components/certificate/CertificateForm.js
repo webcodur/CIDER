@@ -2,18 +2,17 @@ import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import { useState, useContext } from "react";
 import { UserStateContext } from "../../App";
 import * as Api from "../../api";
-import styles from "./certificate.css";
+import styles from "../styles/anime.css";
 
 const CertificateForm = (props) => {
   const userState = useContext(UserStateContext);
 
-  const [certificate, setCertificate]   = useState('')
-  const [details, setDetails] = useState('')
+  const [certificate, setCertificate] = useState("");
+  const [details, setDetails] = useState("");
   const [day, setDay] = useState("");
   const [isEmpty, setIsEmpty] = useState(true);
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
     if (certificate === "" || details === "" || day === "") {
       setIsEmpty(false);
@@ -36,12 +35,7 @@ const CertificateForm = (props) => {
     const getRes = await Api.get("certificates", userState.user.id);
     const datas = getRes.data;
     let dataArr = [];
-    dataArr = datas.map((ele) => [
-      ele.id,
-      ele.title,
-      ele.content,
-      ele.day,
-    ]);
+    dataArr = datas.map((ele) => [ele.id, ele.title, ele.content, ele.day]);
     props.setArr(dataArr);
 
     // 제출 시 입력창 초기화
@@ -56,8 +50,6 @@ const CertificateForm = (props) => {
         <Row>
           <Col>
             <Form onSubmit={handleSubmit}>
-
-
               <Form.Group controlId="certificateID">
                 <Form.Label></Form.Label>
                 {!isEmpty && (
@@ -74,7 +66,6 @@ const CertificateForm = (props) => {
                 />
               </Form.Group>
 
-
               <Form.Group controlId="detailsID">
                 <Form.Label></Form.Label>
                 <Form.Control
@@ -86,7 +77,6 @@ const CertificateForm = (props) => {
                 />
               </Form.Group>
 
-
               <Form.Group controlId="dayID">
                 <Form.Label></Form.Label>
                 <Form.Control
@@ -96,7 +86,6 @@ const CertificateForm = (props) => {
                   onChange={(e) => setDay(e.target.value)}
                 />
               </Form.Group>
-
 
               <Form.Group as={Row} className="mt-3 text-center">
                 <Col sm={{ span: 20 }}>
