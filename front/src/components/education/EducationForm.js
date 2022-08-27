@@ -44,7 +44,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
       else {
         console.log("수정", byEditbtn);
         // await Api.put("educations/" + education.id, {
-        await Api.patch(`educations/${education.id}`, editedValues);
+        await Api.patch(`educations`, education.id, editedValues);
       }
       console.log(targetEducation, "targetEducation");
       // `users/${user.id}`
