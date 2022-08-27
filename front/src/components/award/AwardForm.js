@@ -1,5 +1,5 @@
 import { Container, Col, Row, Form, Button } from "react-bootstrap";
-import { useState, useContext} from "react";
+import { useState, useContext } from "react";
 import { UserStateContext } from "../../App";
 import * as Api from "../../api";
 import styles from "./award.css";
@@ -7,42 +7,40 @@ import styles from "./award.css";
 const AwardForm = (props) => {
   const userState = useContext(UserStateContext);
 
-  const [award, setAward]     = useState('')
-  const [details, setDetails] = useState('')
-  const [isEmpty, setIsEmpty] = useState(true)
+  const [award, setAward] = useState("");
+  const [details, setDetails] = useState("");
+  const [isEmpty, setIsEmpty] = useState(true);
 
   // POST
   const handleSubmit = async (e) => {
-    
     e.preventDefault();
-    if(award==='' || details===''){
+    if (award === "" || details === "") {
       setIsEmpty(false);
       return;
-    }
-    else{
+    } else {
       setIsEmpty(true);
     }
 
     // awardObj 생성
     const awardObj = {
-      title   : award,
-      description : details,
-    }
-    console.log('awardObj',awardObj)
-    
+      title: award,
+      description: details,
+    };
+    console.log("awardObj", awardObj);
+
     await Api.post("awards", awardObj);
-    
+
     const res2 = await Api.get("awards", userState.user.id);
-    const datas = res2.data
-    
-    console.log('res2',res2)
-    let dataArr = []
-    dataArr = datas.map(ele=>[ele.id, ele.title, ele.description])
-    props.setArr(dataArr)
+    const datas = res2.data;
+
+    console.log("res2333", res2, userState.user.id);
+    let dataArr = [];
+    dataArr = datas.map((ele) => [ele.id, ele.title, ele.description]);
+    props.setArr(dataArr);
 
     // 제출 시 입력창 초기화
-    setAward('')
-    setDetails('')
+    setAward("");
+    setDetails("");
   };
 
   return (
@@ -66,7 +64,6 @@ const AwardForm = (props) => {
                   onChange={(e) => setAward(e.target.value)}
                 />
               </Form.Group>
-
 
               <Form.Group controlId="detailsID">
                 <Form.Label></Form.Label>

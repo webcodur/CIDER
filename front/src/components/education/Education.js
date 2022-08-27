@@ -17,7 +17,6 @@ const Education = ({ isEditable, paramsUserId }) => {
     // 로그아웃을 했을경우 값을 넣어주기
     educationid = userState.user.id ? userState.user.id : null;
   }
-  console.log(paramsUserId, "paramsUserId");
   const confirmAddEducation = (targetEducation) => {
     // TODO : 학교이름, 전공 유효성 검사
     // targetEducation.id = Date.now();

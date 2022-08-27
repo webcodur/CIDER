@@ -4,7 +4,7 @@ import { User } from "../db/models/User";
 import { v4 as uuidv4 } from "uuid";
 
 const educationService = {
-  addEducation: async function ({ userId, school, major, position }) {
+  addEducation: async ({ userId, school, major, position }) => {
     if (!school || !major || !position) {
       const errorMessage =
         "학력을 만들기에 필요한 데이터가 포함되지 않았습니다.";
@@ -18,7 +18,7 @@ const educationService = {
     return createdNewEducation;
   },
 
-  getEducationList: async function ({ userId }) {
+  getEducationList: async ({ userId }) => {
     const user = await User.findById({ user_id: userId });
 
     if (!user) {
@@ -30,7 +30,7 @@ const educationService = {
     return educationList;
   },
 
-  updateEducation: async function ({ userId, educationId, toUpdate }) {
+  updateEducation: async ({ userId, educationId, toUpdate }) => {
     let education = await Education.findOneById({
       userId,
       educationId,
@@ -66,7 +66,7 @@ const educationService = {
     return updatedEducation;
   },
 
-  deleteEducation: async function ({ userId, educationId }) {
+  deleteEducation: async ({ userId, educationId }) => {
     const education = await Education.findOneById({
       userId,
       educationId,

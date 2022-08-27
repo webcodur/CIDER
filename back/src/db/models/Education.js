@@ -35,11 +35,11 @@ const Education = {
   },
 
   delete: async ({ userId, educationId }) => {
-    const education = await EducationModel.deleteOne({
+    const deletedCount = await EducationModel.deleteOne({
       user_id: userId,
       id: educationId,
     });
-    return education;
+    return deletedCount;
   },
 };
 

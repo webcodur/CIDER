@@ -4,7 +4,7 @@ import { User } from "../db/models/User";
 import { v4 as uuidv4 } from "uuid";
 
 const awardService = {
-  addAward: async function ({ userId, title, description }) {
+  addAward: async ({ userId, title, description }) => {
     if (!title || !description) {
       const errorMessage =
         "수상이력을 만들기에 필요한 데이터가 포함되지 않았습니다.";
@@ -18,7 +18,7 @@ const awardService = {
     return createdNewAward;
   },
 
-  getAwardList: async function ({ userId }) {
+  getAwardList: async ({ userId }) => {
     const user = await User.findById({ user_id: userId });
 
     if (!user) {
@@ -26,11 +26,11 @@ const awardService = {
       return { errorMessage };
     }
 
-    const awardList = await Award.findAllByUserId({ user_id: userId });
+    const awardList = await Award.findAllByUserId({ userId });
     return awardList;
   },
 
-  updateAward: async function ({ userId, awardId, toUpdate }) {
+  updateAward: async ({ userId, awardId, toUpdate }) => {
     let award = await Award.findOneById({ userId, awardId });
 
     if (!award) {
@@ -60,7 +60,7 @@ const awardService = {
     return updatedAward;
   },
 
-  deleteAward: async function ({ userId, awardId }) {
+  deleteAward: async ({ userId, awardId }) => {
     const award = await Award.findOneById({
       userId,
       awardId,

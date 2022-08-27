@@ -20,8 +20,8 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
     ...targetEducation,
     // id,
   };
-  console.log(editedValues, "eeeeeee");
-  const handleConfirm = async () => {
+  const handleConfirm = async (e) => {
+    e.preventDefault();
     try {
       // "user/register" 엔드포인트로 post요청함.
       console.log(targetEducation.school, targetEducation.major);
@@ -141,16 +141,17 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
       <Form.Group as={Row} className="mt-3 text-center">
         <Col sm={{ span: 20 }}>
           <Button
-            variant="primary"
-            type="button"
-            className="me-3"
+            variant="primary ms-3 float-right"
+            type="submit"
             onClick={handleConfirm}
           >
             확인
           </Button>
-          <Button variant="secondary" onClick={handleCancel}>
+          <Button variant="secondary ms-3 float-right" onClick={handleCancel}>
             취소
           </Button>
+          <br></br>
+          <br></br>
         </Col>
       </Form.Group>
     </Form>

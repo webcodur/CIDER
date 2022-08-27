@@ -7,7 +7,7 @@ const Award = {
   },
 
   findAllByUserId: async ({ userId }) => {
-    const AwardList = await AwardModel.find({ userId });
+    const AwardList = await AwardModel.find({ user_id: userId });
     return AwardList;
   },
 
@@ -35,11 +35,11 @@ const Award = {
   },
 
   delete: async ({ userId, awardId }) => {
-    const award = await AwardModel.deleteOne({
+    const deletedCount = await AwardModel.deleteOne({
       used_id: userId,
       id: awardId,
     });
-    return award;
+    return deletedCount;
   },
 };
 

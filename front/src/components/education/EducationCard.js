@@ -64,6 +64,7 @@ function EducationCard({ educations, setEducations, isEditable }) {
         {educations.map((education, index) => {
           return (
             <div key={education.id}>
+              {/* <div> */}
               <div className="align-items-center row margin_tb10">
                 <div className="col">
                   <div>{education.school}</div>
@@ -74,11 +75,11 @@ function EducationCard({ educations, setEducations, isEditable }) {
                 {isEditable ? (
                   <div
                     className="col-lg-1 col"
-                    style={{ width: "150px", height: "35px", display: "flex" }}
+                    style={{ width: "138px", display: "flex" }}
                   >
                     <button
                       type="button"
-                      className="mr-3 btn btn-outline-info btn-sm"
+                      className="mr-3 btn btn-outline-info"
                       onClick={() => {
                         toggleEditEducationForm(education.id);
                         EditHandle();
@@ -88,7 +89,8 @@ function EducationCard({ educations, setEducations, isEditable }) {
                     </button>
                     <button
                       type="button"
-                      className="mr-3 btn btn-outline-info btn-sm"
+                      className="mr-3 btn btn-outline-info"
+                      // className="btn btn-btn float-end btn-outline-info mt-3"
                       onClick={() => onRemove(education.id)}
                       // onClick={onRemove(education.id)}
                     >
