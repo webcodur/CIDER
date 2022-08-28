@@ -9,9 +9,9 @@ const Certificate = {
   },
   // user_id로 모든 certificate 조회
   findAllByUserId: async ({ userId }) => {
-    const certificateList = await certificateModel.find({ user_id: userId });
+    const certificates = await certificateModel.find({ user_id: userId });
 
-    return certificateList;
+    return certificates;
   },
   // userId와 certificateId로 certificate 조회 (해당 자격증이 존재 하는지 파악)
   findOneById: async ({ userId, certificateId }) => {

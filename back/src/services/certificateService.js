@@ -25,7 +25,7 @@ const certificateService = {
     return createdNewCertificate;
   },
   // userId로 모든 certificate 조회
-  getCertificateList: async ({ userId }) => {
+  getCertificates: async ({ userId }) => {
     const user = await User.findById({ user_id: userId });
 
     if (!user) {
@@ -33,9 +33,9 @@ const certificateService = {
       return { errorMessage };
     }
 
-    const certificateList = await Certificate.findAllByUserId({ userId });
+    const certificates = await Certificate.findAllByUserId({ userId });
 
-    return certificateList;
+    return certificates;
   },
   // userId, certificateId, 업데이트 할 데이터를 받아서 해당 certificate를 업데이트
   updateCertificate: async ({ userId, certificateId, toUpdate }) => {

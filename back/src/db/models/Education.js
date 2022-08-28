@@ -7,8 +7,8 @@ const Education = {
   },
 
   findAllByUserId: async ({ userId }) => {
-    const educationList = await EducationModel.find({ user_id: userId });
-    return educationList;
+    const educations = await EducationModel.find({ user_id: userId });
+    return educations;
   },
 
   findOneById: async ({ userId, educationId }) => {

@@ -6,7 +6,7 @@ import { login_required } from "../middlewares/login_required";
 const projectRouter = Router();
 
 // project 생성 라우터
-projectRouter.post("/projects", login_required, async (req, res, next) => {
+projectRouter.post("/project", login_required, async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error("프로젝트 데이터를 포함하여 요청해주세요.");
@@ -34,28 +34,24 @@ projectRouter.post("/projects", login_required, async (req, res, next) => {
 });
 
 // project 조회 라우터
-projectRouter.get(
-  "/projects/:userId",
-  login_required,
-  async (req, res, next) => {
-    try {
-      const { userId } = req.params;
-      const projectList = await projectService.getProjectList({ userId });
+projectRouter.get("/projects", login_required, async (req, res, next) => {
+  try {
+    const userId = req.currentUserId;
+    const projects = await projectService.getProjects({ userId });
 
-      if (projectList.errorMessage) {
-        throw new Error(projectList.errorMessage);
-      }
-
-      res.status(200).json(projectList);
-    } catch (error) {
-      next(error);
+    if (projects.errorMessage) {
+      throw new Error(projects.errorMessage);
     }
+
+    res.status(200).json(projects);
+  } catch (error) {
+    next(error);
   }
-);
+});
 
 // project 업데이트 라우터
 projectRouter.patch(
-  "/projects/:projectId",
+  "/project/:projectId",
   login_required,
   async (req, res, next) => {
     try {
@@ -86,7 +82,7 @@ projectRouter.patch(
 
 // project 삭제 라우터
 projectRouter.delete(
-  "/projects/:projectId",
+  "/project/:projectId",
   login_required,
   async (req, res, next) => {
     try {

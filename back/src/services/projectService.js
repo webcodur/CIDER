@@ -25,7 +25,7 @@ const projectService = {
     return createdNewProject;
   },
   // userId로 모든 프로젝트 조회
-  getProjectList: async ({ userId }) => {
+  getProjects: async ({ userId }) => {
     const user = await User.findById({ user_id: userId });
 
     if (!user) {
@@ -33,9 +33,9 @@ const projectService = {
       return { errorMessage };
     }
 
-    const projectList = await Project.findAllByUserId({ userId });
+    const projects = await Project.findAllByUserId({ userId });
 
-    return projectList;
+    return projects;
   },
   // userId, project id, 업데이트 할 데이터를 받아서 해당 project를 업데이트
   updateProject: async ({ userId, projectId, toUpdate }) => {

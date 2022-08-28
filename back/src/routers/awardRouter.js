@@ -6,7 +6,7 @@ import { awardService } from "../services/awardService";
 const awardRouter = Router();
 
 //수상이력 추가
-awardRouter.post("/awards", login_required, async (req, res, next) => {
+awardRouter.post("/award", login_required, async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -32,56 +32,52 @@ awardRouter.post("/awards", login_required, async (req, res, next) => {
 });
 
 // 나의 수상이력 조회
-awardRouter.get("/awards/:userId", login_required, async (req, res, next) => {
+awardRouter.get("/awards", login_required, async (req, res, next) => {
   try {
-    const { userId } = req.params;
-    const awardList = await awardService.getAwardList({
+    const userId = req.currentUserId;
+    const awards = await awardService.getAwards({
       userId,
     });
 
-    if (awardList.errorMessage) {
-      throw new Error(awardList.errorMessage);
+    if (awards.errorMessage) {
+      throw new Error(awards.errorMessage);
     }
 
-    res.status(200).json(awardList);
+    res.status(200).json(awards);
   } catch (error) {
     next(error);
   }
 });
 
 // 나의 수상이력 편집, 업데이트
-awardRouter.patch(
-  "/awards/:awardId",
-  login_required,
-  async (req, res, next) => {
-    try {
-      if (is.emptyObject(req.body)) {
-        throw new Error("업데이트 할 수상이력 데이터를 포함하여 요청해주세요.");
-      }
-
-      const userId = req.currentUserId;
-      const { awardId } = req.params;
-      const toUpdate = req.body;
-
-      const updatedAward = await awardService.updateAward({
-        userId,
-        awardId,
-        toUpdate,
-      });
-
-      if (updatedAward.errorMessage) {
-        throw new Error(updatedAward.errorMessage);
-      }
-      res.status(200).json(updatedAward);
-    } catch (error) {
-      next(error);
+awardRouter.patch("/award/:awardId", login_required, async (req, res, next) => {
+  try {
+    if (is.emptyObject(req.body)) {
+      throw new Error("업데이트 할 수상이력 데이터를 포함하여 요청해주세요.");
     }
+
+    const userId = req.currentUserId;
+    const { awardId } = req.params;
+    const toUpdate = req.body;
+
+    const updatedAward = await awardService.updateAward({
+      userId,
+      awardId,
+      toUpdate,
+    });
+
+    if (updatedAward.errorMessage) {
+      throw new Error(updatedAward.errorMessage);
+    }
+    res.status(200).json(updatedAward);
+  } catch (error) {
+    next(error);
   }
-);
+});
 
 //개별 수상이력 삭제
 awardRouter.delete(
-  "/awards/:awardId",
+  "/award/:awardId",
   login_required,
   async (req, res, next) => {
     try {

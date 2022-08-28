@@ -18,7 +18,7 @@ const educationService = {
     return createdNewEducation;
   },
 
-  getEducationList: async ({ userId }) => {
+  getEducations: async ({ userId }) => {
     const user = await User.findById({ user_id: userId });
 
     if (!user) {
@@ -26,8 +26,8 @@ const educationService = {
       return { errorMessage };
     }
 
-    const educationList = await Education.findAllByUserId({ userId });
-    return educationList;
+    const educations = await Education.findAllByUserId({ userId });
+    return educations;
   },
 
   updateEducation: async ({ userId, educationId, toUpdate }) => {

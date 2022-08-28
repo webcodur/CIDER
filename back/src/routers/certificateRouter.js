@@ -7,7 +7,7 @@ const certificateRouter = Router();
 
 // certificate 생성 라우터
 certificateRouter.post(
-  "/certificates",
+  "/certificate",
   login_required,
   async (req, res, next) => {
     try {
@@ -38,20 +38,20 @@ certificateRouter.post(
 
 // certificate 조회 라우터
 certificateRouter.get(
-  "/certificates/:userId",
+  "/certificates",
   login_required,
   async (req, res, next) => {
     try {
-      const { userId } = req.params;
-      const certificateList = await certificateService.getCertificateList({
+      const userId = req.currentUserId;
+      const certificates = await certificateService.getCertificates({
         userId,
       });
 
-      if (certificateList.errorMessage) {
-        throw new Error(certificateList.errorMessage);
+      if (certificates.errorMessage) {
+        throw new Error(certificates.errorMessage);
       }
 
-      res.status(200).json(certificateList);
+      res.status(200).json(certificates);
     } catch (error) {
       next(error);
     }
@@ -60,7 +60,7 @@ certificateRouter.get(
 
 // certificate 업데이트 라우터
 certificateRouter.patch(
-  "/certificates/:certificateId",
+  "/certificate/:certificateId",
   login_required,
   async (req, res, next) => {
     try {
@@ -91,7 +91,7 @@ certificateRouter.patch(
 
 // certificate 삭제 라우터
 certificateRouter.delete(
-  "/certificates/:certificateId",
+  "/certificate/:certificateId",
   login_required,
   async (req, res, next) => {
     try {

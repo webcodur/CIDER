@@ -18,7 +18,7 @@ const awardService = {
     return createdNewAward;
   },
 
-  getAwardList: async ({ userId }) => {
+  getAwards: async ({ userId }) => {
     const user = await User.findById({ user_id: userId });
 
     if (!user) {
@@ -26,8 +26,8 @@ const awardService = {
       return { errorMessage };
     }
 
-    const awardList = await Award.findAllByUserId({ userId });
-    return awardList;
+    const awards = await Award.findAllByUserId({ userId });
+    return awards;
   },
 
   updateAward: async ({ userId, awardId, toUpdate }) => {

@@ -9,7 +9,7 @@ const Project = {
   },
   // userId로 모든 Projects 조회
   findAllByUserId: async ({ userId }) => {
-    const projectList = await projectModel.find({ user_id: userId });
+    const projects = await projectModel.find({ user_id: userId });
 
     return projectList;
   },
