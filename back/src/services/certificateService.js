@@ -17,7 +17,7 @@ const certificateService = {
       id,
       title,
       content,
-      day,
+      day: new Date(day),
     };
 
     const createdNewCertificate = await Certificate.create({ newCertificate });
