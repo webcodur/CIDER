@@ -2,13 +2,12 @@ import is from "@sindresorhus/is";
 import { Award } from "../db/models/Award";
 import { User } from "../db/models/User";
 import { v4 as uuidv4 } from "uuid";
+import { ERRORS } from "../constants/constants";
 
 const awardService = {
   addAward: async ({ userId, title, description }) => {
     if (!title || !description) {
-      const errorMessage =
-        "수상이력을 만들기에 필요한 데이터가 포함되지 않았습니다.";
-      return { errorMessage };
+      throw new Error(ERRORS.BODY_DATA_ERROR.errorCode);
     }
 
     const id = uuidv4();
@@ -22,8 +21,7 @@ const awardService = {
     const user = await User.findById({ user_id: userId });
 
     if (!user) {
-      const errorMessage = "유효하지 않은 사용자입니다.";
-      return { errorMessage };
+      throw new Error(ERRORS.USER_ID_ERROR.errorCode);
     }
 
     const awards = await Award.findAllByUserId({ userId });
@@ -34,8 +32,7 @@ const awardService = {
     let award = await Award.findOneById({ userId, awardId });
 
     if (!award) {
-      const errorMessage = "유효하지 않은 educationId입니다.";
-      return { errorMessage };
+      throw new Error(ERRORS.ITEM_ID_ERROR.errorCode);
     }
 
     const update = {};
@@ -47,8 +44,7 @@ const awardService = {
     }
 
     if (is.emptyObject(update)) {
-      const errorMessage = "업데이트 할 데이터가 없습니다.";
-      return { errorMessage };
+      throw new Error(ERRORS.UPDATE_DATA_ERROR.errorCode);
     }
 
     const updatedAward = await Award.update({
@@ -66,8 +62,7 @@ const awardService = {
       awardId,
     });
     if (!award) {
-      const errorMessage = "유효하지 않은 awardId입니다.";
-      return { errorMessage };
+      throw new Error(ERRORS.ITEM_ID_ERROR.errorCode);
     }
     const deletedCount = await Award.delete({ userId, awardId });
     return deletedCount;
