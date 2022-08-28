@@ -30,4 +30,6 @@ const ERRORS = {
   },
 };
 
+const test = 1;
+
 export { ERRORS };
