@@ -38,11 +38,11 @@ certificateRouter.post(
 
 // certificate 조회 라우터
 certificateRouter.get(
-  "/certificates",
+  "/certificates/:userId",
   login_required,
   async (req, res, next) => {
     try {
-      const userId = req.currentUserId;
+      const { userId } = req.params;
       const certificates = await certificateService.getCertificates({
         userId,
       });

@@ -33,22 +33,26 @@ educationRouter.post("/education", login_required, async (req, res, next) => {
 });
 
 // 나의 학력 조회
-educationRouter.get("/educations", login_required, async (req, res, next) => {
-  try {
-    const userId = req.currentUserId;
-    const educations = await educationService.getEducations({
-      userId,
-    });
+educationRouter.get(
+  "/educations/:userId",
+  login_required,
+  async (req, res, next) => {
+    try {
+      const { userId } = req.params;
+      const educations = await educationService.getEducations({
+        userId,
+      });
 
-    if (educations.errorMessage) {
-      throw new Error(educations.errorMessage);
+      if (educations.errorMessage) {
+        throw new Error(educations.errorMessage);
+      }
+
+      res.status(200).json(educations);
+    } catch (error) {
+      next(error);
     }
-
-    res.status(200).json(educations);
-  } catch (error) {
-    next(error);
   }
-});
+);
 
 // 나의 학력 편집, 업데이트
 educationRouter.patch(

@@ -34,20 +34,24 @@ projectRouter.post("/project", login_required, async (req, res, next) => {
 });
 
 // project 조회 라우터
-projectRouter.get("/projects", login_required, async (req, res, next) => {
-  try {
-    const userId = req.currentUserId;
-    const projects = await projectService.getProjects({ userId });
+projectRouter.get(
+  "/projects/:userId",
+  login_required,
+  async (req, res, next) => {
+    try {
+      const { userId } = req.params;
+      const projects = await projectService.getProjects({ userId });
 
-    if (projects.errorMessage) {
-      throw new Error(projects.errorMessage);
+      if (projects.errorMessage) {
+        throw new Error(projects.errorMessage);
+      }
+
+      res.status(200).json(projects);
+    } catch (error) {
+      next(error);
     }
-
-    res.status(200).json(projects);
-  } catch (error) {
-    next(error);
   }
-});
+);
 
 // project 업데이트 라우터
 projectRouter.patch(

@@ -32,9 +32,9 @@ awardRouter.post("/award", login_required, async (req, res, next) => {
 });
 
 // 나의 수상이력 조회
-awardRouter.get("/awards", login_required, async (req, res, next) => {
+awardRouter.get("/awards/:userId", login_required, async (req, res, next) => {
   try {
-    const userId = req.currentUserId;
+    const { userId } = req.params;
     const awards = await awardService.getAwards({
       userId,
     });
