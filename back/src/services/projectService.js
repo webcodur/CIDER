@@ -17,8 +17,8 @@ const projectService = {
       id,
       title,
       content,
-      startDay,
-      endDay,
+      startDay: new Date(startDay),
+      endDay: new Date(endDay),
     };
     const createdNewProject = await Project.create({ newProject });
 

@@ -19,11 +19,11 @@ const projectSchema = new Schema(
       required: true,
     },
     startDay: {
-      type: String,
+      type: Date,
       required: true,
     },
     endDay: {
-      type: String,
+      type: Date,
       required: true,
     },
   },
