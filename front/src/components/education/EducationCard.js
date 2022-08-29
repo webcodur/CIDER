@@ -20,9 +20,7 @@ function EducationCard({ educations, setEducations, isEditable }) {
     }
   };
 
-  // 편집 - 확인 함수
   const confirmEditEducation = (targetEducation) => {
-    // TODO : 학교이름, 전공 유효성 검사
     const resultEducations = [...educations];
     resultEducations[
       resultEducations.findIndex(
@@ -32,8 +30,6 @@ function EducationCard({ educations, setEducations, isEditable }) {
       ...targetEducation,
     };
     setEducations([...resultEducations]);
-    console.log(targetEducation, "fwefwef");
-    // setEducations();
     cancelEditEducation();
   };
 
@@ -43,8 +39,6 @@ function EducationCard({ educations, setEducations, isEditable }) {
   };
 
   const onRemove = async (educationid) => {
-    // user.id 가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듬
-    // = user.id 가 id 인 것을 제거함
     setEducations(
       educations.filter((education) => education.id !== educationid)
     );
@@ -53,7 +47,6 @@ function EducationCard({ educations, setEducations, isEditable }) {
   };
 
   const EditHandle = () => {
-    // toggleEditEducationForm(education.id);
     setByEditbtn(true);
   };
 
@@ -81,7 +74,6 @@ function EducationCard({ educations, setEducations, isEditable }) {
                       className="me-1 mr-3 toggleTarget"
                       onClick={() => {
                         toggleEditEducationForm(education.id);
-                        console.log("education.id", education.id);
                         EditHandle();
                       }}
                     >

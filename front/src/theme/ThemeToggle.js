@@ -11,8 +11,6 @@ function ThemeToggle({ toggle, mode }) {
   if (id) {
     id = userState.user.id;
   }
-  console.log(id, "idd");
-  console.log(origin, "origin");
 
   return (
     <div
