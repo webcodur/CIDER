@@ -15,7 +15,8 @@ const CertificateEditForm = (props) => {
   let isClicked = false;
   let isEmpty = false;
 
-  const 편집본제출 = async (e) => {
+  // 편집본 제출
+  const submitEditForm = async (e) => {
     e.preventDefault();
 
     isClicked = true;
@@ -27,14 +28,13 @@ const CertificateEditForm = (props) => {
       return;
     }
 
-    // UPDATE
     const certID = props.eleID;
     const obj = {
       title: certificate,
       content: details,
       day: day,
     };
-    const updateRes = await Api.patch("certificates", certID, obj);
+    await Api.patch("certificates", certID, obj);
 
     // GET
     getData();
@@ -61,7 +61,7 @@ const CertificateEditForm = (props) => {
       <Container>
         <Row>
           <Col>
-            <Form onSubmit={편집본제출}>
+            <Form onSubmit={submitEditForm}>
               <Form.Group controlId="certID">
                 <Form.Label></Form.Label>
                 {isMessageNecessary && (
@@ -104,7 +104,7 @@ const CertificateEditForm = (props) => {
                   <Button
                     variant="primary ms-3 float-right"
                     type="submit"
-                    onSubmit={편집본제출}
+                    onSubmit={submitEditForm}
                   >
                     확인
                   </Button>

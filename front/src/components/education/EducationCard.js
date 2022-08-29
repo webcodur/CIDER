@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "../../../src/index.css";
 import EducationForm from "./EducationForm";
 import * as Api from "../../api";
+import { Col, Button, Overlay, Tooltip } from "react-bootstrap";
+// import "../styles/tooltip.css";
+import DeleteButton from "./DeleteButton";
+
 function EducationCard({ educations, setEducations, isEditable }) {
   const [isEditing, setIsEditing] = useState(false);
   const [byEditbtn, setByEditbtn] = useState(false);
@@ -39,14 +43,11 @@ function EducationCard({ educations, setEducations, isEditable }) {
   };
 
   const onRemove = async (educationid) => {
-    // const onRemove = (educationid) => {
     // user.id 가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듬
     // = user.id 가 id 인 것을 제거함
-    // console.log("remove: ", educations, education.id, targetEducation);
     setEducations(
       educations.filter((education) => education.id !== educationid)
     );
-    // alert(educationid);
     await Api.delete(`educations/${educationid}`);
     console.log("삭제 완료", educationid);
   };
@@ -60,9 +61,6 @@ function EducationCard({ educations, setEducations, isEditable }) {
     <div>
       <div>
         {educations.map((education, index) => {
-          {
-            console.log(education);
-          }
           return (
             <div key={education.id}>
               <div className="align-items-center row margin_tb10">
@@ -73,28 +71,27 @@ function EducationCard({ educations, setEducations, isEditable }) {
                   </div>
                 </div>
                 {isEditable ? (
-                  <div
+                  <Col
                     className="col-lg-1 col"
                     style={{ width: "138px", display: "flex" }}
                   >
-                    <button
-                      type="button"
-                      className="mr-3 btn btn-outline-info"
+                    <Button
+                      variant="outline-info"
+                      size="sm"
+                      className="me-1 mr-3"
                       onClick={() => {
                         toggleEditEducationForm(education.id);
+                        console.log("education.id", education.id);
                         EditHandle();
                       }}
                     >
                       편집
-                    </button>
-                    <button
-                      type="button"
-                      className="mr-3 btn btn-outline-info"
-                      onClick={() => onRemove(education.id)}
-                    >
-                      삭제
-                    </button>
-                  </div>
+                    </Button>
+                    <DeleteButton
+                      educationid={education.id}
+                      onRemove={onRemove}
+                    ></DeleteButton>
+                  </Col>
                 ) : null}
               </div>
               {isEditing && education.id === targetId && (

@@ -4,6 +4,7 @@ import { UserStateContext } from "../../App";
 import AwardCard from "./AwardCard";
 import AwardForm from "./AwardForm";
 import * as Api from "../../api";
+import displayToggleCss from "../styles/displayToggle.css";
 
 const Award = ({ isEditable, paramsUserId }) => {
   const userState = useContext(UserStateContext);
@@ -40,6 +41,7 @@ const Award = ({ isEditable, paramsUserId }) => {
                 arr={arr}
                 idx={idx}
                 setArr={setArr}
+                isEditable={isEditable}
               ></AwardCard>
             </>
           );
@@ -52,13 +54,16 @@ const Award = ({ isEditable, paramsUserId }) => {
             margin: "0 0 1rem 0",
           }}
         >
-          <Button
-            className="btn btn-primary"
-            onClick={() => setIsEditing(true)}
-            style={!isEditable ? { display: "none" } : { display: "block" }}
-          >
-            +
-          </Button>
+          {isEditable&&(
+            <>
+            <Button
+              className="btn btn-primary toggleTarget"
+              onClick={() => setIsEditing(true)}
+              >
+              +
+              </Button>
+            </>
+          )}
         </div>
 
         {isEditing && (

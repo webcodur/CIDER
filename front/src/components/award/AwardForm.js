@@ -2,7 +2,9 @@ import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import { useState, useContext } from "react";
 import { UserStateContext } from "../../App";
 import * as Api from "../../api";
-import styles from "../styles/anime.css";
+import aniCss from "../styles/anime.css";
+
+
 const AwardForm = (props) => {
   const userState = useContext(UserStateContext);
 
@@ -10,7 +12,7 @@ const AwardForm = (props) => {
   const [details, setDetails] = useState("");
   const [isEmpty, setIsEmpty] = useState(true);
 
-  // POST
+  // Posting
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (award === "" || details === "") {
@@ -20,7 +22,6 @@ const AwardForm = (props) => {
       setIsEmpty(true);
     }
 
-    // awardObj 생성
     const awardObj = {
       title: award,
       description: details,
@@ -49,7 +50,7 @@ const AwardForm = (props) => {
               <Form.Group controlId="awardID">
                 <Form.Label></Form.Label>
                 {!isEmpty && (
-                  <div className="text-danger text-center" style={{ styles }}>
+                  <div className="text-danger text-center" style={{ aniCss }}>
                     <span id="anime">빈 값이 있습니다.</span>
                   </div>
                 )}

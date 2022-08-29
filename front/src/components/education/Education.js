@@ -49,7 +49,10 @@ const Education = ({ isEditable, paramsUserId }) => {
 
       <div style={{ display: "flex", justifyContent: "center" }}>
         {isEditable ? (
-          <button className="btn btn-primary" onClick={toggleAddEducationForm}>
+          <button
+            className="btn btn-primary toggleTarget"
+            onClick={toggleAddEducationForm}
+          >
             +
           </button>
         ) : null}

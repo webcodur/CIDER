@@ -2,7 +2,8 @@ import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import { useState, useContext } from "react";
 import { UserStateContext } from "../../App";
 import * as Api from "../../api";
-import styles from "../styles/anime.css";
+import anime from "../styles/anime.css";
+
 const AwardEditForm = (props) => {
   const userState = useContext(UserStateContext);
   const id = userState.user.id;
@@ -14,7 +15,7 @@ const AwardEditForm = (props) => {
   let isClicked = false;
   let isEmpty = false;
 
-  const 편집본제출 = async (e) => {
+  const submitEditForm = async (e) => {
     e.preventDefault();
     isClicked = true;
     isEmpty = award === "" || details === "" ? true : false;
@@ -57,11 +58,11 @@ const AwardEditForm = (props) => {
       <Container>
         <Row>
           <Col>
-            <Form onSubmit={편집본제출}>
+            <Form onSubmit={submitEditForm}>
               <Form.Group controlId="awardID">
                 <Form.Label></Form.Label>
                 {isMessageNecessary && (
-                  <div className="text-danger text-center" style={{ styles }}>
+                  <div className="text-danger text-center" style={{ anime }}>
                     <span id="anime">빈 값이 있습니다.</span>
                   </div>
                 )}
@@ -89,8 +90,9 @@ const AwardEditForm = (props) => {
                 <Col sm={{ span: 20 }}>
                   <Button
                     variant="primary ms-3 float-right"
+                    
                     type="submit"
-                    onSubmit={편집본제출}
+                    onSubmit={submitEditForm}
                   >
                     확인
                   </Button>
