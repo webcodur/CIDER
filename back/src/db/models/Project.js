@@ -11,7 +11,7 @@ const Project = {
   findAllByUserId: async ({ userId }) => {
     const projects = await projectModel.find({ user_id: userId });
 
-    return projectList;
+    return projects;
   },
   // userId와 projectId로 project 조회 (해당 프로젝트가 존재 하는지 파악)
   findOneById: async ({ userId, projectId }) => {
