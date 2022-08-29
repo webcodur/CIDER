@@ -1,7 +1,7 @@
 import { Router } from "express";
-import is from "@sindresorhus/is";
 import { login_required } from "../middlewares/login_required";
 import { certificateService } from "../services/certificateService";
+import { validationMiddleware } from "../middlewares/validationMiddleware";
 
 const certificateRouter = Router();
 
@@ -9,12 +9,9 @@ const certificateRouter = Router();
 certificateRouter.post(
   "/certificate",
   login_required,
+  validationMiddleware,
   async (req, res, next) => {
     try {
-      if (is.emptyObject(req.body)) {
-        throw new Error("자격증 데이터를 포함하여 요청해주세요.");
-      }
-
       const userId = req.currentUserId;
       const { title, content, day } = req.body;
 
@@ -24,10 +21,6 @@ certificateRouter.post(
         content,
         day,
       });
-
-      if (createdNewCertificate.errorMessage) {
-        throw new Error(createdNewCertificate.errorMessage);
-      }
 
       res.status(201).json(createdNewCertificate);
     } catch (error) {
@@ -47,10 +40,6 @@ certificateRouter.get(
         userId,
       });
 
-      if (certificates.errorMessage) {
-        throw new Error(certificates.errorMessage);
-      }
-
       res.status(200).json(certificates);
     } catch (error) {
       next(error);
@@ -62,12 +51,9 @@ certificateRouter.get(
 certificateRouter.patch(
   "/certificate/:certificateId",
   login_required,
+  validationMiddleware,
   async (req, res, next) => {
     try {
-      if (is.emptyObject(req.body)) {
-        throw new Error("업데이트 할 자격증 데이터를 포함하여 요청해주세요.");
-      }
-
       const userId = req.currentUserId;
       const { certificateId } = req.params;
       const toUpdate = req.body;
@@ -77,10 +63,6 @@ certificateRouter.patch(
         certificateId,
         toUpdate,
       });
-
-      if (updatedCertificate.errorMessage) {
-        throw new Error(updatedCertificate.errorMessage);
-      }
 
       res.status(200).json(updatedCertificate);
     } catch (error) {
@@ -102,10 +84,6 @@ certificateRouter.delete(
         userId,
         certificateId,
       });
-
-      if (deletedCount.errorMessage) {
-        throw new Error(deletedCount.errorMessage);
-      }
 
       res.status(200).json(deletedCount);
     } catch (error) {
