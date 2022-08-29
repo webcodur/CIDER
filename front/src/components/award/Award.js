@@ -1,14 +1,15 @@
-import { Card, Button } from "react-bootstrap";
-import { useState, useEffect, useContext } from "react";
-import { UserStateContext } from "../../App";
-import AwardCard from "./AwardCard";
-import AwardForm from "./AwardForm";
-import * as Api from "../../api";
-import displayToggleCss from "../../styles/displayToggle.css";
+import { Card, Button } from 'react-bootstrap';
+import { useState, useEffect, useContext } from 'react';
+import { UserStateContext } from '../../App';
+import AwardCard from './AwardCard';
+import AwardForm from './AwardForm';
+import * as Api from '../../api';
+import displayToggleCss from '../../styles/displayToggle.css';
 
 const Award = ({ isEditable, paramsUserId }) => {
   const userState = useContext(UserStateContext);
-  let id = "";
+  let id = '';
+
   if (userState?.user) {
     id = userState.user.id ? userState.user.id : null;
   }
@@ -19,10 +20,12 @@ const Award = ({ isEditable, paramsUserId }) => {
   useEffect(() => {
     getData();
   }, []);
+
   async function getData() {
-    const getRes = await Api.get("awards", paramsUserId ? paramsUserId : id);
+    const getRes = await Api.get('awards', paramsUserId ? paramsUserId : id);
     const datas = getRes.data;
     let dataArr = [];
+
     dataArr = datas.map((ele) => [ele.id, ele.title, ele.description]);
     setArr(dataArr);
   }
@@ -33,37 +36,27 @@ const Award = ({ isEditable, paramsUserId }) => {
         <Card.Title>수상 이력</Card.Title>
         {arr.map((ele, idx) => {
           return (
-            <>
-              <AwardCard
-                key={ele}
-                arr={arr}
-                idx={idx}
-                setArr={setArr}
-                isEditable={isEditable}
-              ></AwardCard>
-            </>
+            <AwardCard
+              key={ele}
+              arr={arr}
+              idx={idx}
+              setArr={setArr}
+              isEditable={isEditable}
+            ></AwardCard>
           );
         })}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "flex-end",
-            margin: "0 0 1rem 0",
-          }}
-        >
-          {isEditable&&(
-            <>
-            <Button
-              className="btn btn-primary toggleTarget"
-              onClick={() => setIsEditing(true)}
+        <div className="mt-3 text-center mb-4 row">
+          <div className="col-sm-20">
+            {isEditable && (
+              <Button
+                className="btn btn-primary toggleTarget"
+                onClick={() => setIsEditing(true)}
               >
-              +
+                +
               </Button>
-            </>
-          )}
+            )}
+          </div>
         </div>
-
         {isEditing && (
           <AwardForm
             arr={arr}

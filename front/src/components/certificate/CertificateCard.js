@@ -1,9 +1,9 @@
-import CertificateEditForm from "./CertificateEditForm";
-import { Button, Overlay, Tooltip} from "react-bootstrap";
-import * as Api from "../../api";
-import { useState, useContext, useRef, useEffect } from "react";
-import { UserStateContext } from "../../App";
-import displayToggleCss from "../../styles/displayToggle.css";
+import CertificateEditForm from './CertificateEditForm';
+import { Button, Overlay, Tooltip, Card, Col } from 'react-bootstrap';
+import * as Api from '../../api';
+import { useState, useContext, useRef, useEffect } from 'react';
+import { UserStateContext } from '../../App';
+import displayToggleCss from '../../styles/displayToggle.css';
 import '../../styles/tooltip.css';
 
 const CertificateCard = (props) => {
@@ -13,11 +13,10 @@ const CertificateCard = (props) => {
   const [isEditing, setIsEditing] = useState(false);
   const [eleID, setEleID] = useState(false);
 
-  const arr = props.arr; // arr : [수상, 상세, 시간ID]
+  const arr = props.arr;
   const setArr = props.setArr;
   const idx = props.idx;
-  
-  // 2클릭 삭제
+
   const [isConfirm, setConfirm] = useState(false);
   const target = useRef(null);
 
@@ -27,20 +26,17 @@ const CertificateCard = (props) => {
     }, 2000);
     return () => clearTimeout(timer);
   }, [isConfirm]);
-  // ~~~~~~~~
-  
-  // 카드 편집기 열기 (CertificateEditForm 컴포넌트)
+
   const openEditForm = (e) => {
     setEleID(e.target.parentNode.parentNode.id);
     setIsEditing(true);
   };
 
-  // 카드 삭제
   const confirmDelete = async (e) => {
     const eleID = e.target.parentNode.parentNode.id;
-    await Api.delete("certificates", eleID);
+    await Api.delete('certificates', eleID);
 
-    const getRes = await Api.get("certificates", id);
+    const getRes = await Api.get('certificates', id);
     const datas = getRes.data;
     let dataArr = [];
     dataArr = datas.map((ele) => [ele.id, ele.title, ele.content, ele.day]);
@@ -55,32 +51,46 @@ const CertificateCard = (props) => {
   };
 
   return (
-    <div className="row" id={arr[idx][0]}>
-      <div className="col">
-        <div>{arr[idx][1]}</div>
-        <div>{arr[idx][2]}</div>
-        <div>{arr[idx][3]}</div>
-      </div>
-      
-      {props.isEditable &&(
-        <div className="col">
-          
-          <Button css={{displayToggleCss}} variant="btn float-end btn-outline-danger mt-3 toggleTarget" onClick={checkDelete} ref={target}>
-            삭제
-          </Button>
-
-          <Overlay target={target.current} show={isConfirm} placement="left">
-            {<Tooltip>정말 삭제하시겠습니까?</Tooltip>}
-          </Overlay>
-
-          <Button css={{displayToggleCss}} variant="btn float-end btn-outline-info mt-3 toggleTarget" onClick={openEditForm}>
-            편집
-          </Button>
-
+    <>
+      <Card.Text className="mb-4">
+        <div className="align-items-center row" id={arr[idx][0]}>
+          <Col>
+            {arr[idx][1]} <br />
+            <span className="text-muted">{arr[idx][2]}</span> <br />
+            <span className="text-muted">{arr[idx][3]}</span>
+          </Col>
+          {props.isEditable && (
+            <Col className="col-lg-1">
+              <Button
+                css={{ displayToggleCss }}
+                variant="outline-info"
+                onClick={openEditForm}
+                className="me-1 mb-1 mr-3 toggleTarget"
+                size="sm"
+              >
+                편집
+              </Button>
+              <Button
+                css={{ displayToggleCss }}
+                variant="outline-danger"
+                onClick={checkDelete}
+                ref={target}
+                className="mr-3 btn-sm toggleTarget"
+                size="sm"
+              >
+                삭제
+              </Button>
+              <Overlay
+                target={target.current}
+                show={isConfirm}
+                placement="left"
+              >
+                {<Tooltip>정말 삭제하시겠습니까?</Tooltip>}
+              </Overlay>
+            </Col>
+          )}
         </div>
-      )}
-
-      <div className="mt-3"></div>
+      </Card.Text>
       {isEditing && (
         <CertificateEditForm
           eleID={eleID}
@@ -90,7 +100,7 @@ const CertificateCard = (props) => {
           setIsEditing={setIsEditing}
         />
       )}
-    </div>
+    </>
   );
 };
 
