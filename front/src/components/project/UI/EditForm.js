@@ -9,7 +9,7 @@ const EditForm = (props) => {
   const context = useContext(AuthContext);
   const [dataValues, setDataValues] = useState({});
 
-  const onChangeHandler = (e) => {
+  const setProjectValues = (e) => {
     const { name, value } = e.target;
     setDataValues({ ...dataValues, [name]: value });
   };
@@ -37,7 +37,7 @@ const EditForm = (props) => {
           <Form.Control
             name="title"
             type="text"
-            onChange={onChangeHandler}
+            onChange={setProjectValues}
             defaultValue={props.project.title}
           />
         </FloatingLabel>
@@ -47,7 +47,7 @@ const EditForm = (props) => {
           <Form.Control
             name="content"
             type="text"
-            onChange={onChangeHandler}
+            onChange={setProjectValues}
             defaultValue={props.project.content}
           />
         </FloatingLabel>
@@ -57,7 +57,7 @@ const EditForm = (props) => {
           <Form.Control
             name="startDay"
             type="date"
-            onChange={onChangeHandler}
+            onChange={setProjectValues}
             defaultValue={props.project.startDay}
           />
         </Col>
@@ -65,7 +65,7 @@ const EditForm = (props) => {
           <Form.Control
             name="endDay"
             type="date"
-            onChange={onChangeHandler}
+            onChange={setProjectValues}
             defaultValue={props.project.endDay}
           />
         </Col>

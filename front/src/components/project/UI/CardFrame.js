@@ -13,11 +13,24 @@ const CardFrame = ({ portfolioOwnerId, isEditable }) => {
   const DATA_ENDPOINT = 'projects';
   const [data, setData] = useState([]);
 
-  const callFetch = async () => {
-    const getUser = await Api.get(USER_ENDPOINT, portfolioOwnerId);
+  const getUserInfo = async (userEndpoint, portfolioOwnerId) => {
+    const getUser = await Api.get(userEndpoint, portfolioOwnerId);
     const userInfo = { ...getUser.data };
-    const getData = await Api.get(DATA_ENDPOINT, userInfo.id);
+
+    return userInfo;
+  };
+
+  const getFetchedData = async (dataEndpoint, userId) => {
+    const getData = await Api.get(dataEndpoint, userId);
     const fetchedData = [...getData.data];
+
+    return fetchedData;
+  };
+
+  const callFetch = async () => {
+    const userInfo = await getUserInfo(USER_ENDPOINT, portfolioOwnerId);
+    const fetchedData = await getFetchedData(DATA_ENDPOINT, userInfo.id);
+
     setData(fetchedData);
   };
 

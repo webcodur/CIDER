@@ -7,11 +7,11 @@ import { Form, Col, FloatingLabel } from 'react-bootstrap';
 
 const AddForm = (props) => {
   const context = useContext(AuthContext);
-  const [dataValues, setdataValues] = useState({});
+  const [dataValues, setDataValues] = useState({});
 
-  const onChangeHandler = (e) => {
+  const setProjectValues = (e) => {
     const { name, value } = e.target;
-    setdataValues({ ...dataValues, [name]: value });
+    setDataValues({ ...dataValues, [name]: value });
   };
 
   const callPost = async () => {
@@ -32,7 +32,7 @@ const AddForm = (props) => {
             name="title"
             type="text"
             placeholder="프로젝트 제목"
-            onChange={onChangeHandler}
+            onChange={setProjectValues}
           />
         </FloatingLabel>
       </Form.Group>
@@ -42,7 +42,7 @@ const AddForm = (props) => {
             name="content"
             type="text"
             placeholder="상세 내역"
-            onChange={onChangeHandler}
+            onChange={setProjectValues}
           />
         </FloatingLabel>
       </Form.Group>
@@ -51,11 +51,11 @@ const AddForm = (props) => {
           <Form.Control
             type="date"
             name="startDay"
-            onChange={onChangeHandler}
+            onChange={setProjectValues}
           />
         </Col>
         <Col className="col-auto">
-          <Form.Control type="date" name="endDay" onChange={onChangeHandler} />
+          <Form.Control type="date" name="endDay" onChange={setProjectValues} />
         </Col>
       </Form.Group>
       <CheckButton
