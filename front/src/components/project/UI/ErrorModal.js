@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import AuthContext from '../stores/AuthContext';
 import { Button, Modal } from 'react-bootstrap';
-import '../../styles/modal.css';
+import '../../../styles/modal.css';
 
 const ErrorModal = () => {
   const context = useContext(AuthContext);
