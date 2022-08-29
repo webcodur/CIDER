@@ -91,7 +91,10 @@ function Portfolio() {
               ✏️
             </button>
 
-            <Education isEditable={isEditable} paramsUserId={params.userId} />
+            <Education
+              isEditable={isEditable}
+              portfolioOwnerId={portfolioOwner.id}
+            />
             <Award isEditable={isEditable} paramsUserId={params.userId} />
             <Project
               portfolioOwnerId={portfolioOwner.id}

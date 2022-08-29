@@ -5,7 +5,7 @@ import EducationCard from "./EducationCard";
 import { UserStateContext } from "../../App";
 import * as Api from "../../api";
 
-const Education = ({ isEditable, paramsUserId }) => {
+const Education = ({ isEditable, portfolioOwnerId }) => {
   const [isAdding, setIsAdding] = useState(false);
   const toggleAddEducationForm = () => {
     setIsAdding(!isAdding);
@@ -27,10 +27,11 @@ const Education = ({ isEditable, paramsUserId }) => {
     setIsAdding(false);
   };
   useEffect(() => {
-    Api.get("educations", paramsUserId ? paramsUserId : educationid).then(
-      (res) => setEducations(res.data)
-    );
-  }, [paramsUserId]);
+    Api.get(
+      "educations",
+      portfolioOwnerId ? portfolioOwnerId : educationid
+    ).then((res) => setEducations(res.data));
+  }, [portfolioOwnerId]);
   return (
     <Card className="mb-2 ms-3 mr-5 ">
       <Card.Body>

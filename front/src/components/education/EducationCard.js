@@ -2,8 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "../../../src/index.css";
 import EducationForm from "./EducationForm";
 import * as Api from "../../api";
-import { Col, Button, Overlay, Tooltip } from "react-bootstrap";
-// import "../styles/tooltip.css";
+import { Col, Button } from "react-bootstrap";
 import DeleteButton from "./DeleteButton";
 
 function EducationCard({ educations, setEducations, isEditable }) {
