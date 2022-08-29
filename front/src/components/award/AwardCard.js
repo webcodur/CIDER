@@ -3,8 +3,8 @@ import { Button, Overlay, Tooltip} from "react-bootstrap";
 import * as Api from "../../api";
 import { useState, useContext, useRef, useEffect } from "react";
 import { UserStateContext } from "../../App";
-import displayToggleCss from "../styles/displayToggle.css";
-import '../styles/tooltip.css';
+// import displayToggleCss from "../../styles/displayToggle.css";
+import '../../styles/tooltip.css';
 
 const AwardCard = (props) => {
   const userState = useContext(UserStateContext);

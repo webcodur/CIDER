@@ -2,7 +2,7 @@ import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import { useState, useContext } from "react";
 import { UserStateContext } from "../../App";
 import * as Api from "../../api";
-import styles from "../styles/anime.css";
+import styles from "../../styles/anime.css";
 
 const CertificateForm = (props) => {
   const userState = useContext(UserStateContext);

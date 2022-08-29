@@ -2,8 +2,7 @@ import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import { useState, useContext } from "react";
 import { UserStateContext } from "../../App";
 import * as Api from "../../api";
-import aniCss from "../styles/anime.css";
-
+import aniCss from "../../styles/anime.css";
 
 const AwardForm = (props) => {
   const userState = useContext(UserStateContext);
