@@ -21,7 +21,6 @@ const Education = ({ isEditable, paramsUserId }) => {
   const confirmAddEducation = (targetEducation) => {
     // targetEducation.id = Date.now();
     const resultEducations = [...educations, targetEducation];
-    // console.log([...resultEducations], "edewew");
     setEducations([...resultEducations]);
     setIsAdding(false);
   };

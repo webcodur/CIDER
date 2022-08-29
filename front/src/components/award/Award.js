@@ -26,7 +26,6 @@ const Award = ({ isEditable, paramsUserId }) => {
     let dataArr = [];
     dataArr = datas.map((ele) => [ele.id, ele.title, ele.description]);
     setArr(dataArr);
-    console.log("arr", arr, paramsUserId, id, "datas:", datas, dataArr);
   }
 
   return (

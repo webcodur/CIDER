@@ -32,7 +32,6 @@ function EducationCard({ educations, setEducations, isEditable }) {
       ...targetEducation,
     };
     setEducations([...resultEducations]);
-    console.log(targetEducation, "fwefwef");
     // setEducations();
     cancelEditEducation();
   };
@@ -49,7 +48,6 @@ function EducationCard({ educations, setEducations, isEditable }) {
       educations.filter((education) => education.id !== educationid)
     );
     await Api.delete(`educations/${educationid}`);
-    console.log("삭제 완료", educationid);
   };
 
   const EditHandle = () => {
@@ -81,7 +79,6 @@ function EducationCard({ educations, setEducations, isEditable }) {
                       className="me-1 mr-3"
                       onClick={() => {
                         toggleEditEducationForm(education.id);
-                        console.log("education.id", education.id);
                         EditHandle();
                       }}
                     >
