@@ -34,7 +34,9 @@ const AddForm = (props) => {
       await Api.post(props.DATA_ENDPOINT, dataValues);
       await props.callFetch();
       context.setIsAdding(false);
-    } catch (err) {}
+    } catch (err) {
+      context.setModalText('데이터 전송에 실패했습니다.');
+    }
   };
 
   const setIsAddingFalse = () => {
