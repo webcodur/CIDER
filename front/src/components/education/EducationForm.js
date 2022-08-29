@@ -14,7 +14,6 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
 
   const [isEmpty, setIsEmpty] = useState(true);
   const handleChange = (e) => {
-    console.log(e.target);
     const { name, value } = e.target;
     setTargetEducation({
       ...targetEducation,
@@ -23,11 +22,9 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
   };
   const editedValues = {
     ...targetEducation,
-    // id,
   };
   const handleConfirm = async (e) => {
     e.preventDefault();
-    console.log("");
     const targetElement = document.querySelectorAll(".toggleTarget");
     if (targetEducation.school === "" || targetEducation.major === "") {
       setIsEmpty(false);
@@ -36,31 +33,17 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
       setIsEmpty(true);
     }
     try {
-      // "user/register" 엔드포인트로 post요청함.
-      // console.log(targetEducation.school, targetEducation.major);
-      // if (targetEducation.school === "" || targetEducation.major === "") {
-      //   return console.log("빈 값은 입력이 불가 합니다.");
-      // }
-
       if (!byEditbtn) {
-        //수정이 아닌 경우
-        console.log("추가", byEditbtn);
-        console.log(id, targetEducation);
         onConfirm({ ...targetEducation });
         await Api.post("educations", {
           ...targetEducation,
           id,
         }).then((res) => onConfirm(res.data));
-      } //수정인 경우
-      else {
-        console.log("수정", byEditbtn);
+      } else {
         await Api.patch(`educations`, education.id, editedValues).then((res) =>
           onConfirm(res.data)
         );
       }
-      console.log(targetEducation, "targetEducation");
-
-      // 로그인 페이지로 이동함.
     } catch (err) {
       console.log("학력 등록에 실패하셨습니다.", err);
     }
