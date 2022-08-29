@@ -9,6 +9,7 @@ import { UserStateContext } from '../App';
 import * as Api from '../api';
 import User from './user/User';
 import SideBar from './SideBar';
+import DisplayToggleComp from './DisplayToggleComp';
 
 function Portfolio() {
   const navigate = useNavigate();
@@ -44,30 +45,6 @@ function Portfolio() {
 
   let isEditable = portfolioOwner.id === userState.user?.id ? true : false;
 
-  const displayToggler = (e) => {
-    e.preventDefault();
-    const firstTargetElement = document.querySelector('.toggleTarget');
-
-    if (firstTargetElement.classList.contains('display-none')) {
-      console.log('편집 모드로');
-      const targetElement = document.querySelectorAll('.toggleTarget');
-      targetElement.forEach((ele) => {
-        ele.classList.remove('display-none');
-      });
-      const editButton = document.querySelector('#editbutton');
-      editButton.innerText = '✏️';
-    } else {
-      console.log('감상 모드로');
-      const targetElement = document.querySelectorAll('.toggleTarget');
-      targetElement.forEach((ele) => {
-        ele.classList.add('display-none');
-      });
-      const editButton = document.querySelector('#editbutton');
-      editButton.innerText = '👀';
-    }
-  };
-
-  console.log(localStorage.getItem('recentlyView'));
   return (
     <Container fluid style={{ zIndex: 0 }}>
       <Row style={{ width: '100%' }}>
@@ -76,32 +53,14 @@ function Portfolio() {
         </Col>
         <Col md="7">
           <div>
-            <button
-              id="editbutton"
-              onClick={displayToggler}
-              style={{
-                width: '50px',
-                height: '50px',
-                position: 'fixed',
-                color: 'red',
-                zIndex: '99',
-                bottom: '5%',
-                right: '20%',
-                borderColor: 'gray',
-                borderRadius: '50%',
-                backgroundColor: 'aliceblue',
-              }}
-            >
-              ✏️
-            </button>
-
+          <DisplayToggleComp></DisplayToggleComp>
             <Education isEditable={isEditable} paramsUserId={params.userId} />
-            <Award isEditable={isEditable} paramsUserId={params.userId} />
+            <Award isEditable={isEditable} portfolioOwnerId={portfolioOwner.id} />
             <Project
               portfolioOwnerId={portfolioOwner.id}
               isEditable={isEditable}
             />
-            <Certificate isEditable={isEditable} paramsUserId={params.userId} />
+            <Certificate isEditable={isEditable} portfolioOwnerId={portfolioOwner.id} />
           </div>
         </Col>
         <SideBar />
