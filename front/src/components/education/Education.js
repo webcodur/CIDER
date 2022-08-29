@@ -5,7 +5,7 @@ import EducationCard from "./EducationCard";
 import { UserStateContext } from "../../App";
 import * as Api from "../../api";
 
-const Education = ({ isEditable, paramsUserId }) => {
+const Education = ({ isEditable, portfolioOwnerId }) => {
   const [isAdding, setIsAdding] = useState(false);
   const toggleAddEducationForm = () => {
     setIsAdding(!isAdding);
@@ -15,7 +15,6 @@ const Education = ({ isEditable, paramsUserId }) => {
   const userState = useContext(UserStateContext);
   let educationid = "";
   if (userState?.user) {
-    // 로그아웃을 했을경우 값을 넣어주기
     educationid = userState.user.id ? userState.user.id : null;
   }
   const confirmAddEducation = (targetEducation) => {
@@ -28,12 +27,11 @@ const Education = ({ isEditable, paramsUserId }) => {
     setIsAdding(false);
   };
   useEffect(() => {
-    // "users/유저id" 엔드포인트로 GET 요청을 하고, user를 response의 data로 세팅함.
-    //paramsUserId  = 선택한 유저 아이디 가져오기, 선택한 유저가 없다면 로그인한 사람의 id 값으로 세팅
-    Api.get("educations", paramsUserId ? paramsUserId : educationid).then(
-      (res) => setEducations(res.data)
-    );
-  }, [paramsUserId]);
+    Api.get(
+      "educations",
+      portfolioOwnerId ? portfolioOwnerId : educationid
+    ).then((res) => setEducations(res.data));
+  }, [portfolioOwnerId]);
   return (
     <Card className="mb-2 ms-3 mr-5 ">
       <Card.Body>

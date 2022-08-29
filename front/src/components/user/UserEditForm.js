@@ -11,18 +11,13 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     if (name === "" || description === "") {
       return console.log("빈 값은 입력이 불가 합니다.");
     }
-    // "users/유저id" 엔드포인트로 PUT 요청함.
     const res = await Api.put(`users/${user.id}`, {
       name,
       email,
       description,
     });
-    // 유저 정보는 response의 data임.
     const updatedUser = res.data;
-    // 해당 유저 정보로 user을 세팅함.
     setUser(updatedUser);
-
-    // isEditing을 false로 세팅함.
     setIsEditing(false);
   };
 

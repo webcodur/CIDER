@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react';
-import * as Api from '../../../api';
+import React, { useState, useEffect, useContext } from "react";
+import * as Api from "../../../api";
 
-import AuthContext from '../stores/AuthContext';
-import CardElement from '../CardElement';
-import AddForm from './AddForm';
-import AddButton from './AddButton';
-import ErrorModal from './ErrorModal';
-import { Card } from 'react-bootstrap';
+import AuthContext from "../stores/AuthContext";
+import CardElement from "../CardElement";
+import AddForm from "./AddForm";
+import AddButton from "./AddButton";
+import ErrorModal from "./ErrorModal";
+import { Card } from "react-bootstrap";
 
 const CardFrame = ({ portfolioOwnerId, isEditable }) => {
   const context = useContext(AuthContext);
-  const USER_ENDPOINT = 'users';
-  const DATA_ENDPOINT = 'projects';
+  const USER_ENDPOINT = "users";
+  const DATA_ENDPOINT = "projects";
   const [data, setData] = useState([]);
 
   const getUserInfo = async (userEndpoint, portfolioOwnerId) => {
@@ -20,7 +20,7 @@ const CardFrame = ({ portfolioOwnerId, isEditable }) => {
       const userInfo = { ...getUser.data };
 
       if (!userInfo.id) {
-        throw new Error('유저 데이터에 문제가 있습니다.');
+        throw new Error("유저 데이터에 문제가 있습니다.");
       }
 
       return userInfo;
@@ -38,8 +38,8 @@ const CardFrame = ({ portfolioOwnerId, isEditable }) => {
     } catch (err) {
       context.setModalText(err.message);
 
-      if (err.message.includes('iterable')) {
-        context.setModalText('프로젝트 데이터에 문제가 있습니다.');
+      if (err.message.includes("iterable")) {
+        context.setModalText("프로젝트 데이터에 문제가 있습니다.");
       }
 
       const fetchedData = [];

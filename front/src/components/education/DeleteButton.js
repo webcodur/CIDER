@@ -1,7 +1,7 @@
-import React, { useContext, useState, useRef, useEffect } from 'react';
-import * as Api from '../../api';
-import { Col, Button, Overlay, Tooltip } from 'react-bootstrap';
-import '../../styles/tooltip.css';
+import React, { useContext, useState, useRef, useEffect } from "react";
+import * as Api from "../../api";
+import { Col, Button, Overlay, Tooltip } from "react-bootstrap";
+import "../../styles/tooltip.css";
 
 const DeleteButton = ({ educationid, onRemove }) => {
   const [isConfirm, setConfirm] = useState(false);
@@ -28,7 +28,7 @@ const DeleteButton = ({ educationid, onRemove }) => {
       <Button
         variant="outline-danger"
         size="sm"
-        className="mr-3 btn-sm"
+        className="mr-3 btn-sm toggleTarget"
         ref={target}
         onClick={() => checkDelete(educationid)}
       >
