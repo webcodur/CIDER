@@ -1,9 +1,7 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
 import * as Api from "../../api";
-
-// import AuthContext from "../stores/AuthContext";
 import { Col, Button, Overlay, Tooltip } from "react-bootstrap";
-// import "../styles/tooltip.css";
+import "../styles/tooltip.css";
 
 const DeleteButton = ({ educationid, onRemove }) => {
   const [isConfirm, setConfirm] = useState(false);
@@ -24,17 +22,6 @@ const DeleteButton = ({ educationid, onRemove }) => {
 
     setConfirm(true);
   };
-
-  // const confirmDelete = async (id) => {
-  //   await Api.delete(props.DATA_ENDPOINT, id);
-  //   await props.callFetch();
-  // };
-
-  // const getIdList = (id) => {
-  //   context.setEditIdList((prevState) =>
-  //     context.editIdList.includes(id) ? prevState : [...prevState, id]
-  //   );
-  // };
 
   return (
     <Col className="col-lg-1">

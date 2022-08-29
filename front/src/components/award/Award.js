@@ -20,7 +20,6 @@ const Award = ({ isEditable, paramsUserId }) => {
     getData();
   }, []);
   async function getData() {
-    // const getRes = await Api.get("awards", paramsUserId);
     const getRes = await Api.get("awards", paramsUserId ? paramsUserId : id);
     const datas = getRes.data;
     let dataArr = [];

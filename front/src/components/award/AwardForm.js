@@ -12,7 +12,6 @@ const AwardForm = (props) => {
   const [details, setDetails] = useState("");
   const [isEmpty, setIsEmpty] = useState(true);
 
-  // Posting
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (award === "" || details === "") {

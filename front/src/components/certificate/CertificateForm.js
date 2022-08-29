@@ -12,12 +12,10 @@ const CertificateForm = (props) => {
   const [day, setDay] = useState("");
   const [isEmpty, setIsEmpty] = useState(true);
 
-  // 제출 post + get
   const handleSubmit = async (e) => {
 
     e.preventDefault();
     
-    // 빈 값 방지
     if (certificate === "" || details === "" || day === "") {
       setIsEmpty(false);
       return;

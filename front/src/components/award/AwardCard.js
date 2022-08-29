@@ -27,7 +27,6 @@ const AwardCard = (props) => {
     }, 2000);
     return () => clearTimeout(timer);
   }, [isConfirm]);
-  // ~~~~~~~~
 
   // 카드 편집창 열기 (작업은 AwardEditForm 컴포넌트에서 처리)
   const openEditForm = (e) => {
