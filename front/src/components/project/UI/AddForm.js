@@ -14,10 +14,27 @@ const AddForm = (props) => {
     setDataValues({ ...dataValues, [name]: value });
   };
 
+  const checkProjectValues = (projectValues) => {
+    const startDay = projectValues.startDay.split('-').join('');
+    const endDay = projectValues.endDay.split('-').join('');
+
+    if (startDay - endDay > 0) {
+      return false;
+    }
+
+    return true;
+  };
+
   const callPost = async () => {
-    await Api.post(props.DATA_ENDPOINT, dataValues);
-    await props.callFetch();
-    context.setIsAdding(false);
+    if (!checkProjectValues(dataValues)) {
+      return;
+    }
+
+    try {
+      await Api.post(props.DATA_ENDPOINT, dataValues);
+      await props.callFetch();
+      context.setIsAdding(false);
+    } catch (err) {}
   };
 
   const setIsAddingFalse = () => {

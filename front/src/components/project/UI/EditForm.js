@@ -20,8 +20,13 @@ const EditForm = (props) => {
     };
 
     context.setEditIdList(context.editIdList.filter((id) => id !== projectId));
-    await Api.patch(props.DATA_ENDPOINT, projectId, editedValues);
-    await props.callFetch();
+
+    try {
+      await Api.patch(props.DATA_ENDPOINT, projectId, editedValues);
+      await props.callFetch();
+    } catch (err) {
+      context.setModalText('데이터 수정에 실패했습니다.');
+    }
   };
 
   const deleteIdFromIdList = () => {

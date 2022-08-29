@@ -27,11 +27,15 @@ const EditDeleteButton = (props) => {
   };
 
   const confirmDelete = async (id) => {
-    await Api.delete(props.DATA_ENDPOINT, id);
-    await props.callFetch();
+    try {
+      await Api.delete(props.DATA_ENDPOINT, id);
+      await props.callFetch();
+    } catch (err) {
+      context.setModalText('데이터 삭제에 실패했습니다.');
+    }
   };
 
-  const getIdList = (id) => {
+  const getEditIdList = (id) => {
     context.setEditIdList((prevState) =>
       context.editIdList.includes(id) ? prevState : [...prevState, id]
     );
@@ -44,7 +48,7 @@ const EditDeleteButton = (props) => {
         size="sm"
         className="me-1 mb-1 mr-3"
         onClick={() => {
-          getIdList(props.project.id);
+          getEditIdList(props.project.id);
         }}
       >
         편집

@@ -5,11 +5,14 @@ const AuthContext = React.createContext({
   setIdList: () => {},
   isAdding: false,
   setIsAdding: () => {},
+  modalText: '',
+  setModalText: () => {},
 });
 
 export const AuthContextProvider = (props) => {
   const [editIdList, setEditIdList] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
+  const [modalText, setModalText] = useState('');
 
   return (
     <AuthContext.Provider
@@ -18,6 +21,8 @@ export const AuthContextProvider = (props) => {
         setIsAdding,
         editIdList,
         setEditIdList,
+        modalText,
+        setModalText,
       }}
     >
       {props.children}
