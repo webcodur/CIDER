@@ -28,9 +28,19 @@ function Header() {
   };
 
   return (
-    <Nav activeKey={location.pathname}>
+    <Nav
+      activeKey={location.pathname}
+      style={{
+        position: "fixed",
+        zIndex: 1,
+        background: "lightblue",
+        width: "100%",
+      }}
+    >
       <Nav.Item className="me-auto mb-5">
-        <Nav.Link disabled>안녕하세요, 포트폴리오 공유 서비스입니다.</Nav.Link>
+        <Nav.Link disabled>
+          <span>안녕하세요, 포트폴리오 공유 서비스입니다.</span>
+        </Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <ThemeToggle toggle={toggleTheme} mode={ThemeMode}>

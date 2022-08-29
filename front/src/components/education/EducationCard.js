@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "../../../src/index.css";
 import EducationForm from "./EducationForm";
 import * as Api from "../../api";
-import { Col, Button} from "react-bootstrap";
+import { Col, Button, Overlay, Tooltip } from "react-bootstrap";
+// import "../styles/tooltip.css";
 import DeleteButton from "./DeleteButton";
 
 function EducationCard({ educations, setEducations, isEditable }) {
@@ -31,6 +32,7 @@ function EducationCard({ educations, setEducations, isEditable }) {
       ...targetEducation,
     };
     setEducations([...resultEducations]);
+    console.log(targetEducation, "fwefwef");
     // setEducations();
     cancelEditEducation();
   };
@@ -47,6 +49,7 @@ function EducationCard({ educations, setEducations, isEditable }) {
       educations.filter((education) => education.id !== educationid)
     );
     await Api.delete(`educations/${educationid}`);
+    console.log("삭제 완료", educationid);
   };
 
   const EditHandle = () => {
@@ -75,9 +78,10 @@ function EducationCard({ educations, setEducations, isEditable }) {
                     <Button
                       variant="outline-info"
                       size="sm"
-                      className="me-1 mr-3"
+                      className="me-1 mr-3 toggleTarget"
                       onClick={() => {
                         toggleEditEducationForm(education.id);
+                        console.log("education.id", education.id);
                         EditHandle();
                       }}
                     >

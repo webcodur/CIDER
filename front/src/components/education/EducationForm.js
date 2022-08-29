@@ -1,9 +1,9 @@
-import React, { useState, useContext } from 'react';
-import { Button, Form, Col, Row, Container } from 'react-bootstrap';
-import '../../../src/index.css';
-import { UserStateContext } from '../../App';
-import * as Api from '../../api';
-import styles from '../../styles/anime.css';
+import React, { useState, useContext } from "react";
+import { Button, Form, Col, Row, Container } from "react-bootstrap";
+import "../../../src/index.css";
+import { UserStateContext } from "../../App";
+import * as Api from "../../api";
+import styles from "../../styles/anime.css";
 
 const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
   const [targetEducation, setTargetEducation] = useState({
@@ -14,6 +14,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
 
   const [isEmpty, setIsEmpty] = useState(true);
   const handleChange = (e) => {
+    console.log(e.target);
     const { name, value } = e.target;
     setTargetEducation({
       ...targetEducation,
@@ -26,8 +27,9 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
   };
   const handleConfirm = async (e) => {
     e.preventDefault();
-    const targetElement = document.querySelectorAll('.toggleTarget');
-    if (targetEducation.school === '' || targetEducation.major === '') {
+    console.log("");
+    const targetElement = document.querySelectorAll(".toggleTarget");
+    if (targetEducation.school === "" || targetEducation.major === "") {
       setIsEmpty(false);
       return;
     } else {
@@ -42,20 +44,25 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
 
       if (!byEditbtn) {
         //수정이 아닌 경우
+        console.log("추가", byEditbtn);
+        console.log(id, targetEducation);
         onConfirm({ ...targetEducation });
-        await Api.post('educations', {
+        await Api.post("educations", {
           ...targetEducation,
           id,
         }).then((res) => onConfirm(res.data));
       } //수정인 경우
       else {
+        console.log("수정", byEditbtn);
         await Api.patch(`educations`, education.id, editedValues).then((res) =>
           onConfirm(res.data)
         );
       }
+      console.log(targetEducation, "targetEducation");
+
       // 로그인 페이지로 이동함.
     } catch (err) {
-      console.log('학력 등록에 실패하셨습니다.', err);
+      console.log("학력 등록에 실패하셨습니다.", err);
     }
     onCancel();
   };
@@ -96,7 +103,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
               id="radio-add-1"
               className="form-check-input"
               value="재학중"
-              checked={targetEducation.position === '재학중'}
+              checked={targetEducation.position === "재학중"}
               onChange={handleChange}
             ></input>
             <label title="" htmlFor="radio-add-1" className="form-check-label">
@@ -110,7 +117,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
               id="radio-add-2"
               className="form-check-input"
               value="학사졸업"
-              checked={targetEducation.position === '학사졸업'}
+              checked={targetEducation.position === "학사졸업"}
               onChange={handleChange}
             ></input>
             <label title="" htmlFor="radio-add-2" className="form-check-label">
@@ -124,7 +131,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
               id="radio-add-3"
               className="form-check-input"
               value="석사졸업"
-              checked={targetEducation.position === '석사졸업'}
+              checked={targetEducation.position === "석사졸업"}
               onChange={handleChange}
             ></input>
             <label title="" htmlFor="radio-add-3" className="form-check-label">
@@ -138,7 +145,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
               id="radio-add-4"
               className="form-check-input"
               value="박사졸업"
-              checked={targetEducation.position === '박사졸업'}
+              checked={targetEducation.position === "박사졸업"}
               onChange={handleChange}
             ></input>
             <label title="" htmlFor="radio-add-4" className="form-check-label">
