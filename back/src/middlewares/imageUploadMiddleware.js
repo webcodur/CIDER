@@ -1,6 +1,6 @@
-// 프로필 사진 업로드 미들웨어
 const multer = require("multer");
 
+// 프로필 사진 업로드 미들웨어
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, __dirname + "/../images/profiles");
@@ -10,8 +10,8 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({
+const profileUpload = multer({
   storage: storage,
 });
 
-export { upload };
+export { profileUpload };
