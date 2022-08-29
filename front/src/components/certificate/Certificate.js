@@ -1,10 +1,9 @@
-import { Card, Button } from "react-bootstrap";
-import { useState, useEffect, useContext } from "react";
-import { UserStateContext } from "../../App";
-import CertificateCard from "./CertificateCard";
-import CertificateForm from "./CertificateForm";
-import * as Api from "../../api";
-import displayToggleCss from "../../styles/displayToggle.css";
+import { Card, Button } from 'react-bootstrap';
+import { useState, useEffect, useContext } from 'react';
+import { UserStateContext } from '../../App';
+import CertificateCard from './CertificateCard';
+import CertificateForm from './CertificateForm';
+import * as Api from '../../api';
 
 const Certificate = ({ isEditable, paramsUserId }) => {
   const userState = useContext(UserStateContext);
@@ -19,11 +18,12 @@ const Certificate = ({ isEditable, paramsUserId }) => {
 
   async function getData() {
     const getRes = await Api.get(
-      "certificates",
+      'certificates',
       paramsUserId ? paramsUserId : id
     );
     const datas = getRes.data;
     let dataArr = [];
+
     dataArr = datas.map((ele) => [ele.id, ele.title, ele.content, ele.day]);
     setArr(dataArr);
   }
@@ -34,34 +34,26 @@ const Certificate = ({ isEditable, paramsUserId }) => {
         <Card.Title>자격증</Card.Title>
         {arr.map((ele, idx) => {
           return (
-            <>
-              <CertificateCard
-                key={ele}
-                arr={arr}
-                idx={idx}
-                setArr={setArr}
-                isEditable={isEditable}
-              ></CertificateCard>
-            </>
+            <CertificateCard
+              key={ele}
+              arr={arr}
+              idx={idx}
+              setArr={setArr}
+              isEditable={isEditable}
+            ></CertificateCard>
           );
         })}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "flex-end",
-          }}
-        >
-        {isEditable&&(
-          <>
-          <Button
-            className="btn btn-primary toggleTarget"
-            onClick={() => setIsEditing(true)}
-            >
-            +
-            </Button>
-          </>
-        )}
+        <div className="mt-3 text-center mb-4 row">
+          <div className="col-sm-20">
+            {isEditable && (
+              <Button
+                className="btn btn-primary toggleTarget"
+                onClick={() => setIsEditing(true)}
+              >
+                +
+              </Button>
+            )}
+          </div>
         </div>
         {isEditing && (
           <CertificateForm
