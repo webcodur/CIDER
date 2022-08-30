@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import { UserStateContext } from "../../App";
 import { useNavigate } from "react-router-dom";
+import "../../../src/styles/index.css";
 function ThemeToggle({ toggle, mode }) {
   const [watchs, setWatchs] = useState();
   const navigate = useNavigate();
@@ -24,30 +25,17 @@ function ThemeToggle({ toggle, mode }) {
 
   return (
     <div>
-      <div
-        style={{
-          position: "fixed",
-          zindex: "999999",
-          bottom: "40%",
-          right: "3%",
-          background: "white",
-          width: "180px",
-          height: "280px",
-
-          border: `1px solid rgba(0,0,0,.125)`,
-        }}
-      >
-        <div style={{ justifyContent: "center", display: "flex" }}>
-          최근 본 포트폴리오
-        </div>
+      <div className="sideBox">
         <div
           style={{
-            marginLeft: "30%",
-            marginTop: "16px",
-            height: "65%",
             justifyContent: "center",
+            display: "flex",
+            marginTop: "10px",
           }}
         >
+          최근 본 포트폴리오
+        </div>
+        <div className="sideInnerBox">
           {watchs &&
             watchs.map((watch) => {
               return (
@@ -60,12 +48,7 @@ function ThemeToggle({ toggle, mode }) {
               );
             })}
         </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
+        <div className="flex_center">
           <ToggleWrapper onClick={toggle} mode={mode}>
             {mode === "dark" ? "🌚" : "🌝"}
           </ToggleWrapper>
@@ -96,4 +79,3 @@ const ToggleWrapper = styled.button`
       ? "0px 5px 10px rgba(40, 40, 40, 1), 0px 2px 4px rgba(40, 40, 40, 1)"
       : "0 5px 10px rgba(100, 100, 100, 0.15), 0 2px 4px rgba(100, 100, 100, 0.15)"};
 `;
-console.log(ToggleWrapper);
