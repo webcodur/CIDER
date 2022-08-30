@@ -9,6 +9,7 @@ const EditDeleteButton = (props) => {
   const context = useContext(AuthContext);
   const [isConfirm, setConfirm] = useState(false);
   const target = useRef(null);
+  const DATA_ENDPOINT = 'project';
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -28,7 +29,7 @@ const EditDeleteButton = (props) => {
 
   const confirmDelete = async (id) => {
     try {
-      await Api.delete(props.DATA_ENDPOINT, id);
+      await Api.delete(DATA_ENDPOINT, id);
       await props.callFetch();
     } catch (err) {
       context.setModalText('데이터 삭제에 실패했습니다.');

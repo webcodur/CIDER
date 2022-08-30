@@ -8,6 +8,7 @@ import { Form, Col, FloatingLabel } from 'react-bootstrap';
 const AddForm = (props) => {
   const context = useContext(AuthContext);
   const [dataValues, setDataValues] = useState({});
+  const DATA_ENDPOINT = 'project';
 
   const setProjectValues = (e) => {
     const { name, value } = e.target;
@@ -31,7 +32,7 @@ const AddForm = (props) => {
     }
 
     try {
-      await Api.post(props.DATA_ENDPOINT, dataValues);
+      await Api.post(DATA_ENDPOINT, dataValues);
       await props.callFetch();
       context.setIsAdding(false);
     } catch (err) {

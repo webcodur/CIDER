@@ -8,13 +8,14 @@ const ListForm = (props) => {
         <Col>
           {props.project.title} <br />
           <span className="text-muted">{props.project.content}</span> <br />
-          <span className="text-muted">{`${props.project.startDay} ~ ${props.project.endDay}`}</span>
+          <span className="text-muted">{`${
+            props.project.startDay.split('T')[0]
+          } ~ ${props.project.endDay.split('T')[0]}`}</span>
         </Col>
         {props.isEditable && (
           <EditDeleteButton
             project={props.project}
             callFetch={props.callFetch}
-            DATA_ENDPOINT={props.DATA_ENDPOINT}
           />
         )}
       </div>

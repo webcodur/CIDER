@@ -8,6 +8,7 @@ import { Form, Col, FloatingLabel } from 'react-bootstrap';
 const EditForm = (props) => {
   const context = useContext(AuthContext);
   const [dataValues, setDataValues] = useState({});
+  const DATA_ENDPOINT = 'project';
 
   const setProjectValues = (e) => {
     const { name, value } = e.target;
@@ -37,7 +38,7 @@ const EditForm = (props) => {
     context.setEditIdList(context.editIdList.filter((id) => id !== projectId));
 
     try {
-      await Api.patch(props.DATA_ENDPOINT, projectId, editedValues);
+      await Api.patch(DATA_ENDPOINT, projectId, editedValues);
       await props.callFetch();
     } catch (err) {
       context.setModalText('데이터 수정에 실패했습니다.');

@@ -11,7 +11,7 @@ import { Card } from 'react-bootstrap';
 const CardFrame = ({ portfolioOwnerId, isEditable }) => {
   const context = useContext(AuthContext);
   const USER_ENDPOINT = 'users';
-  const DATA_ENDPOINT = 'project';
+  const DATA_ENDPOINT = 'projects';
   const [data, setData] = useState([]);
 
   const getUserInfo = async (userEndpoint, portfolioOwnerId) => {
@@ -65,15 +65,12 @@ const CardFrame = ({ portfolioOwnerId, isEditable }) => {
         <Card.Body>
           <Card.Title>프로젝트</Card.Title>
           <CardElement
-            DATA_ENDPOINT={DATA_ENDPOINT}
             isEditable={isEditable}
             data={data}
             callFetch={callFetch}
           />
           {isEditable && <AddButton />}
-          {context.isAdding && (
-            <AddForm callFetch={callFetch} DATA_ENDPOINT={DATA_ENDPOINT} />
-          )}
+          {context.isAdding && <AddForm callFetch={callFetch} />}
         </Card.Body>
       </Card>
     </React.Fragment>
