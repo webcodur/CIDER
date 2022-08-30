@@ -79,7 +79,7 @@ const EditForm = (props) => {
             name="startDay"
             type="date"
             onChange={setProjectValues}
-            defaultValue={props.project.startDay}
+            defaultValue={props.project.startDay.split('T')[0]}
           />
         </Col>
         <Col className="col-auto">
@@ -87,7 +87,7 @@ const EditForm = (props) => {
             name="endDay"
             type="date"
             onChange={setProjectValues}
-            defaultValue={props.project.endDay}
+            defaultValue={props.project.endDay.split('T')[0]}
           />
         </Col>
       </Form.Group>
