@@ -1,5 +1,5 @@
-import { Col, Card } from 'react-bootstrap';
-import EditDeleteButton from './EditDeleteButton';
+import { Col, Card } from "react-bootstrap";
+import EditDeleteButton from "./EditDeleteButton";
 
 const ListForm = (props) => {
   return (
@@ -9,8 +9,8 @@ const ListForm = (props) => {
           {props.project.title} <br />
           <span className="text-muted">{props.project.content}</span> <br />
           <span className="text-muted">{`${
-            props.project.startDay.split('T')[0]
-          } ~ ${props.project.endDay.split('T')[0]}`}</span>
+            props.project.startDay.split("T")[0]
+          } ~ ${props.project.endDay.split("T")[0]}`}</span>
         </Col>
         {props.isEditable && (
           <EditDeleteButton

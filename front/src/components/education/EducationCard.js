@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import "../../../src/styles/index.css";
 import EducationForm from "./EducationForm";
 import * as Api from "../../api";
@@ -67,7 +67,7 @@ function EducationCard({ educations, setEducations, isEditable }) {
                     <Button
                       variant="outline-info"
                       size="sm"
-                      className="me-1 mr-3 toggleTarget"
+                      className="me-1 mb-1 mr-3 btn btn-outline-info btn-sm toggleTarget"
                       onClick={() => {
                         toggleEditEducationForm(education.id);
                         EditHandle();

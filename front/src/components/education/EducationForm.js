@@ -1,12 +1,5 @@
 import React, { useState, useContext } from "react";
-import {
-  Button,
-  Form,
-  Col,
-  Row,
-  Container,
-  FloatingLabel,
-} from "react-bootstrap";
+import { Button, Form, Col, Row, FloatingLabel } from "react-bootstrap";
 import "../../../src/styles/index.css";
 import { UserStateContext } from "../../App";
 import * as Api from "../../api";
@@ -17,7 +10,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
     ...education,
   });
   const userState = useContext(UserStateContext);
-  const id = userState.user.id;
+  const id = userState?.user?.id;
 
   const [isEmpty, setIsEmpty] = useState(true);
   const handleChange = (e) => {
@@ -32,7 +25,6 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
   };
   const handleConfirm = async (e) => {
     e.preventDefault();
-    const targetElement = document.querySelectorAll(".toggleTarget");
     if (targetEducation.school === "" || targetEducation.major === "") {
       setIsEmpty(false);
       return;
@@ -62,7 +54,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
   };
 
   return (
-    <Form>
+    <Form className="toggleTarget">
       {!isEmpty && (
         <div className="text-danger text-center" style={{ styles }}>
           <span id="anime">빈 값이 있습니다.</span>
