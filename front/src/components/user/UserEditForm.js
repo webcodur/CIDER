@@ -28,6 +28,11 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     setIsEditing(false);
   };
 
+  const onImgChange = (e) => {
+    e.preventDefault();
+    console.log(e.target.files[0]);
+  };
+
   return (
     <Card className="mb-2">
       <Card.Body>
@@ -56,12 +61,21 @@ function UserEditForm({ user, setIsEditing, setUser }) {
             />
           </Form.Group>
 
-          <Form.Group controlId="userEditDescription">
+          <Form.Group controlId="userEditDescription" className="mb-3">
             <Form.Control
               type="text"
               placeholder="정보, 인사말"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group controlId="userEditProfile">
+            <Form.Control
+              type="file"
+              placeholder="선택된 파일 없음"
+              id="formFile"
+              // value={}
+              onChange={onImgChange}
             />
           </Form.Group>
 
