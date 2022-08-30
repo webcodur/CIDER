@@ -59,7 +59,7 @@ const CertificateEditForm = (props) => {
   };
 
   return (
-    <Container>
+    <Container className="toggleTarget">
       <Row>
         <Col>
           <Form onSubmit={submitEditForm}>
@@ -84,7 +84,7 @@ const CertificateEditForm = (props) => {
                 type="text"
                 autoComplete="on"
                 value={details}
-                placeholder="상세내역"
+                placeholder="상세 내역"
                 onChange={(e) => setDetails(e.target.value)}
               />
             </Form.Group>

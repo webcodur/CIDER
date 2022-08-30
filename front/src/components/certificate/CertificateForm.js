@@ -55,7 +55,7 @@ const CertificateForm = (props) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} className="toggleTarget">
       <Form.Group controlId="certificateID">
         {!isEmpty && (
           <div className="text-danger text-center" style={{ styles }}>

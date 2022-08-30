@@ -4,15 +4,10 @@ import { UserStateContext } from '../../App';
 import AwardCard from './AwardCard';
 import AwardForm from './AwardForm';
 import * as Api from '../../api';
-import displayToggleCss from '../../styles/displayToggle.css';
 
 const Award = ({ isEditable, paramsUserId }) => {
   const userState = useContext(UserStateContext);
-  let id = '';
-
-  if (userState?.user) {
-    id = userState.user.id ? userState.user.id : null;
-  }
+  const id = userState?.user?.id;
 
   const [isEditing, setIsEditing] = useState(false);
   const [arr, setArr] = useState([]);
