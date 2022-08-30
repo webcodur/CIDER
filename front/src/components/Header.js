@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import { UserStateContext, DispatchContext } from "../App";
 import { useTheme } from "../components/darkmode/themeProvider";
-import "../index.css";
+import "../styles/index.css";
 import ThemeToggle from "../components/darkmode/ThemeToggle";
 function Header() {
   const navigate = useNavigate();
@@ -19,15 +19,7 @@ function Header() {
     navigate("/");
   };
   return (
-    <Nav
-      activeKey={location.pathname}
-      style={{
-        position: "fixed",
-        zIndex: 1,
-        background: "lightblue",
-        width: "100%",
-      }}
-    >
+    <Nav activeKey={location.pathname}>
       <Nav.Item className="me-auto mb-5">
         <Nav.Link disabled>
           <span>안녕하세요, 포트폴리오 공유 서비스입니다.</span>

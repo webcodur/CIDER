@@ -1,6 +1,13 @@
 import React, { useState, useContext } from "react";
-import { Button, Form, Col, Row, Container } from "react-bootstrap";
-import "../../../src/index.css";
+import {
+  Button,
+  Form,
+  Col,
+  Row,
+  Container,
+  FloatingLabel,
+} from "react-bootstrap";
+import "../../../src/styles/index.css";
 import { UserStateContext } from "../../App";
 import * as Api from "../../api";
 import styles from "../../styles/anime.css";
@@ -56,28 +63,33 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
 
   return (
     <Container>
-      <Form className="margin10">
+      <Form>
         {!isEmpty && (
           <div className="text-danger text-center" style={{ styles }}>
             <span id="anime">빈 값이 있습니다.</span>
           </div>
         )}
-        <input
-          className="form-control"
-          placeholder="학교 이름"
-          name="school"
-          value={targetEducation.school}
-          onChange={handleChange}
-        ></input>
-        <br />
-        <input
-          className="form-control"
-          placeholder="전공"
-          name="major"
-          value={targetEducation.major}
-          onChange={handleChange}
-        ></input>
-        <br />
+        <Form.Group>
+          <FloatingLabel label="학교 이름" className="mt-3 mb-3">
+            <Form.Control
+              name="school"
+              type="text"
+              value={targetEducation.school}
+              onChange={handleChange}
+            />
+          </FloatingLabel>
+        </Form.Group>
+        <Form.Group className="mt-3">
+          <FloatingLabel label="상세 내역" className="mb-3">
+            <Form.Control
+              type="text"
+              name="major"
+              value={targetEducation.major}
+              onChange={handleChange}
+            />
+          </FloatingLabel>
+        </Form.Group>
+
         <div className="mb-3 mt-3">
           <div className="form-check form-check-inline">
             <input

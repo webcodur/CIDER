@@ -43,24 +43,19 @@ const Education = ({ isEditable, portfolioOwnerId }) => {
         />
       </Card.Body>
 
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        {isEditable ? (
-          <button
-            className="btn btn-primary toggleTarget"
-            onClick={toggleAddEducationForm}
-          >
-            +
-          </button>
-        ) : null}
+      <div className="mt-3 text-center mb-4 row">
+        <div className="col-sm-20">
+          {isEditable ? (
+            <button
+              className="btn btn-primary toggleTarget"
+              onClick={toggleAddEducationForm}
+            >
+              +
+            </button>
+          ) : null}
+        </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "flex-end",
-          margin: "0 0 1rem 0",
-        }}
-      >
+      <div>
         {isAdding ? (
           <EducationForm
             onConfirm={confirmAddEducation}

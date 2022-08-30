@@ -52,7 +52,7 @@ function App() {
           <ThemeProvider>
             <GlobalStyle />
             <Header />
-            <div style={{ paddingTop: "100px" }}>
+            <div>
               <Routes>
                 <Route path="/" exact element={<Portfolio />} />
                 <Route path="/login" element={<LoginForm />} />

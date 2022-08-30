@@ -1,12 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { Card, Row, Button, Col } from "react-bootstrap";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { UserStateContext } from "../../App";
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
-  const [saveUser, setSaveUser] = useState();
-  let [watchItem, setWatch] = useState([]);
-  let watch = [];
-  let suser = [];
   const navigate = useNavigate();
   const userState = useContext(UserStateContext);
   const id = userState.user.id;
@@ -16,37 +12,17 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
     let origin = localStorage.getItem("recentlyView1");
     if (!origin) {
       userstr = JSON.stringify([{ name: user?.name, id: user?.id }]);
-      // userstr = [{ name: user?.name, id: user?.id }];
     } else {
       origin = JSON.parse(origin);
+      if (origin.length >= 5) {
+        origin.shift();
+      }
       userstr = JSON.stringify([...origin, { name: user?.name, id: user?.id }]);
     }
     navigate(`/users/${user.id}`);
     localStorage.setItem("recentlyView1", userstr);
-    // localStorage.setItem("recentlyView1", user);
   }
 
-  useEffect(() => {
-    watch = localStorage.getItem("recentlyView1");
-    if (watch == null) {
-      watch = [];
-    } else {
-      watch = JSON.stringify(watch);
-    }
-    // user = JSON.parse(user);
-    if (user && Array.isArray(user)) {
-      // if (user && Array.isArray(user)) {
-      userstr = JSON.stringify({ name: user.name, id: user.id });
-      // watch.push(user.id, user.name);
-    }
-    console.log(typeof user);
-    if (watch.length <= 3) {
-      watch = new Set(watch);
-      watch = [...watch];
-    }
-
-    setWatch(watch);
-  }, []);
   const str = user?.id ? user.id : id;
   const regex = /[^0-9]/g;
   const result = str.replace(regex, "");
