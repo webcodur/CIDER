@@ -2,6 +2,7 @@ import is from "@sindresorhus/is";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import { userAuthService } from "../services/userService";
+import { validationMiddleware } from "../middlewares/validationMiddleware";
 
 const userAuthRouter = Router();
 
@@ -132,6 +133,27 @@ userAuthRouter.get(
       }
 
       res.status(200).send(currentUserInfo);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+userAuthRouter.patch(
+  "/:userId/likes",
+  login_required,
+  validationMiddleware,
+  async (req, res, next) => {
+    try {
+      const { userId } = req.params;
+      const { direction } = req.body;
+
+      const updatedUser = await userAuthService.ChangeUserLikes({
+        userId,
+        direction,
+      });
+
+      res.status(200).json(updatedUser);
     } catch (error) {
       next(error);
     }

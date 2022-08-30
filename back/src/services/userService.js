@@ -2,6 +2,7 @@ import { User } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
+import { ERRORS } from "../constants/constants";
 
 class userAuthService {
   static async addUser({ name, email, password }) {
@@ -80,8 +81,7 @@ class userAuthService {
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!user) {
-      const errorMessage =
-        "가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
+      const errorMessage = "가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
       return { errorMessage };
     }
 
@@ -124,6 +124,35 @@ class userAuthService {
     }
 
     return user;
+  }
+
+  static async ChangeUserLikes({ userId, direction }) {
+    const user = await User.findById({ user_id: userId });
+    if (!user) {
+      throw new Error(ERRORS.USER_ID_ERROR.errorCode);
+    }
+
+    if (direction === "true") {
+      const newLikes = user.likes + 1;
+      const updatedUser = await User.update({
+        user_id: userId,
+        fieldToUpdate: "likes",
+        newValue: newLikes,
+      });
+
+      return updatedUser;
+    } else if (direction === "false") {
+      const newLikes = user.likes > 0 ? user.likes - 1 : 0;
+      const updatedUser = await User.update({
+        user_id: userId,
+        fieldToUpdate: "likes",
+        newValue: newLikes,
+      });
+
+      return updatedUser;
+    } else {
+      throw new Error(ERRORS.UPDATE_DATA_ERROR.errorCode);
+    }
   }
 }
 
