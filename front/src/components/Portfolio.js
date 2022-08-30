@@ -53,7 +53,10 @@ function Portfolio() {
         <Col md="7">
           <div>
             <DisplayToggleComp></DisplayToggleComp>
-            <Education isEditable={isEditable} paramsUserId={params.userId} />
+            <Education
+              isEditable={isEditable}
+              portfolioOwnerId={portfolioOwner.id}
+            />
             <Award
               isEditable={isEditable}
               portfolioOwnerId={portfolioOwner.id}
