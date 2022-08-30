@@ -26,6 +26,7 @@ const Education = ({ isEditable, portfolioOwnerId }) => {
   const cancelAddEducation = () => {
     setIsAdding(false);
   };
+  console.log(portfolioOwnerId, educationid);
   useEffect(() => {
     Api.get(
       "educations",
