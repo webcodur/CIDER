@@ -8,7 +8,7 @@ import Project from "./project/Project";
 import { UserStateContext } from "../App";
 import * as Api from "../api";
 import User from "./user/User";
-import SideBar from "./SideBar";
+import SideBar from "./darkmode/SideBar";
 import DisplayToggleComp from "./DisplayToggleComp";
 
 function Portfolio() {
@@ -62,9 +62,10 @@ function Portfolio() {
               portfolioOwnerId={portfolioOwner.id}
               isEditable={isEditable}
             />
-            <Certificate 
-              isEditable={isEditable} 
-              portfolioOwnerId={portfolioOwner.id} />
+            <Certificate
+              isEditable={isEditable}
+              portfolioOwnerId={portfolioOwner.id}
+            />
           </div>
         </Col>
         <SideBar />

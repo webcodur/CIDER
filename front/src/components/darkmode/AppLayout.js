@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { useTheme } from "../darkmode/themeProvider";
-import { FlexContainer } from "../style/styles";
-import ThemeToggle from "../darkmode/ThemeToggle";
+import { useTheme } from "../components/darkmode/themeProvider";
+import { FlexContainer } from "../styles/styles";
+import ThemeToggle from "../components/darkmode/ThemeToggle";
 
 const AppLayout = ({ children }) => {
   const [ThemeMode, toggleTheme] = useTheme();

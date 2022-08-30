@@ -1,20 +1,20 @@
-import { Container, Col, Row, Form, Button } from 'react-bootstrap';
-import { useState, useContext } from 'react';
-import { UserStateContext } from '../../App';
-import * as Api from '../../api';
-import aniCss from '../../styles/anime.css';
+import { Container, Col, Row, Form, Button } from "react-bootstrap";
+import { useState, useContext } from "react";
+import { UserStateContext } from "../../App";
+import * as Api from "../../api";
+import aniCss from "../../styles/anime.css";
 
 const AwardForm = (props) => {
   const userState = useContext(UserStateContext);
 
-  const [award, setAward] = useState('');
-  const [details, setDetails] = useState('');
+  const [award, setAward] = useState("");
+  const [details, setDetails] = useState("");
   const [isEmpty, setIsEmpty] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (award === '' || details === '') {
+    if (award === "" || details === "") {
       setIsEmpty(false);
       return;
     }
@@ -35,8 +35,8 @@ const AwardForm = (props) => {
     dataArr = datas.map((ele) => [ele.id, ele.title, ele.description]);
     props.setArr(dataArr);
 
-    setAward('');
-    setDetails('');
+    setAward("");
+    setDetails("");
   };
 
   return (
