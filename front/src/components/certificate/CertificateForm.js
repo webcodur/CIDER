@@ -1,14 +1,8 @@
-import {
-  Container,
-  Col,
-  Row,
-  Form,
-  Button,
-  FloatingLabel,
-} from 'react-bootstrap';
+import {  Container,  Col,  Row,  Form,  Button,  FloatingLabel,} from 'react-bootstrap';
 import { useState, useContext } from 'react';
 import { UserStateContext } from '../../App';
 import * as Api from '../../api';
+import { useLocation } from "react-router";
 import styles from '../../styles/anime.css';
 
 const CertificateForm = (props) => {

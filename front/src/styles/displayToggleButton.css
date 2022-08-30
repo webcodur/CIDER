@@ -5,7 +5,7 @@
   color: red;
   z-index: 99;
 
-  right:15%;
-  bottom:15%;
+  right:50px;
+  top:60px;
   border-radius: 50%;
 }

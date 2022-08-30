@@ -5,6 +5,7 @@ import { useState, useContext, useRef, useEffect } from 'react';
 import { UserStateContext } from '../../App';
 import displayToggleCss from '../../styles/displayToggle.css';
 import '../../styles/tooltip.css';
+import { useLocation } from "react-router";
 
 const CertificateCard = (props) => {
   const userState = useContext(UserStateContext);
@@ -19,6 +20,11 @@ const CertificateCard = (props) => {
 
   const [isConfirm, setConfirm] = useState(false);
   const target = useRef(null);
+
+  let { state } = useLocation();
+  if (state === null || typeof state === "object") {
+    state = id;
+  }
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -59,7 +65,7 @@ const CertificateCard = (props) => {
             <span className="text-muted">{arr[idx][2]}</span> <br />
             <span className="text-muted">{arr[idx][3]}</span>
           </Col>
-          {props.isEditable && (
+          {(props.isEditable && id === state) &&(
             <Col className="col-lg-1">
               <Button
                 css={{ displayToggleCss }}
@@ -91,7 +97,7 @@ const CertificateCard = (props) => {
           )}
         </div>
       </Card.Text>
-      {isEditing && (
+      {(isEditing && id===state) &&(
         <CertificateEditForm
           eleID={eleID}
           arr={arr}

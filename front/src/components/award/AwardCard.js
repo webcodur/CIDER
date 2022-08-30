@@ -5,6 +5,7 @@ import { useState, useContext, useRef, useEffect } from 'react';
 import { UserStateContext } from '../../App';
 import displayToggleCss from '../../styles/displayToggle.css';
 import '../../styles/tooltip.css';
+import {useLocation} from 'react-router'
 
 const AwardCard = (props) => {
   const userState = useContext(UserStateContext);
@@ -12,7 +13,7 @@ const AwardCard = (props) => {
 
   const [isEditing, setIsEditing] = useState(false);
   const [eleID, setEleID] = useState(false);
-  
+
   const arr = props.arr;
   const setArr = props.setArr;
   const idx = props.idx;
@@ -20,6 +21,12 @@ const AwardCard = (props) => {
   const [isConfirm, setConfirm] = useState(false);
   const target = useRef(null);
   
+  let {state} = useLocation();
+
+  if (state === null || typeof state === "object") {
+    state = id;
+  }
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setConfirm(false);
@@ -58,7 +65,7 @@ const AwardCard = (props) => {
         <span className="text-muted"> {arr[idx][1]}</span> <br />
         <span className="text-muted"> {arr[idx][2]}</span>
       </Col>
-      {props.isEditable && (
+      {(props.isEditable && id===state)&&(
         <Col className="col-lg-1">
           <Button
             css={{ displayToggleCss }}
@@ -86,11 +93,9 @@ const AwardCard = (props) => {
           >
             {<Tooltip>정말 삭제하시겠습니까?</Tooltip>}
           </Overlay>
-
-
         </Col>
       )}
-      {isEditing && (
+      {(isEditing && id===state) &&(
         <AwardEditForm
           eleID={eleID}
           arr={arr}

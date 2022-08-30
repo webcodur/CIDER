@@ -1,6 +1,7 @@
 import { Card, Button } from 'react-bootstrap';
 import { useState, useEffect, useContext } from 'react';
 import { UserStateContext } from '../../App';
+import {useLocation} from 'react-router'
 import AwardCard from './AwardCard';
 import AwardForm from './AwardForm';
 import * as Api from '../../api';
@@ -8,6 +9,11 @@ import * as Api from '../../api';
 const Award = ({ isEditable, paramsUserId }) => {
   const userState = useContext(UserStateContext);
   const id = userState?.user?.id;
+  let {state} = useLocation()
+
+  if (state === null || typeof state === "object") {
+    state = id;
+  }
 
   const [isEditing, setIsEditing] = useState(false);
   const [arr, setArr] = useState([]);
@@ -42,7 +48,7 @@ const Award = ({ isEditable, paramsUserId }) => {
         })}
         <div className="mt-3 text-center mb-4 row">
           <div className="col-sm-20">
-            {isEditable && (
+            {isEditable && id === state &&(
               <Button
                 className="btn btn-primary toggleTarget"
                 onClick={() => setIsEditing(true)}
@@ -52,7 +58,7 @@ const Award = ({ isEditable, paramsUserId }) => {
             )}
           </div>
         </div>
-        {isEditing && (
+        {isEditing && id === state && (
           <AwardForm
             arr={arr}
             setArr={setArr}

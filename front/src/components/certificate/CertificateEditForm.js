@@ -3,14 +3,17 @@ import { useState, useContext } from 'react';
 import { UserStateContext } from '../../App';
 import * as Api from '../../api';
 import styles from '../../styles/anime.css';
+import { useLocation } from "react-router";
 
 const CertificateEditForm = (props) => {
   const userState = useContext(UserStateContext);
+  const id = userState?.user?.id;
 
   const [certificate, setCertificate] = useState('');
   const [details, setDetails] = useState('');
   const [day, setDay] = useState('');
   const [isMessageNecessary, setIsMessageNecessary] = useState(false);
+  const { state } = useLocation();
 
   let isClicked = false;
   let isEmpty = false;

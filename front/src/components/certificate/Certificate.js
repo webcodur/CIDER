@@ -1,6 +1,7 @@
 import { Card, Button } from 'react-bootstrap';
 import { useState, useEffect, useContext } from 'react';
 import { UserStateContext } from '../../App';
+import {useLocation} from 'react-router'
 import CertificateCard from './CertificateCard';
 import CertificateForm from './CertificateForm';
 import * as Api from '../../api';
@@ -8,6 +9,11 @@ import * as Api from '../../api';
 const Certificate = ({ isEditable, paramsUserId }) => {
   const userState = useContext(UserStateContext);
   const id = userState?.user?.id;
+  let {state} = useLocation()
+
+  if (state === null || typeof state === "object") {
+    state = id;
+  }
 
   const [isEditing, setIsEditing] = useState(false);
   const [arr, setArr] = useState([]);
@@ -45,7 +51,7 @@ const Certificate = ({ isEditable, paramsUserId }) => {
         })}
         <div className="mt-3 text-center mb-4 row">
           <div className="col-sm-20">
-            {isEditable && (
+            {isEditable && id === state &&  (
               <Button
                 className="btn btn-primary toggleTarget"
                 onClick={() => setIsEditing(true)}
@@ -55,7 +61,7 @@ const Certificate = ({ isEditable, paramsUserId }) => {
             )}
           </div>
         </div>
-        {isEditing && (
+        {isEditing && id === state && (
           <CertificateForm
             arr={arr}
             setArr={setArr}
