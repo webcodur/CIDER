@@ -4,7 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import { UserStateContext, DispatchContext } from "../App";
 import { useTheme } from "../components/darkmode/themeProvider";
 import "../index.css";
-import ThemeToggle from "../darkmode/ThemeToggle";
+import ThemeToggle from "../components/darkmode/ThemeToggle";
 function Header() {
   const navigate = useNavigate();
   const location = useLocation();

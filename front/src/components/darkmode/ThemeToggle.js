@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, { useState, useContext, useEffect } from "react";
-import { UserStateContext } from "../App";
+import { UserStateContext } from "../../App";
 function ThemeToggle({ toggle, mode }) {
   const [watchs, setWatchs] = useState();
   let origins = localStorage.getItem("recentlyView1");
@@ -50,13 +50,13 @@ function ThemeToggle({ toggle, mode }) {
           }}
         >
           {watchs ? watchs[1].name : ""}
-          {watchs.map((watch) => {
+          {/* {watchs.map((watch) => {
             <name watchName={watch.name} />;
             <div>{watch.name}</div>;
             {
               console.log(watch.name, "wwwwwwwwwwwwwwww");
             }
-          })}
+          })} */}
         </div>
         <div
           style={{
