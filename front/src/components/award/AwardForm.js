@@ -26,9 +26,9 @@ const AwardForm = (props) => {
       description: details,
     };
 
-    await Api.post('awards', awardObj);
+    await Api.post('award', awardObj);
 
-    const res2 = await Api.get('awards', userState.user.id);
+    const res2 = await Api.get('award', userState.user.id);
     const datas = res2.data;
 
     let dataArr = [];

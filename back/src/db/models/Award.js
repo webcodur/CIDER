@@ -7,8 +7,8 @@ const Award = {
   },
 
   findAllByUserId: async ({ userId }) => {
-    const AwardList = await AwardModel.find({ user_id: userId });
-    return AwardList;
+    const Awards = await AwardModel.find({ user_id: userId });
+    return Awards;
   },
 
   findOneById: async ({ userId, awardId }) => {

@@ -18,7 +18,7 @@ const Certificate = ({ isEditable, paramsUserId }) => {
 
   async function getData() {
     const getRes = await Api.get(
-      'certificates',
+      'certificate',
       paramsUserId ? paramsUserId : id
     );
     const datas = getRes.data;

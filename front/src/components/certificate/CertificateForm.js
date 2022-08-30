@@ -35,9 +35,9 @@ const CertificateForm = (props) => {
       day: day,
     };
 
-    await Api.post('certificates', certificateObj);
+    await Api.post('certificate', certificateObj);
 
-    const getRes = await Api.get('certificates', userState.user.id);
+    const getRes = await Api.get('certificate', userState.user.id);
     const datas = getRes.data;
     let dataArr = [];
 

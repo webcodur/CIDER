@@ -33,7 +33,7 @@ const AwardEditForm = (props) => {
       description: details,
     };
 
-    await Api.patch('awards', awardID, awardObj);
+    await Api.patch('award', awardID, awardObj);
 
     getData();
     setAward('');
@@ -42,7 +42,7 @@ const AwardEditForm = (props) => {
   };
 
   const getData = async () => {
-    const getRes = await Api.get('awards', id);
+    const getRes = await Api.get('award', id);
     const datas = getRes.data;
     let dataArr = [];
     dataArr = datas.map((ele) => [ele.id, ele.title, ele.description]);

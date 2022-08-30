@@ -35,7 +35,7 @@ const CertificateEditForm = (props) => {
       day: day,
     };
 
-    await Api.patch('certificates', certID, obj);
+    await Api.patch('certificate', certID, obj);
 
     getData();
     setCertificate('');
@@ -45,7 +45,7 @@ const CertificateEditForm = (props) => {
   };
 
   const getData = async () => {
-    const getRes = await Api.get('certificates', userState.user.id);
+    const getRes = await Api.get('certificate', userState.user.id);
     const datas = getRes.data;
     let dataArr = [];
 

@@ -2,13 +2,12 @@ import is from "@sindresorhus/is";
 import { Education } from "../db/models/Education";
 import { User } from "../db/models/User";
 import { v4 as uuidv4 } from "uuid";
+import { ERRORS } from "../constants/constants";
 
 const educationService = {
   addEducation: async ({ userId, school, major, position }) => {
     if (!school || !major || !position) {
-      const errorMessage =
-        "학력을 만들기에 필요한 데이터가 포함되지 않았습니다.";
-      return { errorMessage };
+      throw new Error(ERRORS.BODY_DATA_ERROR.errorCode);
     }
 
     const id = uuidv4();
@@ -18,16 +17,15 @@ const educationService = {
     return createdNewEducation;
   },
 
-  getEducationList: async ({ userId }) => {
+  getEducations: async ({ userId }) => {
     const user = await User.findById({ user_id: userId });
 
     if (!user) {
-      const errorMessage = "유효하지 않은 사용자입니다.";
-      return { errorMessage };
+      throw new Error(ERRORS.USER_ID_ERROR.errorCode);
     }
 
-    const educationList = await Education.findAllByUserId({ userId });
-    return educationList;
+    const educations = await Education.findAllByUserId({ userId });
+    return educations;
   },
 
   updateEducation: async ({ userId, educationId, toUpdate }) => {
@@ -37,8 +35,7 @@ const educationService = {
     });
 
     if (!education) {
-      const errorMessage = "유효하지 않은 educationId입니다.";
-      return { errorMessage };
+      throw new Error(ERRORS.ITEM_ID_ERROR.errorCode);
     }
 
     const update = {};
@@ -53,8 +50,7 @@ const educationService = {
     }
 
     if (is.emptyObject(update)) {
-      const errorMessage = "업데이트 할 데이터가 없습니다.";
-      return { errorMessage };
+      throw new Error(ERRORS.UPDATE_DATA_ERROR.errorCode);
     }
 
     const updatedEducation = await Education.update({
@@ -72,8 +68,7 @@ const educationService = {
       educationId,
     });
     if (!education) {
-      const errorMessage = "유효하지 않은 educationId입니다.";
-      return { errorMessage };
+      throw new Error(ERRORS.ITEM_ID_ERROR.errorCode);
     }
     const deletedCount = await Education.delete({ userId, educationId });
     return deletedCount;

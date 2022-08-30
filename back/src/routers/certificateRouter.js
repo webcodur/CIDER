@@ -1,20 +1,17 @@
 import { Router } from "express";
-import is from "@sindresorhus/is";
 import { login_required } from "../middlewares/login_required";
 import { certificateService } from "../services/certificateService";
+import { validationMiddleware } from "../middlewares/validationMiddleware";
 
 const certificateRouter = Router();
 
 // certificate 생성 라우터
 certificateRouter.post(
-  "/certificates",
+  "/certificate",
   login_required,
+  validationMiddleware,
   async (req, res, next) => {
     try {
-      if (is.emptyObject(req.body)) {
-        throw new Error("자격증 데이터를 포함하여 요청해주세요.");
-      }
-
       const userId = req.currentUserId;
       const { title, content, day } = req.body;
 
@@ -24,10 +21,6 @@ certificateRouter.post(
         content,
         day,
       });
-
-      if (createdNewCertificate.errorMessage) {
-        throw new Error(createdNewCertificate.errorMessage);
-      }
 
       res.status(201).json(createdNewCertificate);
     } catch (error) {
@@ -43,15 +36,11 @@ certificateRouter.get(
   async (req, res, next) => {
     try {
       const { userId } = req.params;
-      const certificateList = await certificateService.getCertificateList({
+      const certificates = await certificateService.getCertificates({
         userId,
       });
 
-      if (certificateList.errorMessage) {
-        throw new Error(certificateList.errorMessage);
-      }
-
-      res.status(200).json(certificateList);
+      res.status(200).json(certificates);
     } catch (error) {
       next(error);
     }
@@ -60,14 +49,11 @@ certificateRouter.get(
 
 // certificate 업데이트 라우터
 certificateRouter.patch(
-  "/certificates/:certificateId",
+  "/certificate/:certificateId",
   login_required,
+  validationMiddleware,
   async (req, res, next) => {
     try {
-      if (is.emptyObject(req.body)) {
-        throw new Error("업데이트 할 자격증 데이터를 포함하여 요청해주세요.");
-      }
-
       const userId = req.currentUserId;
       const { certificateId } = req.params;
       const toUpdate = req.body;
@@ -78,10 +64,6 @@ certificateRouter.patch(
         toUpdate,
       });
 
-      if (updatedCertificate.errorMessage) {
-        throw new Error(updatedCertificate.errorMessage);
-      }
-
       res.status(200).json(updatedCertificate);
     } catch (error) {
       next(error);
@@ -91,7 +73,7 @@ certificateRouter.patch(
 
 // certificate 삭제 라우터
 certificateRouter.delete(
-  "/certificates/:certificateId",
+  "/certificate/:certificateId",
   login_required,
   async (req, res, next) => {
     try {
@@ -102,10 +84,6 @@ certificateRouter.delete(
         userId,
         certificateId,
       });
-
-      if (deletedCount.errorMessage) {
-        throw new Error(deletedCount.errorMessage);
-      }
 
       res.status(200).json(deletedCount);
     } catch (error) {
