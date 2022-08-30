@@ -41,7 +41,7 @@ function EducationCard({ educations, setEducations, isEditable }) {
     setEducations(
       educations.filter((education) => education.id !== educationid)
     );
-    await Api.delete(`educations/${educationid}`);
+    await Api.delete(`education/${educationid}`);
     console.log("삭제 완료", educationid);
   };
 

@@ -50,14 +50,13 @@ function ThemeToggle({ toggle, mode }) {
           }}
         >
           {watchs ? watchs[1].name : ""}
-          {watchs &&
-            watchs.map((watch) => {
-              <name watchName={watch.name} />;
-              <div>{watch.name}</div>;
-              {
-                console.log(watch.name, "wwwwwwwwwwwwwwww");
-              }
-            })}
+          {watchs.map((watch) => {
+            <name watchName={watch.name} />;
+            <div>{watch.name}</div>;
+            {
+              console.log(watch.name, "wwwwwwwwwwwwwwww");
+            }
+          })}
         </div>
         <div
           style={{

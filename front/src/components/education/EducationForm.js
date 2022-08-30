@@ -35,12 +35,12 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
     try {
       if (!byEditbtn) {
         onConfirm({ ...targetEducation });
-        await Api.post("educations", {
+        await Api.post("education", {
           ...targetEducation,
           id,
         }).then((res) => onConfirm(res.data));
       } else {
-        await Api.patch(`educations`, education.id, editedValues).then((res) =>
+        await Api.patch(`education`, education.id, editedValues).then((res) =>
           onConfirm(res.data)
         );
       }
