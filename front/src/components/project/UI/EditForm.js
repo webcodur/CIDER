@@ -14,10 +14,25 @@ const EditForm = (props) => {
     setDataValues({ ...dataValues, [name]: value });
   };
 
+  const checkProjectValues = (projectValues) => {
+    const startDay = projectValues.startDay.split('-').join('');
+    const endDay = projectValues.endDay.split('-').join('');
+
+    if (startDay - endDay > 0) {
+      return false;
+    }
+
+    return true;
+  };
+
   const confirmEdit = async (projectId) => {
     const editedValues = {
       ...dataValues,
     };
+
+    if (!checkProjectValues(editedValues)) {
+      return;
+    }
 
     context.setEditIdList(context.editIdList.filter((id) => id !== projectId));
 
