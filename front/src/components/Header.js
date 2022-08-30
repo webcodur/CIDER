@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import Nav from "react-bootstrap/Nav";
-import { UserStateContext, DispatchContext } from "../App";
-import { useTheme } from "../components/darkmode/themeProvider";
-import "../index.css";
-import ThemeToggle from "../darkmode/ThemeToggle";
+import React, { useContext } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import Nav from 'react-bootstrap/Nav';
+import { UserStateContext, DispatchContext } from '../App';
+import { useTheme } from '../components/darkmode/themeProvider';
+import '../index.css';
+import ThemeToggle from './darkmode/ThemeToggle';
 function Header() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -14,18 +14,18 @@ function Header() {
   const [ThemeMode, toggleTheme] = useTheme();
 
   const logout = () => {
-    sessionStorage.removeItem("userToken");
-    dispatch({ type: "LOGOUT" });
-    navigate("/");
+    sessionStorage.removeItem('userToken');
+    dispatch({ type: 'LOGOUT' });
+    navigate('/');
   };
   return (
     <Nav
       activeKey={location.pathname}
       style={{
-        position: "fixed",
+        position: 'fixed',
         zIndex: 1,
-        background: "lightblue",
-        width: "100%",
+        background: 'lightblue',
+        width: '100%',
       }}
     >
       <Nav.Item className="me-auto mb-5">
@@ -39,10 +39,10 @@ function Header() {
         </ThemeToggle>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link onClick={() => navigate("/")}>나의 페이지</Nav.Link>
+        <Nav.Link onClick={() => navigate('/')}>나의 페이지</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link onClick={() => navigate("/network")}>네트워크</Nav.Link>
+        <Nav.Link onClick={() => navigate('/network')}>네트워크</Nav.Link>
       </Nav.Item>
       {isLogin && (
         <Nav.Item>
