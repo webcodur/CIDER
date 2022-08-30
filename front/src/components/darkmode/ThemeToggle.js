@@ -54,7 +54,7 @@ function ThemeToggle({ toggle, mode }) {
             <name watchName={watch.name} />;
             <div>{watch.name}</div>;
             {
-              console.log(watch.name, "wwwwwwwwwwwwwwww");
+              console.log(watch.name, 'wwwwwwwwwwwwwwww');
             }
           })} */}
         </div>
