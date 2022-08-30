@@ -1,19 +1,25 @@
 // import * as Api from '../../api';
+// import axios from "axios";
+import searchBar from '../../styles/searchBar.css';
 
 const Search = () => {
-  // const getRes = await Api.get('awards', paramsUserId ? paramsUserId : id);
 
-  return <>
-      <form name="profile" action="/action_page.php" method="get" autocomplete="on">
-        <select>
+  const test = (e) => {
+    e.preventDefault()
+    alert('검색을 시작합니다.')
+  }
+
+  return <div css={{searchBar}}>
+      <form id='formInput' name="profile" action="/action_page.php" method="get" autocomplete="on" onSubmit={test}>
+        <select >
           <option value="blue">통합검색</option>
           <option value="id">아이디</option>
           <option value="email">이메일</option>
         </select>
         <input type="text" placeholder="검색어를 입력해 주세요"/>
-        <input type="submit" value="🔍"/>
+        <input type="submit" value="🔍" onclick={test}/>
       </form>
-    </>
+    </div>
 };
 
 export default Search;

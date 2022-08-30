@@ -1,10 +1,11 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserStateContext } from "../../App";
 import { Container, Row, Col } from "react-bootstrap";
 
 import * as Api from "../../api";
 import UserCard from "./UserCard";
-import { UserStateContext } from "../../App";
+import SearchBar from "./SearchBar";
 import SideBar from "../darkmode/SideBar";
 
 function Network() {
@@ -22,6 +23,7 @@ function Network() {
 
   return (
     <div style={{ display: "inline-flex" }}>
+      <SearchBar></SearchBar>
       <Container fluid>
         <Row
           xs="auto"
@@ -29,8 +31,11 @@ function Network() {
           // style={{ display: "flex", justifyContent: "center" }}
         >
           {users.map((user) => (
-            <UserCard key={user.id} user={user} isNetwork />
+            <>
+              <UserCard key={user.id} user={user} isNetwork />
+            </>
           ))}
+
         </Row>
       </Container>
       <div style={{ width: "15%" }}></div>
