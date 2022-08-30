@@ -16,13 +16,11 @@ function App() {
   const [userState, dispatch] = useReducer(loginReducer, {
     user: null,
   });
-
   const [isFetchCompleted, setIsFetchCompleted] = useState(false);
 
   const fetchCurrentUser = async () => {
     try {
       const res = await Api.get("user/current");
-      console.log(res, "res");
       const currentUser = res.data;
       dispatch({
         type: "LOGIN_SUCCESS",

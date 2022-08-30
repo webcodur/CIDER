@@ -11,6 +11,9 @@ body {
 .elice {
   font-family: "Elice Digital";
 }
+.cursor_test {
+  cursor: pointer;
+}
 .inputwidth {
   width: 100%;
 }

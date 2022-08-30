@@ -41,8 +41,11 @@ function ThemeToggle({ toggle, mode }) {
               watchs.map((watch) => {
                 return (
                   <li
-                    onClick={() => navigate(`/users/${watch.id}`)}
+                    onClick={() => {
+                      navigate(`/users/${watch.id}`, { state: watch.id });
+                    }}
                     style={{ marginBottom: "10px" }}
+                    className="cursor_test"
                   >
                     • {watch.name}
                   </li>

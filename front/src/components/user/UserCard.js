@@ -27,7 +27,10 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
 
   const str = user?.id ? user.id : id;
   const regex = /[^0-9]/g;
-  const result = str.replace(regex, "");
+  let result = "";
+  if (str) {
+    result = str.replace(regex, "");
+  }
   const slicenum = result.slice(0, 3);
   const number = parseInt(slicenum);
 
@@ -47,7 +50,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
         <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
         <Card.Text>{user?.description}</Card.Text>
 
-        {isEditable && (
+        {isEditable && id === user.id && (
           <Col>
             <Row className="mt-3 text-center text-info">
               <Col sm={{ span: 20 }}>
