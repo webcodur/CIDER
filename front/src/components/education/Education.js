@@ -47,7 +47,7 @@ const Education = ({ isEditable, portfolioOwnerId }) => {
             {isEditable
               ? educationid === portfolioOwnerId && (
                   <button
-                    className="btn btn-primary toggleTarget"
+                    className="btn btn-primary toggleTarget btn btn-primary"
                     onClick={toggleAddEducationForm}
                   >
                     +
