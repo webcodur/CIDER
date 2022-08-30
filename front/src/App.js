@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useReducer, createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
 import * as Api from "./api";
 import { loginReducer } from "./reducer";
 import Header from "./components/Header";
@@ -10,9 +9,9 @@ import RegisterForm from "./components/user/RegisterForm";
 import Portfolio from "./components/Portfolio";
 import { ThemeProvider } from "./components/darkmode/themeProvider";
 import { GlobalStyle } from "./components/darkmode/GlobalStyles";
+import "./styles/index.css";
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
-
 function App() {
   const [userState, dispatch] = useReducer(loginReducer, {
     user: null,
@@ -52,7 +51,7 @@ function App() {
           <ThemeProvider>
             <GlobalStyle />
             <Header />
-            <div style={{ paddingTop: "100px" }}>
+            <div className="elice">
               <Routes>
                 <Route path="/" exact element={<Portfolio />} />
                 <Route path="/login" element={<LoginForm />} />

@@ -1,0 +1,70 @@
+@import url(//font.elice.io/EliceDigitalBaeum.css);
+
+@font-face {
+  font-family: "Elice Digital";
+  src: url(./EliceDigitalBaeum_Regular.ttf);
+}
+html,
+body {
+  font-family: "Elice Digital";
+}
+.elice {
+  font-family: "Elice Digital";
+}
+.inputwidth {
+  width: 100%;
+}
+.margin10 {
+  margin: 10px;
+}
+.padding5 {
+  padding: 30px;
+}
+.margin_b10 {
+  margin: 0 0 10px 0;
+}
+.margin_tb10 {
+  margin: 10px 0 10px 0;
+}
+.margin_r5 {
+  margin: 0 5px 0 0;
+}
+.flex_center {
+  display: flex;
+  align-content: center;
+}
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.sideBox {
+  position: fixed;
+  z-index: 999999;
+  bottom: 40%;
+  right: 3%;
+  background: white;
+  width: 180px;
+  height: 280px;
+
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+.sideInnerBox {
+  margin-left: 12%;
+  margin-top: 30px;
+  padding: 10px;
+  height: 65%;
+  justify-content: center;
+  display: inline-block;
+}

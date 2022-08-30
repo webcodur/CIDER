@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import "../../../src/index.css";
+import React, { useState } from "react";
+import "../../../src/styles/index.css";
 import EducationForm from "./EducationForm";
 import * as Api from "../../api";
 import { Col, Button } from "react-bootstrap";
@@ -54,8 +54,8 @@ function EducationCard({ educations, setEducations, isEditable }) {
       <div>
         {educations.map((education, index) => {
           return (
-            <div key={education.id}>
-              <div className="align-items-center row margin_tb10">
+            <div key={education.id} className="mb-4 card-text">
+              <div className="align-items-center row">
                 <div className="col">
                   <div>{education.school}</div>
                   <div>
@@ -63,14 +63,11 @@ function EducationCard({ educations, setEducations, isEditable }) {
                   </div>
                 </div>
                 {isEditable ? (
-                  <Col
-                    className="col-lg-1 col"
-                    style={{ width: "138px", display: "flex" }}
-                  >
+                  <Col className="col-lg-1 col">
                     <Button
                       variant="outline-info"
                       size="sm"
-                      className="me-1 mr-3 toggleTarget"
+                      className="me-1 mb-1 mr-3 btn btn-outline-info btn-sm toggleTarget"
                       onClick={() => {
                         toggleEditEducationForm(education.id);
                         EditHandle();

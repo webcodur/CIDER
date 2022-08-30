@@ -1,69 +1,56 @@
 import styled from "styled-components";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useCallback } from "react";
 import { UserStateContext } from "../../App";
+import { useNavigate } from "react-router-dom";
+import "../../../src/styles/index.css";
 function ThemeToggle({ toggle, mode }) {
   const [watchs, setWatchs] = useState();
+  const navigate = useNavigate();
   let origins = localStorage.getItem("recentlyView1");
-  // origins = JSON.parse(origin);
-  // setWatchs(JSON.parse(origins));
-  // console.log(watchs);
   const userState = useContext(UserStateContext);
   let id = null;
   if (id) {
     id = userState.user.id;
   }
 
-  useEffect(() => {
-    // 만약 전역 상태의 user가 null이라면, 로그인 페이지로 이동함.
-    const setWatchsFunc = () => {
-      setWatchs(JSON.parse(origins));
-      console.log("ggggf", watchs, JSON.parse(origins));
-    };
-    setWatchsFunc();
+  const setWatchsFunc = useCallback(() => {
+    setWatchs(JSON.parse(origins));
+    console.log("callback");
   }, []);
-  // console.log(watchs, JSON.parse(origins));
+
+  useEffect(() => {
+    setWatchsFunc();
+    setWatchs(JSON.parse(origins));
+  }, [origins]);
 
   return (
     <div>
-      <div
-        style={{
-          position: "fixed",
-          zindex: "999999",
-          bottom: "40%",
-          right: "3%",
-          background: "white",
-          width: "180px",
-          height: "280px",
-
-          border: `1px solid rgba(0,0,0,.125)`,
-        }}
-      >
-        <div style={{ justifyContent: "center", display: "flex" }}>
+      <div className="sideBox">
+        <div
+          style={{
+            justifyContent: "center",
+            display: "flex",
+            marginTop: "10px",
+          }}
+        >
           최근 본 포트폴리오
         </div>
-        <div
-          style={{
-            marginTop: "20px",
-            height: "65%",
-            justifyContent: "center",
-            display: "flex",
-          }}
-        >
-          {watchs ? watchs[1].name : ""}
-          {/* {watchs.map((watch) => {
-            <name watchName={watch.name} />;
-            <div>{watch.name}</div>;
-            {
-              console.log(watch.name, 'wwwwwwwwwwwwwwww');
-            }
-          })} */}
+        <div className="sideInnerBox">
+          <ul>
+            {watchs &&
+              watchs.map((watch) => {
+                return (
+                  <li
+                    onClick={() => navigate(`/users/${watch.id}`)}
+                    style={{ marginBottom: "10px" }}
+                  >
+                    • {watch.name}
+                  </li>
+                );
+              })}
+          </ul>
         </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
+        <div className="flex_center">
           <ToggleWrapper onClick={toggle} mode={mode}>
             {mode === "dark" ? "🌚" : "🌝"}
           </ToggleWrapper>
@@ -74,10 +61,15 @@ function ThemeToggle({ toggle, mode }) {
 }
 export default ThemeToggle;
 const ToggleWrapper = styled.button`
+  position: fixed;
+  z-index: 999999;
+  bottom: 4%;
+  right: 3%;
+
   background-color: ${(props) => props.theme.bgColor};
   border: ${(props) => props.theme.borderColor};
   font-size: 20px;
-  margin-bottom: 10px;
+
   display: flex;
   justify-content: center;
   align-items: center;
