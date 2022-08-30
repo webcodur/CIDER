@@ -1,7 +1,7 @@
-#formInput{
-  position:absolute;
-  top:10px;
-  left:450px;
-  width:1000px;
-  z-index:100;
+#formInput {
+  position: absolute;
+  top: 10px;
+  left: 450px;
+  width: 350px;
+  z-index: 100;
 }

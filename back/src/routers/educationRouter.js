@@ -39,7 +39,6 @@ educationRouter.get(
       const educations = await educationService.getEducations({
         userId,
       });
-
       res.status(200).json(educations);
     } catch (error) {
       next(error);
