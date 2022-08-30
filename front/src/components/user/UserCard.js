@@ -1,17 +1,17 @@
-import { useNavigate } from 'react-router-dom';
-import { Card, Row, Button, Col } from 'react-bootstrap';
-import React, { useContext } from 'react';
-import { UserStateContext } from '../../App';
-import LikeButton from '../UI/LikeButton';
+import { useNavigate } from "react-router-dom";
+import { Card, Row, Button, Col } from "react-bootstrap";
+import React, { useContext } from "react";
+import { UserStateContext } from "../../App";
+import LikeButton from "../UI/LikeButton";
 
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const navigate = useNavigate();
   const userState = useContext(UserStateContext);
   const id = userState?.user?.id;
-  let userstr = '';
+  let userstr = "";
 
   function recentlyView() {
-    let origin = localStorage.getItem('recentlyView1');
+    let origin = localStorage.getItem("recentlyView1");
     if (!origin) {
       userstr = JSON.stringify([{ name: user?.name, id: user?.id }]);
     } else {
@@ -22,21 +22,21 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
       userstr = JSON.stringify([...origin, { name: user?.name, id: user?.id }]);
     }
     navigate(`/users/${user.id}`);
-    localStorage.setItem('recentlyView1', userstr);
+    localStorage.setItem("recentlyView1", userstr);
   }
 
   const str = user?.id ? user.id : id;
   const regex = /[^0-9]/g;
-  const result = str.replace(regex, '');
+  const result = str.replace(regex, "");
   const slicenum = result.slice(0, 3);
   const number = parseInt(slicenum);
 
   return (
-    <Card className="mb-2 ms-3 mr-5" style={{ width: '18rem' }}>
+    <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
       <Card.Body>
         <Row className="justify-content-md-center">
           <Card.Img
-            style={{ width: '10rem', height: '8rem' }}
+            style={{ width: "10rem", height: "8rem" }}
             className="mb-3"
             src={`http://placekitten.com/${number}/${number}`}
             // src="http://placekitten.com/200/200" 고정으로 사용하고 싶다면 이렇게 하면 됌

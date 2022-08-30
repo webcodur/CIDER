@@ -1,15 +1,22 @@
 import React, { useState } from "react";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
+import styles from "../../styles/anime.css";
 function UserEditForm({ user, setIsEditing, setUser }) {
   const [name, setName] = useState(user?.name);
   const [email, setEmail] = useState(user?.email);
   const [description, setDescription] = useState(user?.description);
-
+  const [isEmpty, setIsEmpty] = useState(true);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // if (name === "" || description === "") {
+    //   return console.log("빈 값은 입력이 불가 합니다.");
+    // }
     if (name === "" || description === "") {
-      return console.log("빈 값은 입력이 불가 합니다.");
+      setIsEmpty(false);
+      return;
+    } else {
+      setIsEmpty(true);
     }
     const res = await Api.put(`users/${user.id}`, {
       name,
@@ -25,6 +32,11 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     <Card className="mb-2">
       <Card.Body>
         <Form onSubmit={handleSubmit}>
+          {!isEmpty && (
+            <div className="text-danger text-center" style={{ styles }}>
+              <span id="anime">빈 값이 있습니다.</span>
+            </div>
+          )}
           <Form.Group controlId="useEditName" className="mb-3">
             <Form.Control
               type="text"

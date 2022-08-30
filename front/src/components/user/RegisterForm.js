@@ -41,6 +41,7 @@ function RegisterForm() {
     } catch (err) {
       console.log("회원가입에 실패하였습니다.", err);
     }
+    alert("회원가입에 성공 하셨습니다.");
   };
 
   return (
