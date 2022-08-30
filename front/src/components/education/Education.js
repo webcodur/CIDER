@@ -45,29 +45,33 @@ const Education = ({ isEditable, portfolioOwnerId }) => {
 
         <div className="mt-3 text-center mb-4 row">
           <div className="col-sm-20">
-            {isEditable ? (
-              <button
-                className="btn btn-primary toggleTarget"
-                onClick={toggleAddEducationForm}
-              >
-                +
-              </button>
-            ) : null}
+            {isEditable
+              ? educationid === portfolioOwnerId && (
+                  <button
+                    className="btn btn-primary toggleTarget"
+                    onClick={toggleAddEducationForm}
+                  >
+                    +
+                  </button>
+                )
+              : null}
           </div>
         </div>
         <div>
-          {isAdding ? (
-            <EducationForm
-              onConfirm={confirmAddEducation}
-              onCancel={cancelAddEducation}
-              education={{
-                id: null,
-                school: "",
-                major: "",
-                position: "재학중",
-              }}
-            />
-          ) : null}
+          {isAdding
+            ? educationid === portfolioOwnerId && (
+                <EducationForm
+                  onConfirm={confirmAddEducation}
+                  onCancel={cancelAddEducation}
+                  education={{
+                    id: null,
+                    school: "",
+                    major: "",
+                    position: "재학중",
+                  }}
+                />
+              )
+            : null}
         </div>
       </Card.Body>
     </Card>

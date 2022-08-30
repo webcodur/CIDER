@@ -17,9 +17,7 @@ function Portfolio() {
   const [portfolioOwner, setPortfolioOwner] = useState(null);
   const [isFetchCompleted, setIsFetchCompleted] = useState(false);
   const userState = useContext(UserStateContext);
-
   const [isEditable, setIsEditable] = useState(false);
-  // portfolioOwner?.id === userState.user?.id ? true : false
 
   const fetchPorfolioOwner = async (ownerId) => {
     const res = await Api.get("users", ownerId);
