@@ -2,19 +2,21 @@ import React, { useState, useContext } from "react";
 import "../../../src/styles/index.css";
 import EducationForm from "./EducationForm";
 import * as Api from "../../api";
-import { UserStateContext } from "../../App";
 import { Col, Button } from "react-bootstrap";
 import DeleteButton from "./DeleteButton";
 import { useLocation } from "react-router";
-
+import { UserStateContext } from "../../App";
 function EducationCard({ educations, setEducations, isEditable }) {
   const [isEditing, setIsEditing] = useState(false);
   const [byEditbtn, setByEditbtn] = useState(false);
   const [targetId, setTargetId] = useState(null);
   const userState = useContext(UserStateContext);
   const id = userState?.user?.id;
-  const { state } = useLocation();
-
+  let { state } = useLocation();
+  console.log(typeof state);
+  if (state === null || typeof state === "object") {
+    state = id;
+  }
   const toggleEditEducationForm = (id) => {
     if (targetId === id && isEditing) {
       setTargetId(null);
@@ -68,12 +70,13 @@ function EducationCard({ educations, setEducations, isEditable }) {
                     {education.major}({education.position})
                   </div>
                 </div>
-                {isEditable && id === state && (
+                {/* {isEditable ? ( */}
+                {id === state && isEditable ? (
                   <Col className="col-lg-1 col">
                     <Button
                       variant="outline-info"
                       size="sm"
-                      className="me-1 mb-1 mr-3 btn btn-outline-info btn-sm"
+                      className="me-1 mb-1 mr-3 btn btn-outline-info btn-sm toggleTarget"
                       onClick={() => {
                         toggleEditEducationForm(education.id);
                         EditHandle();
@@ -86,9 +89,9 @@ function EducationCard({ educations, setEducations, isEditable }) {
                       onRemove={onRemove}
                     ></DeleteButton>
                   </Col>
-                )}
+                ) : null}
               </div>
-              {isEditing && id === state && (
+              {isEditing && education.id === targetId && (
                 <EducationForm
                   education={{
                     ...education,
