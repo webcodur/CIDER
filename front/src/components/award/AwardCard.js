@@ -34,7 +34,7 @@ const AwardCard = (props) => {
   const confirmDelete = async (e) => {
     const eleID = e.target.parentNode.parentNode.id;
     await Api.delete('award', eleID);
-    const getRes = await Api.get('awars', id);
+    const getRes = await Api.get('awards', id);
     const datas = getRes.data;
     let dataArr = [];
 

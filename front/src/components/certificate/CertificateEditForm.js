@@ -45,7 +45,7 @@ const CertificateEditForm = (props) => {
   };
 
   const getData = async () => {
-    const getRes = await Api.get('certificate', userState.user.id);
+    const getRes = await Api.get('certificates', userState.user.id);
     const datas = getRes.data;
     let dataArr = [];
 

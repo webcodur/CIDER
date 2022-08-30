@@ -36,7 +36,7 @@ const CertificateCard = (props) => {
     const eleID = e.target.parentNode.parentNode.id;
     await Api.delete('certificate', eleID);
 
-    const getRes = await Api.get('certificate', id);
+    const getRes = await Api.get('certificates', id);
     const datas = getRes.data;
     let dataArr = [];
     dataArr = datas.map((ele) => [ele.id, ele.title, ele.content, ele.day]);
