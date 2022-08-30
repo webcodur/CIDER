@@ -142,18 +142,17 @@ userAuthRouter.get(
 userAuthRouter.patch(
   "/:userId/likes",
   login_required,
-  validationMiddleware,
   async (req, res, next) => {
     try {
       const { userId } = req.params;
-      const { direction } = req.body;
+      const currentUserId = req.currentUserId;
 
-      const updatedUser = await userAuthService.ChangeUserLikes({
+      const updatedUserLikes = await userAuthService.ChangeUserLikes({
+        currentUserId,
         userId,
-        direction,
       });
 
-      res.status(200).json(updatedUser);
+      res.status(200).json(updatedUserLikes);
     } catch (error) {
       next(error);
     }

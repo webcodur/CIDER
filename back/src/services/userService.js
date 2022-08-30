@@ -64,6 +64,7 @@ class userAuthService {
       email,
       name,
       description,
+      likes: user.likes,
       errorMessage: null,
     };
 
@@ -126,32 +127,34 @@ class userAuthService {
     return user;
   }
 
-  static async ChangeUserLikes({ userId, direction }) {
+  static async ChangeUserLikes({ currentUserId, userId }) {
     const user = await User.findById({ user_id: userId });
     if (!user) {
       throw new Error(ERRORS.USER_ID_ERROR.errorCode);
     }
 
-    if (direction === "true") {
-      const newLikes = user.likes + 1;
+    const userLikes = user.likes;
+    const currentUserIdIndex = userLikes.indexOf(currentUserId);
+    if (currentUserIdIndex === -1) {
+      userLikes.push(currentUserId);
+      const newLikes = userLikes;
       const updatedUser = await User.update({
         user_id: userId,
         fieldToUpdate: "likes",
         newValue: newLikes,
       });
 
-      return updatedUser;
-    } else if (direction === "false") {
-      const newLikes = user.likes > 0 ? user.likes - 1 : 0;
-      const updatedUser = await User.update({
-        user_id: userId,
-        fieldToUpdate: "likes",
-        newValue: newLikes,
-      });
-
-      return updatedUser;
+      return updatedUser.likes;
     } else {
-      throw new Error(ERRORS.UPDATE_DATA_ERROR.errorCode);
+      userLikes.splice(currentUserIdIndex, 1);
+      const newLikes = userLikes;
+      const updatedUser = await User.update({
+        user_id: userId,
+        fieldToUpdate: "likes",
+        newValue: newLikes,
+      });
+
+      return updatedUser.likes;
     }
   }
 }
