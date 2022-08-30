@@ -65,8 +65,8 @@ function EducationCard({ educations, setEducations, isEditable }) {
             <div key={education.id} className="mb-4 card-text">
               <div className="align-items-center row">
                 <div className="col">
-                  <div>{education.school}</div>
-                  <div>
+                  <div className="text-muted">{education.school}</div>
+                  <div className="text-muted">
                     {education.major}({education.position})
                   </div>
                 </div>

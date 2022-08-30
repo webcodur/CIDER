@@ -1,17 +1,17 @@
-import { Container, Col, Row, Form, Button } from 'react-bootstrap';
-import { useState, useContext } from 'react';
-import { UserStateContext } from '../../App';
-import * as Api from '../../api';
-import styles from '../../styles/anime.css';
+import { Container, Col, Row, Form, Button } from "react-bootstrap";
+import { useState, useContext } from "react";
+import { UserStateContext } from "../../App";
+import * as Api from "../../api";
+import styles from "../../styles/anime.css";
 import { useLocation } from "react-router";
 
 const CertificateEditForm = (props) => {
   const userState = useContext(UserStateContext);
   const id = userState?.user?.id;
 
-  const [certificate, setCertificate] = useState('');
-  const [details, setDetails] = useState('');
-  const [day, setDay] = useState('');
+  const [certificate, setCertificate] = useState("");
+  const [details, setDetails] = useState("");
+  const [day, setDay] = useState("");
   const [isMessageNecessary, setIsMessageNecessary] = useState(false);
   const { state } = useLocation();
 
@@ -21,13 +21,13 @@ const CertificateEditForm = (props) => {
   const submitEditForm = async (e) => {
     e.preventDefault();
 
-    if(day.length>4){
-      alert('연도는 네자리를 넘을 수 없습니다.')
-      return
+    if (day.length > 4) {
+      alert("연도는 네자리를 넘을 수 없습니다.");
+      return;
     }
 
     isClicked = true;
-    isEmpty = certificate === '' || details === '' || day === '' ? true : false;
+    isEmpty = certificate === "" || details === "" || day === "" ? true : false;
     setIsMessageNecessary(isClicked && isEmpty);
     isClicked = false;
 
@@ -43,17 +43,17 @@ const CertificateEditForm = (props) => {
       day: day,
     };
 
-    await Api.patch('certificate', certID, obj);
+    await Api.patch("certificate", certID, obj);
 
     getData();
-    setCertificate('');
-    setDetails('');
-    setDay('');
+    setCertificate("");
+    setDetails("");
+    setDay("");
     props.setIsEditing(false);
   };
 
   const getData = async () => {
-    const getRes = await Api.get('certificates', userState.user.id);
+    const getRes = await Api.get("certificates", userState.user.id);
     const datas = getRes.data;
     let dataArr = [];
 
@@ -103,14 +103,14 @@ const CertificateEditForm = (props) => {
             <Form.Group as={Row} className="mt-3 text-center">
               <Col sm={{ span: 20 }}>
                 <Button
-                  variant="primary ms-3 float-right"
+                  className="me-3 btn btn-primary"
                   type="submit"
                   onSubmit={submitEditForm}
                 >
                   확인
                 </Button>
                 <Button
-                  variant="secondary ms-3 float-right"
+                  variant="btn btn-secondary"
                   onClick={() => props.setIsEditing(false)}
                 >
                   취소

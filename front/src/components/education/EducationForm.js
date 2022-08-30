@@ -142,17 +142,15 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
       <Form.Group as={Row} className="mt-3 text-center">
         <Col sm={{ span: 20 }}>
           <Button
-            variant="primary ms-3 float-right"
+            className="me-3 btn btn-primary"
             type="submit"
             onClick={handleConfirm}
           >
             확인
           </Button>
-          <Button variant="secondary ms-3 float-right" onClick={handleCancel}>
+          <Button className="btn btn-secondary" onClick={handleCancel}>
             취소
           </Button>
-          <br></br>
-          <br></br>
         </Col>
       </Form.Group>
     </Form>

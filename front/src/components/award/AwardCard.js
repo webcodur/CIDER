@@ -1,11 +1,11 @@
-import AwardEditForm from './AwardEditForm';
-import { Button, Overlay, Tooltip, Card, Col } from 'react-bootstrap';
-import * as Api from '../../api';
-import { useState, useContext, useRef, useEffect } from 'react';
-import { UserStateContext } from '../../App';
-import displayToggleCss from '../../styles/displayToggle.css';
-import '../../styles/tooltip.css';
-import {useLocation} from 'react-router'
+import AwardEditForm from "./AwardEditForm";
+import { Button, Overlay, Tooltip, Card, Col } from "react-bootstrap";
+import * as Api from "../../api";
+import { useState, useContext, useRef, useEffect } from "react";
+import { UserStateContext } from "../../App";
+import displayToggleCss from "../../styles/displayToggle.css";
+import "../../styles/tooltip.css";
+import { useLocation } from "react-router";
 
 const AwardCard = (props) => {
   const userState = useContext(UserStateContext);
@@ -17,11 +17,11 @@ const AwardCard = (props) => {
   const arr = props.arr;
   const setArr = props.setArr;
   const idx = props.idx;
-  
+
   const [isConfirm, setConfirm] = useState(false);
   const target = useRef(null);
-  
-  let {state} = useLocation();
+
+  let { state } = useLocation();
 
   if (state === null || typeof state === "object") {
     state = id;
@@ -42,9 +42,9 @@ const AwardCard = (props) => {
 
   const confirmDelete = async (e) => {
     const eleID = e.target.parentNode.parentNode.id;
-    await Api.delete('award', eleID);
-    
-    const getRes = await Api.get('awards', id);
+    await Api.delete("award", eleID);
+
+    const getRes = await Api.get("awards", id);
     const datas = getRes.data;
     let dataArr = [];
 
@@ -60,42 +60,46 @@ const AwardCard = (props) => {
   };
 
   return (
-    <div className="row" id={arr[idx][0]}>
-      <Col>
-        <span className="text-muted"> {arr[idx][1]}</span> <br />
-        <span className="text-muted"> {arr[idx][2]}</span>
-      </Col>
-      {(props.isEditable && id===state)&&(
-        <Col className="col-lg-1">
-          <Button
-            css={{ displayToggleCss }}
-            variant="outline-info"
-            onClick={openEditForm}
-            className="me-1 mb-1 mr-3 toggleTarget"
-            size="sm"
-          >
-            편집
-          </Button>
-          <Button
-            css={{ displayToggleCss }}
-            variant="outline-danger"
-            onClick={checkDelete}
-            ref={target}
-            className="me-1 mb-1 mr-3 toggleTarget"
-            size="sm"
-          >
-            삭제
-          </Button>
-          <Overlay 
-            target={target.current} 
-            show={isConfirm} 
-            placement="left"
-          >
-            {<Tooltip>정말 삭제하시겠습니까?</Tooltip>}
-          </Overlay>
-        </Col>
-      )}
-      {(isEditing && id===state) &&(
+    <>
+      <Card.Text className="mb-4">
+        <div className="align-items-center row" id={arr[idx][0]}>
+          <Col>
+            <span className="text-muted"> {arr[idx][1]}</span> <br />
+            <span className="text-muted"> {arr[idx][2]}</span>
+          </Col>
+          {props.isEditable && id === state && (
+            <Col className="col-lg-1">
+              <Button
+                css={{ displayToggleCss }}
+                variant="outline-info"
+                onClick={openEditForm}
+                className="me-1 mb-1 mr-3 toggleTarget"
+                size="sm"
+              >
+                편집
+              </Button>
+              <Button
+                css={{ displayToggleCss }}
+                variant="outline-danger"
+                onClick={checkDelete}
+                ref={target}
+                className="me-1 mb-1 mr-3 toggleTarget"
+                size="sm"
+              >
+                삭제
+              </Button>
+              <Overlay
+                target={target.current}
+                show={isConfirm}
+                placement="left"
+              >
+                {<Tooltip>정말 삭제하시겠습니까?</Tooltip>}
+              </Overlay>
+            </Col>
+          )}
+        </div>
+      </Card.Text>
+      {isEditing && id === state && (
         <AwardEditForm
           eleID={eleID}
           arr={arr}
@@ -104,7 +108,7 @@ const AwardCard = (props) => {
           setIsEditing={setIsEditing}
         />
       )}
-    </div>
+    </>
   );
 };
 
