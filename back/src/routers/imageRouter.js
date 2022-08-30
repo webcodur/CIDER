@@ -2,6 +2,7 @@ import { profileUpload } from "../middlewares/imageUploadMiddleware";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import "dotenv/config";
+import { directoryCheckMiddleware } from "../middlewares/directoryCheckMiddleware";
 
 const imageRouter = Router();
 
@@ -9,6 +10,7 @@ const imageRouter = Router();
 imageRouter.post(
   "/images/profile",
   login_required,
+  directoryCheckMiddleware,
   profileUpload.single("file"),
   (req, res, next) => {
     const {
