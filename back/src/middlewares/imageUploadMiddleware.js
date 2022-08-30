@@ -6,7 +6,7 @@ const storage = multer.diskStorage({
     cb(null, __dirname + "/../images/profiles");
   },
   filename: (req, file, cb) => {
-    cb(null, req.currentUserId);
+    cb(null, req.currentUserId + `.${file.mimetype.split("/")[1]}`);
   },
 });
 

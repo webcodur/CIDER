@@ -1,6 +1,7 @@
 import { profileUpload } from "../middlewares/imageUploadMiddleware";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
+import "dotenv/config";
 
 const imageRouter = Router();
 
@@ -35,5 +36,10 @@ imageRouter.post(
     res.status(201).json({ ok: true, data: "Single Upload Ok" });
   }
 );
+
+//프로필 사진 조회 라우터
+imageRouter.get("/images/profiles/", (req, res, next) => {
+  res.send(process.env.DEFAULT_PROFILE_IMAGE);
+});
 
 export { imageRouter };
