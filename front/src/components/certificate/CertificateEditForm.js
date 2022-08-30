@@ -18,6 +18,11 @@ const CertificateEditForm = (props) => {
   const submitEditForm = async (e) => {
     e.preventDefault();
 
+    if(day.length>4){
+      alert('연도는 네자리를 넘을 수 없습니다.')
+      return
+    }
+
     isClicked = true;
     isEmpty = certificate === '' || details === '' || day === '' ? true : false;
     setIsMessageNecessary(isClicked && isEmpty);

@@ -17,6 +17,10 @@ function Portfolio() {
   const [portfolioOwner, setPortfolioOwner] = useState(null);
   const [isFetchCompleted, setIsFetchCompleted] = useState(false);
   const userState = useContext(UserStateContext);
+
+  const [isEditable, setIsEditable] = useState(false)
+// portfolioOwner?.id === userState.user?.id ? true : false
+
   const fetchPorfolioOwner = async (ownerId) => {
     const res = await Api.get("users", ownerId);
     const ownerData = res.data;
@@ -38,11 +42,11 @@ function Portfolio() {
       fetchPorfolioOwner(ownerId);
     }
   }, [params, userState, navigate]);
+  
   if (!isFetchCompleted) {
     return "loading...";
   }
 
-  let isEditable = portfolioOwner.id === userState.user?.id ? true : false;
 
   return (
     <Container fluid style={{ zIndex: 0 }}>
@@ -52,11 +56,16 @@ function Portfolio() {
         </Col>
         <Col md="7">
           <div>
-            <DisplayToggleComp></DisplayToggleComp>
-            <Education
+            {(userState?.user?.id===portfolioOwner.id)&&(
+              <DisplayToggleComp 
               isEditable={isEditable}
+              setIsEditable={setIsEditable}
               portfolioOwnerId={portfolioOwner.id}
-            />
+              />
+            )}
+            <Education 
+            isEditable={isEditable} 
+            paramsUserId={params.userId} />
             <Award
               isEditable={isEditable}
               portfolioOwnerId={portfolioOwner.id}

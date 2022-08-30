@@ -45,7 +45,7 @@ const EditDeleteButton = (props) => {
   return (
     <Col className="col-lg-1">
       <Button
-        variant="outline-info"
+        variant="outline-info toggleTarget"
         size="sm"
         className="me-1 mb-1 mr-3"
         onClick={() => {
@@ -55,7 +55,7 @@ const EditDeleteButton = (props) => {
         편집
       </Button>
       <Button
-        variant="outline-danger"
+        variant="outline-danger toggleTarget"
         size="sm"
         className="mr-3 btn-sm"
         ref={target}
