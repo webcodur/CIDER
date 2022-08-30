@@ -1,15 +1,15 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Container, Col, Row } from 'react-bootstrap';
-import Award from './award/Award';
-import Certificate from './certificate/Certificate';
-import Education from './education/Education';
-import Project from './project/Project';
-import { UserStateContext } from '../App';
-import * as Api from '../api';
-import User from './user/User';
-import SideBar from './SideBar';
-import DisplayToggleComp from './DisplayToggleComp';
+import React, { useContext, useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Container, Col, Row } from "react-bootstrap";
+import Award from "./award/Award";
+import Certificate from "./certificate/Certificate";
+import Education from "./education/Education";
+import Project from "./project/Project";
+import { UserStateContext } from "../App";
+import * as Api from "../api";
+import User from "./user/User";
+import SideBar from "./SideBar";
+import DisplayToggleComp from "./DisplayToggleComp";
 
 function Portfolio() {
   const navigate = useNavigate();
@@ -44,7 +44,6 @@ function Portfolio() {
 
   let isEditable = portfolioOwner.id === userState.user?.id ? true : false;
 
-
   return (
     <Container fluid style={{ zIndex: 0 }}>
       <Row style={{ width: "100%" }}>
@@ -53,16 +52,12 @@ function Portfolio() {
         </Col>
         <Col md="7">
           <div>
-          <DisplayToggleComp></DisplayToggleComp>
-
-            <Education 
-            isEditable={isEditable} 
-            paramsUserId={params.userId} />
-
-            <Award 
-            isEditable={isEditable} 
-            portfolioOwnerId={portfolioOwner.id} />
-            
+            <DisplayToggleComp></DisplayToggleComp>
+            <Education isEditable={isEditable} paramsUserId={params.userId} />
+            <Award
+              isEditable={isEditable}
+              portfolioOwnerId={portfolioOwner.id}
+            />
             <Project
               portfolioOwnerId={portfolioOwner.id}
               isEditable={isEditable}
