@@ -50,7 +50,7 @@ const AwardEditForm = (props) => {
   };
 
   return (
-    <Container>
+    <Container className="toggleTarget">
       <Row>
         <Col>
           <Form onSubmit={submitEditForm}>

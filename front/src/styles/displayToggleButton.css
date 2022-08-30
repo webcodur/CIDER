@@ -4,9 +4,8 @@
   position: fixed;
   color: red;
   z-index: 99;
-  bottom: 5%;
-  right: 20%;
-  border-color: gray;
+
+  right:15%;
+  bottom:15%;
   border-radius: 50%;
-  background-color: aliceblue;
 }

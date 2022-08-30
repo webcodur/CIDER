@@ -45,7 +45,8 @@ const AddForm = (props) => {
   };
 
   return (
-    <Form>
+    <Form
+    className="toggleTarget">
       <Form.Group>
         <FloatingLabel label="프로젝트 제목" className="mt-3 mb-3">
           <Form.Control
