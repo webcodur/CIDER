@@ -1,6 +1,4 @@
-import is from "@sindresorhus/is";
 import { User } from "../db/models/User";
-import { v4 as uuidv4 } from "uuid";
 import { ERRORS } from "../constants/constants";
 
 const searchService = {
@@ -14,6 +12,8 @@ const searchService = {
       searchOption = { description: new RegExp(contents) };
     } else if (option === "all") {
       searchOption = { contents: new RegExp(contents) };
+    } else {
+      throw new Error(ERRORS.BODY_DATA_ERROR.errorCode);
     }
     const searches = await User.findSearchData(searchOption);
     return searches;
