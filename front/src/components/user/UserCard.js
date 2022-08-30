@@ -14,12 +14,16 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
 
   function recentlyView() {
     let origin = localStorage.getItem("recentlyView1");
+    if (!origin) {
+      userstr = JSON.stringify([{ name: user?.name, id: user?.id }]);
+      // userstr = [{ name: user?.name, id: user?.id }];
+    } else {
+      origin = JSON.parse(origin);
+      userstr = JSON.stringify([...origin, { name: user?.name, id: user?.id }]);
+    }
     navigate(`/users/${user.id}`);
-    userstr = JSON.stringify({ name: user?.name, id: user?.id });
-    localStorage.setItem(
-      "recentlyView1",
-      origin ? [origin, userstr] : [userstr]
-    );
+    localStorage.setItem("recentlyView1", userstr);
+    // localStorage.setItem("recentlyView1", user);
   }
 
   useEffect(() => {

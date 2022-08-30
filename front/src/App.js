@@ -8,8 +8,8 @@ import LoginForm from "./components/user/LoginForm";
 import Network from "./components/user/Network";
 import RegisterForm from "./components/user/RegisterForm";
 import Portfolio from "./components/Portfolio";
-import { ThemeProvider } from "./darkmode/themeProvider";
-import { GlobalStyle } from "./darkmode/GlobalStyles";
+import { ThemeProvider } from "./components/darkmode/themeProvider";
+import { GlobalStyle } from "./components/darkmode/GlobalStyles";
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
 

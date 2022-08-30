@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import { UserStateContext, DispatchContext } from "../App";
-import { useTheme } from "../darkmode/themeProvider";
+import { useTheme } from "../components/darkmode/themeProvider";
 import "../index.css";
 import ThemeToggle from "../darkmode/ThemeToggle";
 function Header() {
