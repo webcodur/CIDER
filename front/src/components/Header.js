@@ -19,7 +19,7 @@ function Header() {
     navigate("/");
   };
   return (
-    <Nav activeKey={location.pathname}>
+    <Nav activeKey={location.pathname} className="elice">
       <Nav.Item className="me-auto mb-5">
         <Nav.Link disabled>
           <span>안녕하세요, 포트폴리오 공유 서비스입니다.</span>

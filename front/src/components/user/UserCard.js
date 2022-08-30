@@ -5,7 +5,7 @@ import { UserStateContext } from "../../App";
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const navigate = useNavigate();
   const userState = useContext(UserStateContext);
-  const id = userState.user.id;
+  const id = userState?.user?.id;
   let userstr = "";
 
   function recentlyView() {

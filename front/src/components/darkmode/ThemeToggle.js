@@ -36,17 +36,19 @@ function ThemeToggle({ toggle, mode }) {
           최근 본 포트폴리오
         </div>
         <div className="sideInnerBox">
-          {watchs &&
-            watchs.map((watch) => {
-              return (
-                <div
-                  onClick={() => navigate(`/users/${watch.id}`)}
-                  style={{ marginBottom: "10px" }}
-                >
-                  {watch.name}
-                </div>
-              );
-            })}
+          <ul>
+            {watchs &&
+              watchs.map((watch) => {
+                return (
+                  <li
+                    onClick={() => navigate(`/users/${watch.id}`)}
+                    style={{ marginBottom: "10px" }}
+                  >
+                    • {watch.name}
+                  </li>
+                );
+              })}
+          </ul>
         </div>
         <div className="flex_center">
           <ToggleWrapper onClick={toggle} mode={mode}>

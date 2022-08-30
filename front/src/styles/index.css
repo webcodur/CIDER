@@ -1,7 +1,15 @@
 @import url(//font.elice.io/EliceDigitalBaeum.css);
+
+@font-face {
+  font-family: "Elice Digital";
+  src: url(./EliceDigitalBaeum_Regular.ttf);
+}
 html,
 body {
-  font-family: "Elice Digital Baeum", sans-serif;
+  font-family: "Elice Digital";
+}
+.elice {
+  font-family: "Elice Digital";
 }
 .inputwidth {
   width: 100%;
@@ -53,11 +61,10 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.125);
 }
 .sideInnerBox {
-  margin-left: 16%;
+  margin-left: 12%;
   margin-top: 30px;
   padding: 10px;
   height: 65%;
   justify-content: center;
-  border: 1px solid black;
   display: inline-block;
 }
