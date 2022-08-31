@@ -52,7 +52,7 @@ const Certificate = ({ isEditable, paramsUserId }) => {
               idx={idx}
               setArr={setArr}
               isEditable={isEditable}
-            ></CertificateCard>
+            ></CertificateCard> 
           );
         })}
         <div className="mt-3 text-center mb-4 row">
