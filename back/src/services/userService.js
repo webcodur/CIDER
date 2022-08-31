@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
 import { ERRORS } from "../constants/constants";
+import "dotenv/config";
 
 class userAuthService {
   static async addUser({ name, email, password }) {
@@ -176,6 +177,18 @@ class userAuthService {
     });
 
     return updatedUser;
+  }
+
+  static async getUserProfileImageUrl({ userId }) {
+    const user = await User.findById({ user_id: userId });
+    if (!user) {
+      throw new Error(ERRORS.USER_ID_ERROR.errorCode);
+    }
+    const profileImagePath = user.profileImage.path;
+    const serverPort = process.env.SERVER_PORT || 5000;
+    const serverUrl = `http://localhost:${serverPort}`; // VM일 때 상황 고려해야 함
+
+    return serverUrl + profileImagePath;
   }
 }
 

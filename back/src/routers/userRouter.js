@@ -162,8 +162,9 @@ userAuthRouter.patch(
   }
 );
 
+// 프로필 사진 변경
 userAuthRouter.post(
-  "/user/profileImage",
+  "/user/images/profile",
   login_required,
   directoryCheckMiddleware,
   profileUpload.single("file"),
@@ -180,6 +181,24 @@ userAuthRouter.post(
       });
 
       res.status(201).json(updatedUser);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// 프로필 사진 url GET
+userAuthRouter.get(
+  "/user/images/profile",
+  login_required,
+  async (req, res, next) => {
+    try {
+      const userId = req.currentUserId;
+      const profileImageUrl = await userAuthService.getUserProfileImageUrl({
+        userId,
+      });
+
+      res.status(200).send(profileImageUrl);
     } catch (error) {
       next(error);
     }
