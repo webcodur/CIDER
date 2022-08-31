@@ -5,7 +5,6 @@ export const FlexContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   margin: 0 auto;
   padding: 0px 28px;
   transition: all 0.2s linear;

@@ -12,6 +12,7 @@ const Search = ({ setSearchData, setIsEmpty }) => {
       Api.get2(`search?option=${Selected}&contents=${inputValue}`).then(
         (res) => {
           setSearchData(res.data);
+          console.log(res.data);
         }
       );
     }
@@ -49,7 +50,7 @@ const Search = ({ setSearchData, setIsEmpty }) => {
             placeholder="Search"
             aria-label="Search"
             aria-describedby="search-addon"
-            onKeyUp={test}
+            onKeyUpCapture={test}
           />
           <input style={{ display: "none " }} />
           <button type="button" class="btn btn-outline-primary" onClick={test}>

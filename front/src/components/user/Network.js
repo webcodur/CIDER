@@ -23,14 +23,13 @@ function Network() {
   }, [userState, navigate]);
 
   return (
-    <div style={{ display: "inline-flex" }}>
+    <div>
       <SearchBar
         setSearchData={setSearchData}
         setIsEmpty={setIsEmpty}
       ></SearchBar>
       <Container fluid>
         <Row xs="auto" className="jusify-content-center">
-          {/* 첫페이지 로딩시에는 전체 유저 */}
           {searchData?.length === 0 && !isEmpty ? (
             users.map((user) => (
               <>
