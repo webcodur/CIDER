@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 import styles from "../../styles/anime.css";
-import styled from "styled-components";
 import "../../../src/styles/index.css";
 import { useTheme } from "../darkmode/themeProvider";
 
@@ -11,7 +10,6 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   const [email, setEmail] = useState(user?.email);
   const [description, setDescription] = useState(user?.description);
   const [isEmpty, setIsEmpty] = useState(true);
-  const [image, setImage] = useState(true);
   const ThemeMode = useTheme();
   const theme = ThemeMode[0];
   const handleSubmit = async (e) => {
