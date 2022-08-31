@@ -21,7 +21,7 @@ const CertificateEditForm = (props) => {
   const submitEditForm = async (e) => {
     e.preventDefault();
 
-    const arr = day.split('-')
+    const arr = day.split("-");
     if (arr[0].length > 4) {
       alert("연도는 네자리를 넘을 수 없습니다.");
       return;
@@ -59,7 +59,7 @@ const CertificateEditForm = (props) => {
     let dataArr = [];
 
     dataArr = datas.map((ele) => {
-      return [ele.id, ele.title, ele.content, ele.day.slice(0,10)]
+      return [ele.id, ele.title, ele.content, ele.day.slice(0, 10)];
     });
     props.setArr(dataArr);
   };
@@ -69,7 +69,7 @@ const CertificateEditForm = (props) => {
       <Row>
         <Col>
           <Form onSubmit={submitEditForm}>
-            <Form.Group controlId="certID">
+            <Form.Group controlId="certID" className="mt-3">
               <Form.Label></Form.Label>
               {isMessageNecessary && (
                 <div className="text-danger text-center" style={{ styles }}>
@@ -84,7 +84,7 @@ const CertificateEditForm = (props) => {
                 onChange={(e) => setCertificate(e.target.value)}
               />
             </Form.Group>
-            <Form.Group controlId="detailsID">
+            <Form.Group controlId="detailsID" className="mt-3">
               <Form.Label></Form.Label>
               <Form.Control
                 type="text"
@@ -94,7 +94,7 @@ const CertificateEditForm = (props) => {
                 onChange={(e) => setDetails(e.target.value)}
               />
             </Form.Group>
-            <Form.Group controlId="dayID">
+            <Form.Group controlId="dayID" className="mt-3">
               <Form.Label></Form.Label>
               <Form.Control
                 type="date"

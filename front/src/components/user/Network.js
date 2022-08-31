@@ -21,11 +21,7 @@ function Network() {
     }
     Api.get("userlist").then((res) => setUsers(res.data));
   }, [userState, navigate]);
-  console.log(
-    searchData?.length,
-    isEmpty,
-    searchData?.length === undefined && isEmpty
-  );
+
   return (
     <div style={{ display: "inline-flex" }}>
       <SearchBar
@@ -35,7 +31,6 @@ function Network() {
       <Container fluid>
         <Row xs="auto" className="jusify-content-center">
           {/* 첫페이지 로딩시에는 전체 유저 */}
-          {console.log(searchData?.length === 0, !isEmpty, "fff")}
           {searchData?.length === 0 && !isEmpty ? (
             users.map((user) => (
               <>

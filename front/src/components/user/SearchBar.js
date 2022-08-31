@@ -12,21 +12,18 @@ const Search = ({ setSearchData, setIsEmpty }) => {
       Api.get2(`search?option=${Selected}&contents=${inputValue}`).then(
         (res) => {
           setSearchData(res.data);
-          console.log(res.data);
         }
       );
     }
   };
   const handleChangeInput = (e) => {
     e.preventDefault();
-    console.log("input", e.target.value);
     setInputValue(e.target.value);
     setIsEmpty(true);
   };
 
   const handleChangeSelect = (e) => {
     e.preventDefault();
-    console.log("select", e.target.value);
     setSelected(e.target.value);
   };
 

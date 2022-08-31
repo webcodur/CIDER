@@ -49,10 +49,10 @@ function Portfolio() {
   return (
     <Container fluid style={{ zIndex: 0 }}>
       <Row style={{ width: "100%" }}>
-        <Col md="3" lg="3">
+        <Col md="1" lg="2">
           <User portfolioOwnerId={portfolioOwner.id} isEditable={isEditable} />
         </Col>
-        <Col md="7">
+        <Col md="8">
           <div>
             {userState?.user?.id === portfolioOwner.id && (
               <DisplayToggleComp

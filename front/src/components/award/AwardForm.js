@@ -1,4 +1,11 @@
-import { Container, Col, Row, Form, Button } from "react-bootstrap";
+import {
+  Container,
+  Col,
+  Row,
+  Form,
+  Button,
+  FloatingLabel,
+} from "react-bootstrap";
 import { useState, useContext } from "react";
 import { UserStateContext } from "../../App";
 import * as Api from "../../api";
@@ -40,58 +47,57 @@ const AwardForm = (props) => {
   };
 
   return (
-    <Container className="toggleTarget">
-      <Row>
-        <Col>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="awardID">
-              <Form.Label></Form.Label>
-              {!isEmpty && (
-                <div className="text-danger text-center" style={{ aniCss }}>
-                  <span id="anime">빈 값이 있습니다.</span>
-                </div>
-              )}
-              <Form.Control
-                type="text"
-                autoComplete="on"
-                value={award}
-                placeholder="수상 내역"
-                style={{ color: "black" }}
-                onChange={(e) => setAward(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group controlId="detailsID">
-              <Form.Label></Form.Label>
-              <Form.Control
-                type="text"
-                autoComplete="on"
-                value={details}
-                placeholder="상세 내역"
-                style={{ color: "black" }}
-                onChange={(e) => setDetails(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group as={Row} className="mt-3 text-center">
-              <Col sm={{ span: 20 }}>
-                <Button
-                  variant="primary ms-3"
-                  type="submit"
-                  onSubmit={handleSubmit}
-                >
-                  확인
-                </Button>
-                <Button
-                  variant="secondary ms-3"
-                  onClick={() => props.setIsEditing(false)}
-                >
-                  취소
-                </Button>
-              </Col>
-            </Form.Group>
-          </Form>
+    <Form onSubmit={handleSubmit} className="toggleTarget">
+      <Form.Group controlId="awardID" className="mt-3 mb-3 form-floating">
+        <Form.Label style={{ color: "black" }}> </Form.Label>
+        {!isEmpty && (
+          <div className="text-danger text-center" style={{ aniCss }}>
+            <span id="anime">빈 값이 있습니다.</span>
+          </div>
+        )}
+        <FloatingLabel
+          label="수상내역"
+          className="mt-3 mb-3"
+          style={{ color: "black" }}
+        ></FloatingLabel>
+        <Form.Control
+          type="text"
+          autoComplete="on"
+          value={award}
+          placeholder="수상 내역"
+          style={{ color: "black" }}
+          onChange={(e) => setAward(e.target.value)}
+        />
+      </Form.Group>
+      <Form.Group controlId="detailsID" className="mt-3 mb-3 form-floating">
+        <FloatingLabel
+          label="상세 내역"
+          className="mt-3 mb-3"
+          style={{ color: "black" }}
+        ></FloatingLabel>
+        <Form.Control
+          type="text"
+          autoComplete="on"
+          value={details}
+          placeholder="상세 내역"
+          style={{ color: "black" }}
+          onChange={(e) => setDetails(e.target.value)}
+        />
+      </Form.Group>
+      <Form.Group as={Row} className="mt-3 text-center">
+        <Col sm={{ span: 20 }}>
+          <Button variant="primary ms-3" type="submit" onSubmit={handleSubmit}>
+            확인
+          </Button>
+          <Button
+            variant="secondary ms-3"
+            onClick={() => props.setIsEditing(false)}
+          >
+            취소
+          </Button>
         </Col>
-      </Row>
-    </Container>
+      </Form.Group>
+    </Form>
   );
 };
 

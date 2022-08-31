@@ -15,9 +15,6 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   const theme = ThemeMode[0];
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (name === "" || description === "") {
-    //   return console.log("빈 값은 입력이 불가 합니다.");
-    // }
     if (name === "" || description === "") {
       setIsEmpty(false);
       return;
