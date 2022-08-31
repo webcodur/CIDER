@@ -58,7 +58,9 @@ const CertificateEditForm = (props) => {
     const datas = getRes.data;
     let dataArr = [];
 
-    dataArr = datas.map((ele) => [ele.id, ele.title, ele.content, ele.day]);
+    dataArr = datas.map((ele) => {
+      return [ele.id, ele.title, ele.content, ele.day.slice(0,10)]
+    });
     props.setArr(dataArr);
   };
 
