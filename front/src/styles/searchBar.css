@@ -1,7 +1,9 @@
 #formInput {
   position: absolute;
   top: 10px;
-  left: 450px;
-  width: 350px;
+  left: 34%;
+  width: 35%;
+  margin-top: 15px;
+  display: flex;
   z-index: 100;
 }

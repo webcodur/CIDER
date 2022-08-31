@@ -36,13 +36,26 @@ const Search = ({ setSearchData, setIsEmpty }) => {
           <option value="email">이메일</option>
           <option value="description">내용</option>
         </select>
-        <input type="text" style={{ display: "none" }} />
+        {/* <input type="text" style={{ display: "none" }} />
         <input
           type="text"
           placeholder="검색어를 입력해 주세요"
           onKeyUp={test}
         />
-        <input type="button" value="🔍" onClick={test} />
+        <input type="button" value="🔍" onClick={test} /> */}
+        <div class="input-group">
+          <input
+            type="search"
+            class="form-control rounded"
+            placeholder="Search"
+            aria-label="Search"
+            aria-describedby="search-addon"
+            onKeyUp={test}
+          />
+          <button type="button" class="btn btn-outline-primary" onClick={test}>
+            search
+          </button>
+        </div>
       </form>
     </div>
   );
