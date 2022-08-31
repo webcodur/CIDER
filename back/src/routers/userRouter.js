@@ -189,11 +189,11 @@ userAuthRouter.post(
 
 // 프로필 사진 url GET
 userAuthRouter.get(
-  "/user/images/profile",
+  "/:userId/images/profile",
   login_required,
   async (req, res, next) => {
     try {
-      const userId = req.currentUserId;
+      const { userId } = req.params;
       const profileImageUrl = await userAuthService.getUserProfileImageUrl({
         userId,
       });
