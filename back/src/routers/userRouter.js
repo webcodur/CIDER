@@ -3,6 +3,9 @@ import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import { userAuthService } from "../services/userService";
 import { validationMiddleware } from "../middlewares/validationMiddleware";
+import { profileUpload } from "../middlewares/imageUploadMiddleware";
+import { directoryCheckMiddleware } from "../middlewares/directoryCheckMiddleware";
+import { imageResizeMiddleware } from "../middlewares/imageResizeMiddleware";
 
 const userAuthRouter = Router();
 
@@ -153,6 +156,67 @@ userAuthRouter.patch(
       });
 
       res.status(200).json(updatedUserLikes);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// 프로필 사진 변경
+userAuthRouter.post(
+  "/user/images/profile",
+  login_required,
+  directoryCheckMiddleware,
+  profileUpload.single("file"),
+  imageResizeMiddleware,
+  async (req, res, next) => {
+    try {
+      const { originalname, filename, path } = req.file;
+      const userId = req.currentUserId;
+      const updatedUser = await userAuthService.setUserProfileImage({
+        userId,
+        originalname,
+        filename,
+        path,
+      });
+
+      res.status(201).json(updatedUser);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// 프로필 사진 url GET
+userAuthRouter.get(
+  "/user/images/profile",
+  login_required,
+  async (req, res, next) => {
+    try {
+      const userId = req.currentUserId;
+      const profileImageUrl = await userAuthService.getUserProfileImageUrl({
+        userId,
+      });
+
+      res.status(200).send(profileImageUrl);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// 프로필 사진 초기화
+userAuthRouter.delete(
+  "/user/images/profile",
+  login_required,
+  async (req, res, next) => {
+    try {
+      const userId = req.currentUserId;
+      const updatedUser = await userAuthService.setUserProfileDefault({
+        userId,
+      });
+
+      res.status(200).json(updatedUser);
     } catch (error) {
       next(error);
     }

@@ -28,6 +28,22 @@ const ERRORS = {
     errorCode: "UPDATE_DATA_ERROR",
     errorMessage: "업데이트 할 데이터가 없습니다.",
   },
+
+  IMAGE_TYPE_ERROR: {
+    errorCode: "IMAGE_TYPE_ERROR",
+    errorMessage: "*.jpg, *.jpeg, *.png 파일만 업로드가 가능합니다.",
+  },
+
+  DEFAULT_IMAGE_ERROR: {
+    errorCode: "DEFAULT_IMAGE_ERROR",
+    errorMessage: "이미 프로필 사진이 DEFAULT_IMAGE 입니다.",
+  },
 };
 
-export { ERRORS };
+const DEFAULT_PROFILE_IMAGE = {
+  originalName: "default_profile_image.png",
+  fileName: "default_profile_image.png",
+  path: "/default_profile_image.png",
+};
+
+export { ERRORS, DEFAULT_PROFILE_IMAGE };

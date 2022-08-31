@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { DEFAULT_PROFILE_IMAGE } from "../../constants/constants";
 
 const UserSchema = new Schema(
   {
@@ -27,6 +28,11 @@ const UserSchema = new Schema(
       type: Array,
       required: false,
       default: [],
+    },
+    profileImage: {
+      type: Schema.Types.Mixed,
+      required: false,
+      default: DEFAULT_PROFILE_IMAGE,
     },
   },
   {
