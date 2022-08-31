@@ -49,7 +49,7 @@ const CertificateForm = (props) => {
     let dataArr = [];
 
     dataArr = datas.map((ele) => {
-      return [ele.id, ele.title, ele.content, ele.day.slice(0,10)]
+      return [ele.id, ele.title, ele.content, ele.day.slice(0, 10)];
     });
 
     props.setArr(dataArr);
