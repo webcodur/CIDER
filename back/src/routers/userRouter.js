@@ -205,6 +205,24 @@ userAuthRouter.get(
   }
 );
 
+// 프로필 사진 초기화
+userAuthRouter.delete(
+  "/user/images/profile",
+  login_required,
+  async (req, res, next) => {
+    try {
+      const userId = req.currentUserId;
+      const updatedUser = await userAuthService.setUserProfileDefault({
+        userId,
+      });
+
+      res.status(200).json(updatedUser);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
 userAuthRouter.get("/afterlogin", login_required, function (req, res, next) {
   res

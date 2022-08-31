@@ -33,6 +33,11 @@ const ERRORS = {
     errorCode: "IMAGE_TYPE_ERROR",
     errorMessage: "*.jpg, *.jpeg, *.png 파일만 업로드가 가능합니다.",
   },
+
+  DEFAULT_IMAGE_ERROR: {
+    errorCode: "DEFAULT_IMAGE_ERROR",
+    errorMessage: "이미 프로필 사진이 DEFAULT_IMAGE 입니다.",
+  },
 };
 
 const DEFAULT_PROFILE_IMAGE = {

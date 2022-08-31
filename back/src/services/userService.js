@@ -2,8 +2,10 @@ import { User } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
-import { ERRORS } from "../constants/constants";
+import { ERRORS, DEFAULT_PROFILE_IMAGE } from "../constants/constants";
 import "dotenv/config";
+
+const fs = require("fs");
 
 class userAuthService {
   static async addUser({ name, email, password }) {
@@ -189,6 +191,29 @@ class userAuthService {
     const serverUrl = `http://localhost:${serverPort}`; // VM일 때 상황 고려해야 함
 
     return serverUrl + profileImagePath;
+  }
+
+  static async setUserProfileDefault({ userId }) {
+    const user = await User.findById({ user_id: userId });
+    if (!user) {
+      throw new Error(ERRORS.USER_ID_ERROR.errorCode);
+    }
+    if (
+      JSON.stringify(user.profileImage) ===
+      JSON.stringify(DEFAULT_PROFILE_IMAGE)
+    ) {
+      throw new Error(ERRORS.DEFAULT_IMAGE_ERROR.errorCode);
+    }
+    fs.unlink(__dirname + `/../images/${user.profileImage.path}`, (err) => {
+      if (err) console.log(err);
+    });
+    const updatedUser = await User.update({
+      user_id: userId,
+      fieldToUpdate: "profileImage",
+      newValue: DEFAULT_PROFILE_IMAGE,
+    });
+
+    return updatedUser;
   }
 }
 

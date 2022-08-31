@@ -28,6 +28,10 @@ function errorMiddleware(error, req, res, next) {
       res.status(500).json(ERRORS.IMAGE_TYPE_ERROR);
       break;
 
+    case ERRORS.DEFAULT_IMAGE_ERROR.errorCode:
+      res.status(400).json(ERRORS.DEFAULT_IMAGE_ERROR);
+      break;
+
     default:
       res.status(400).json(ERRORS.UNDEFINED_ERROR);
       break;
