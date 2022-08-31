@@ -34,6 +34,8 @@ const UserSchema = new Schema(
   }
 );
 
+UserSchema.index({ name: "text", email: "text", description: "text" });
+
 const UserModel = model("User", UserSchema);
 
 export { UserModel };

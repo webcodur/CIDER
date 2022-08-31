@@ -33,6 +33,31 @@ class User {
     );
     return updatedUser;
   }
+
+  static async findSearchData(searchOption) {
+    if (searchOption.contents) {
+      const searches = await UserModel.find(
+        {
+          $text: {
+            $search: `${searchOption.contents}`,
+          },
+        },
+        { score: { $meta: "textScore" } }
+      ).sort({ score: { $meta: "textScore" } });
+
+      const reSearches = await UserModel.find({
+        $or: [
+          { email: searchOption.contents },
+          { name: searchOption.contents },
+          { description: searchOption.contents },
+        ],
+      });
+      return searches, reSearches;
+    }
+
+    const searches = await UserModel.find(searchOption);
+    return searches;
+  }
 }
 
 export { User };
