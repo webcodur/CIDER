@@ -1,10 +1,10 @@
-import CertificateEditForm from './CertificateEditForm';
-import { Button, Overlay, Tooltip, Card, Col } from 'react-bootstrap';
-import * as Api from '../../api';
-import { useState, useContext, useRef, useEffect } from 'react';
-import { UserStateContext } from '../../App';
-import displayToggleCss from '../../styles/displayToggle.css';
-import '../../styles/tooltip.css';
+import CertificateEditForm from "./CertificateEditForm";
+import { Button, Overlay, Tooltip, Card, Col } from "react-bootstrap";
+import * as Api from "../../api";
+import { useState, useContext, useRef, useEffect } from "react";
+import { UserStateContext } from "../../App";
+import displayToggleCss from "../../styles/displayToggle.css";
+import "../../styles/tooltip.css";
 import { useLocation } from "react-router";
 
 const CertificateCard = (props) => {
@@ -40,14 +40,14 @@ const CertificateCard = (props) => {
 
   const confirmDelete = async (e) => {
     const eleID = e.target.parentNode.parentNode.id;
-    await Api.delete('certificate', eleID);
+    await Api.delete("certificate", eleID);
 
-    const getRes = await Api.get('certificates', id);
+    const getRes = await Api.get("certificates", id);
     const datas = getRes.data;
     let dataArr = [];
-    
+
     dataArr = datas.map((ele) => {
-      return [ele.id, ele.title, ele.content, ele.day.slice(0,10)]
+      return [ele.id, ele.title, ele.content, ele.day.slice(0, 10)];
     });
 
     props.setArr(dataArr);
@@ -62,14 +62,14 @@ const CertificateCard = (props) => {
 
   return (
     <>
-      <Card.Text className="mb-4">
+      <div className="mb-4">
         <div className="align-items-center row" id={arr[idx][0]}>
           <Col>
             {arr[idx][1]} <br />
             <span className="text-muted">{arr[idx][2]}</span> <br />
             <span className="text-muted">{arr[idx][3]}</span>
           </Col>
-          {(props.isEditable && id === state) &&(
+          {props.isEditable && id === state && (
             <Col className="col-lg-1">
               <Button
                 css={{ displayToggleCss }}
@@ -100,8 +100,8 @@ const CertificateCard = (props) => {
             </Col>
           )}
         </div>
-      </Card.Text>
-      {(isEditing && id===state) &&(
+      </div>
+      {isEditing && id === state && (
         <CertificateEditForm
           eleID={eleID}
           arr={arr}

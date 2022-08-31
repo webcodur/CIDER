@@ -13,7 +13,6 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const theme = ThemeMode[0];
   const id = userState?.user?.id;
   let userstr = "";
-  console.log(isNetwork, "net??");
   function recentlyView() {
     let origin = localStorage.getItem("recentlyView1");
     if (!origin) {

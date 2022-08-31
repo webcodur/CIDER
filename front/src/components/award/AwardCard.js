@@ -61,7 +61,7 @@ const AwardCard = (props) => {
 
   return (
     <>
-      <Card.Text className="mb-4">
+      <div className="mb-4">
         <div className="align-items-center row" id={arr[idx][0]}>
           <Col>
             <span className="text-muted"> {arr[idx][1]}</span> <br />
@@ -98,7 +98,7 @@ const AwardCard = (props) => {
             </Col>
           )}
         </div>
-      </Card.Text>
+      </div>
       {isEditing && id === state && (
         <AwardEditForm
           eleID={eleID}

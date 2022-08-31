@@ -18,7 +18,6 @@ function ThemeToggle({ toggle, mode }) {
 
   const setWatchsFunc = useCallback(() => {
     setWatchs(JSON.parse(origins));
-    console.log("callback");
   }, []);
 
   useEffect(() => {
@@ -41,9 +40,10 @@ function ThemeToggle({ toggle, mode }) {
         <div className="sideInnerBox">
           <ul>
             {watchs &&
-              watchs.map((watch) => {
+              watchs.map((watch, index) => {
                 return (
                   <li
+                    key={index}
                     onClick={() => {
                       navigate(`/users/${watch.id}`, { state: watch.id });
                     }}

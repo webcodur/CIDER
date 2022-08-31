@@ -8,7 +8,6 @@ const ThemeProvider = ({ children }) => {
   const LocalTheme = window.localStorage.getItem("theme") || "light";
   const [ThemeMode, setThemeMode] = useState(LocalTheme);
   const themeObject = ThemeMode === "light" ? lightTheme : darkTheme;
-
   return (
     <ThemeContext.Provider value={{ ThemeMode, setThemeMode }}>
       <StyledProvider theme={themeObject}>{children}</StyledProvider>

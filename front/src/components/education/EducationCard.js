@@ -13,7 +13,6 @@ function EducationCard({ educations, setEducations, isEditable }) {
   const userState = useContext(UserStateContext);
   const id = userState?.user?.id;
   let { state } = useLocation();
-  console.log(typeof state);
   if (state === null || typeof state === "object") {
     state = id;
   }

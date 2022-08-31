@@ -43,7 +43,7 @@ const Search = ({ setSearchData, setIsEmpty }) => {
         id="formwidth"
         name="profile"
         onChange={handleChangeInput}
-        autocomplete="on"
+        autoComplete="on"
       >
         <div class="input-group">
           <input
