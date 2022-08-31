@@ -66,7 +66,6 @@ const LikeButton = (props) => {
     <React.Fragment>
       <Button
         ref={target}
-        className={`${context.isDarkMode ? 'dark' : ''}`}
         variant="outline-info"
         size="sm"
         onClick={updateLikes}
