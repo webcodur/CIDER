@@ -24,9 +24,9 @@ const CertificateForm = (props) => {
     e.preventDefault();
 
     const arr = day.split("-");
+    console.log(arr[0])
     if (arr[0].length > 4) {
       alert("연도는 네자리를 넘을 수 없습니다.");
-      console.log("arr[0]", arr[0].length);
       return;
     }
     if (certificate === "" || details === "" || day === "") {
