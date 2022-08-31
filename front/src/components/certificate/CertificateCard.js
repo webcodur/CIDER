@@ -1,11 +1,11 @@
-import CertificateEditForm from "./CertificateEditForm";
-import { Button, Overlay, Tooltip, Card, Col } from "react-bootstrap";
-import * as Api from "../../api";
-import { useState, useContext, useRef, useEffect } from "react";
-import { UserStateContext } from "../../App";
-import displayToggleCss from "../../styles/displayToggle.css";
-import "../../styles/tooltip.css";
-import { useLocation } from "react-router";
+import CertificateEditForm from './CertificateEditForm';
+import { Button, Overlay, Tooltip, Card, Col } from 'react-bootstrap';
+import * as Api from '../../api';
+import { useState, useContext, useRef, useEffect } from 'react';
+import { UserStateContext } from '../../App';
+import displayToggleCss from '../../styles/displayToggle.css';
+import '../../styles/tooltip.css';
+import { useLocation } from 'react-router';
 
 const CertificateCard = (props) => {
   const userState = useContext(UserStateContext);
@@ -22,7 +22,7 @@ const CertificateCard = (props) => {
   const target = useRef(null);
 
   let { state } = useLocation();
-  if (state === null || typeof state === "object") {
+  if (state === null || typeof state === 'object') {
     state = id;
   }
 
@@ -40,9 +40,9 @@ const CertificateCard = (props) => {
 
   const confirmDelete = async (e) => {
     const eleID = e.target.parentNode.parentNode.id;
-    await Api.delete("certificate", eleID);
+    await Api.delete('certificate', eleID);
 
-    const getRes = await Api.get("certificates", id);
+    const getRes = await Api.get('certificates', id);
     const datas = getRes.data;
     let dataArr = [];
 
@@ -95,7 +95,11 @@ const CertificateCard = (props) => {
                 show={isConfirm}
                 placement="left"
               >
-                {<Tooltip>정말 삭제하시겠습니까?</Tooltip>}
+                {
+                  <Tooltip className="red-tooltip">
+                    정말 삭제하시겠습니까?
+                  </Tooltip>
+                }
               </Overlay>
             </Col>
           )}

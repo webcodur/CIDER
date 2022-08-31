@@ -64,7 +64,11 @@ const EditDeleteButton = (props) => {
         삭제
       </Button>
       <Overlay target={target.current} show={isConfirm} placement="left">
-        {(props) => <Tooltip {...props}>정말 삭제하시겠습니까?</Tooltip>}
+        {(props) => (
+          <Tooltip className="red-tooltip" {...props}>
+            정말 삭제하시겠습니까?
+          </Tooltip>
+        )}
       </Overlay>
     </Col>
   );

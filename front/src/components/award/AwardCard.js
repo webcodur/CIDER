@@ -1,11 +1,11 @@
-import AwardEditForm from "./AwardEditForm";
-import { Button, Overlay, Tooltip, Card, Col } from "react-bootstrap";
-import * as Api from "../../api";
-import { useState, useContext, useRef, useEffect } from "react";
-import { UserStateContext } from "../../App";
-import displayToggleCss from "../../styles/displayToggle.css";
-import "../../styles/tooltip.css";
-import { useLocation } from "react-router";
+import AwardEditForm from './AwardEditForm';
+import { Button, Overlay, Tooltip, Card, Col } from 'react-bootstrap';
+import * as Api from '../../api';
+import { useState, useContext, useRef, useEffect } from 'react';
+import { UserStateContext } from '../../App';
+import displayToggleCss from '../../styles/displayToggle.css';
+import '../../styles/tooltip.css';
+import { useLocation } from 'react-router';
 
 const AwardCard = (props) => {
   const userState = useContext(UserStateContext);
@@ -23,7 +23,7 @@ const AwardCard = (props) => {
 
   let { state } = useLocation();
 
-  if (state === null || typeof state === "object") {
+  if (state === null || typeof state === 'object') {
     state = id;
   }
 
@@ -42,9 +42,9 @@ const AwardCard = (props) => {
 
   const confirmDelete = async (e) => {
     const eleID = e.target.parentNode.parentNode.id;
-    await Api.delete("award", eleID);
+    await Api.delete('award', eleID);
 
-    const getRes = await Api.get("awards", id);
+    const getRes = await Api.get('awards', id);
     const datas = getRes.data;
     let dataArr = [];
 
@@ -93,7 +93,11 @@ const AwardCard = (props) => {
                 show={isConfirm}
                 placement="left"
               >
-                {<Tooltip>정말 삭제하시겠습니까?</Tooltip>}
+                {
+                  <Tooltip className="red-tooltip">
+                    정말 삭제하시겠습니까?
+                  </Tooltip>
+                }
               </Overlay>
             </Col>
           )}
