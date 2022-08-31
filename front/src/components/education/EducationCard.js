@@ -92,7 +92,7 @@ function EducationCard({ educations, setEducations, isEditable }) {
                 ) : null}
               </div>
               {isEditing && education.id === targetId && (
-                <EducationForm
+                <Edu)cationForm
                   education={{
                     ...education,
                   }}
