@@ -21,7 +21,7 @@ const Search = ({ setSearchData, setIsEmpty }) => {
     e.preventDefault();
     console.log("input", e.target.value);
     setInputValue(e.target.value);
-    setIsEmpty(false);
+    setIsEmpty(true);
   };
 
   const handleChangeSelect = (e) => {

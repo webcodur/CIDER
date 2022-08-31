@@ -12,7 +12,7 @@ function Network() {
   const userState = useContext(UserStateContext);
   const [users, setUsers] = useState([]);
   const [searchData, setSearchData] = useState([]);
-  const [isEmpty, setIsEmpty] = useState(true);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   useEffect(() => {
     if (!userState.user) {
@@ -35,8 +35,8 @@ function Network() {
       <Container fluid>
         <Row xs="auto" className="jusify-content-center">
           {/* 첫페이지 로딩시에는 전체 유저 */}
-
-          {searchData?.length === 0 && isEmpty ? (
+          {console.log(searchData?.length === 0, !isEmpty, "fff")}
+          {searchData?.length === 0 && !isEmpty ? (
             users.map((user) => (
               <>
                 <UserCard key={user.id} user={user} isNetwork />
