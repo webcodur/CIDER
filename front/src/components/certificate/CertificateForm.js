@@ -63,7 +63,11 @@ const CertificateForm = (props) => {
             <span id="anime">빈 값이 있습니다.</span>
           </div>
         )}
-        <FloatingLabel label="자격증 제목" className="mt-3 mb-3">
+        <FloatingLabel
+          label="자격증 제목"
+          className="mt-3 mb-3"
+          style={{ color: "black" }}
+        >
           <Form.Control
             type="text"
             autoComplete="on"
@@ -74,7 +78,11 @@ const CertificateForm = (props) => {
         </FloatingLabel>
       </Form.Group>
       <Form.Group controlId="detailsID" className="mt-3">
-        <FloatingLabel label="상세 내역" className="mb-3">
+        <FloatingLabel
+          label="상세 내역"
+          className="mb-3"
+          style={{ color: "black" }}
+        >
           <Form.Control
             type="text"
             autoComplete="on"
