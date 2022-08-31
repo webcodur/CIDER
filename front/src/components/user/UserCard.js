@@ -1,12 +1,16 @@
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import React, { useContext } from "react";
 import { UserStateContext } from "../../App";
 import LikeButton from "../UI/LikeButton";
-
+import { useTheme } from "../darkmode/themeProvider";
+import "../../../src/styles/index.css";
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const navigate = useNavigate();
   const userState = useContext(UserStateContext);
+  const ThemeMode = useTheme();
+  const theme = ThemeMode[0];
   const id = userState?.user?.id;
   let userstr = "";
   console.log(isNetwork, "net??");
@@ -35,7 +39,11 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const number = parseInt(slicenum);
 
   return (
-    <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
+    <Card
+      className="mb-2 ms-3 mr-5"
+      style={{ width: "18rem" }}
+      id={theme == "light" ? "light" : "dark"}
+    >
       <Card.Body>
         <Row className="justify-content-md-center">
           <Card.Img
@@ -78,3 +86,10 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
 }
 
 export default UserCard;
+
+const StyledDiv = styled.div`
+  border-radius: 4px;
+  border: ${(props) =>
+    props.theme === "light" ? "1px solid #31302E" : "1px solid #bbb"};
+  color: ${(props) => (props.theme === "light" ? "#31302E" : "#bbb")};
+`;
