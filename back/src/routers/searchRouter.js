@@ -12,7 +12,7 @@ searchRouter.get("/search", login_required, async (req, res, next) => {
       option,
       contents,
     });
-    console.log(searches);
+
     res.status(200).json(searches);
   } catch (error) {
     next(error);

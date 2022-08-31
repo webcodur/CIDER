@@ -18,6 +18,17 @@ async function get(endpoint, params = "") {
   });
 }
 
+async function get2(endpoint, params = "") {
+  console.log(`%cGET 요청 ${serverUrl + endpoint + params}`, "color: #a25cd1;");
+
+  return axios.get(serverUrl + endpoint + params, {
+    // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
+    headers: {
+      Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+    },
+  });
+}
+
 async function post(endpoint, data) {
   const bodyData = JSON.stringify(data);
   console.log(`%cPOST 요청: ${serverUrl + endpoint}`, "color: #296aba;");
@@ -75,4 +86,4 @@ async function patch(endpoint, params = "", data) {
 
 // 아래처럼 export한 후, import * as A 방식으로 가져오면,
 // A.get, A.post 로 쓸 수 있음.
-export { get, post, put, del as delete, patch };
+export { get, post, put, del as delete, patch, get2 };

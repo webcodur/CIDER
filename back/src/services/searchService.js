@@ -1,3 +1,4 @@
+import { User } from "../db";
 import { ERRORS } from "../constants/constants";
 
 const searchService = {
@@ -22,6 +23,7 @@ const searchService = {
         throw new Error(ERRORS.BODY_DATA_ERROR.errorCode);
     }
 
+    const searches = await User.findSearchData(searchOption);
     return searches;
   },
 };

@@ -1,36 +1,48 @@
 import * as Api from "../../api";
 import { useState } from "react";
-// import axios from "axios";
 import searchBar from "../../styles/searchBar.css";
-const Search = () => {
-  const [searchData, setSearchData] = useState(false);
-  const [Selected, setSelected] = useState("");
+
+const Search = ({ setSearchData, setIsEmpty }) => {
+  const [Selected, setSelected] = useState("all");
   const [inputValue, setInputValue] = useState("");
   const test = (e) => {
     e.preventDefault();
-    setInputValue(e.target.value);
-    // alert(e.target.value + " 검색을 시작합니다.");
-
-    Api.get("search", `?option=${Selected}&?content=${inputValue}`).then(
-      (res) => setSearchData(res.data)
-    );
+    Api.get2(`search?option=${Selected}&contents=${inputValue}`).then((res) => {
+      setSearchData(res.data);
+      console.log(res.data);
+    });
   };
-
+  const handleChangeInput = (e) => {
+    e.preventDefault();
+    setInputValue(e.target.value);
+    setIsEmpty(false);
+  };
   const handleChangeSelect = (e) => {
+    e.preventDefault();
     setSelected(e.target.value);
   };
 
   return (
     <div css={{ searchBar }}>
-      <form id="formInput" name="profile" onChange={test} autocomplete="on">
+      <form
+        id="formInput"
+        name="profile"
+        onChange={handleChangeInput}
+        autocomplete="on"
+      >
         <select onChange={handleChangeSelect}>
           <option value="all">통합검색</option>
           <option value="name">이름</option>
           <option value="email">이메일</option>
           <option value="description">내용</option>
         </select>
-        <input type="text" placeholder="검색어를 입력해 주세요" />
-        <input type="submit" value="🔍" onChange={test} />
+        <input type="text" style={{ display: "none" }} />
+        <input
+          type="text"
+          placeholder="검색어를 입력해 주세요"
+          onKeyUp={test}
+        />
+        <input type="button" value="🔍" onClick={test} />
       </form>
     </div>
   );

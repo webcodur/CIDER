@@ -17,6 +17,14 @@ body {
 .inputwidth {
   width: 100%;
 }
+.nodata {
+  width: 1300px;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .margin10 {
   margin: 10px;
 }
