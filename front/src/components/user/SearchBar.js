@@ -7,42 +7,44 @@ const Search = ({ setSearchData, setIsEmpty }) => {
   const [inputValue, setInputValue] = useState("");
   const test = (e) => {
     e.preventDefault();
-    Api.get2(`search?option=${Selected}&contents=${inputValue}`).then((res) => {
-      setSearchData(res.data);
-      console.log(res.data);
-    });
+    // handleChangeInput(e);
+    if (inputValue && Selected) {
+      Api.get2(`search?option=${Selected}&contents=${inputValue}`).then(
+        (res) => {
+          setSearchData(res.data);
+          console.log(res.data);
+        }
+      );
+    }
   };
   const handleChangeInput = (e) => {
     e.preventDefault();
+    console.log("input", e.target.value);
     setInputValue(e.target.value);
     setIsEmpty(false);
   };
+
   const handleChangeSelect = (e) => {
     e.preventDefault();
+    console.log("select", e.target.value);
     setSelected(e.target.value);
   };
 
   return (
-    <div css={{ searchBar }}>
+    <div css={{ searchBar }} id="formInput">
+      <select onChange={handleChangeSelect}>
+        <option value="all">통합검색</option>
+        <option value="name">이름</option>
+        <option value="email">이메일</option>
+        <option value="description">내용</option>
+      </select>
       <form
-        id="formInput"
+        // id="formInput"
+        id="formwidth"
         name="profile"
         onChange={handleChangeInput}
         autocomplete="on"
       >
-        <select onChange={handleChangeSelect}>
-          <option value="all">통합검색</option>
-          <option value="name">이름</option>
-          <option value="email">이메일</option>
-          <option value="description">내용</option>
-        </select>
-        {/* <input type="text" style={{ display: "none" }} />
-        <input
-          type="text"
-          placeholder="검색어를 입력해 주세요"
-          onKeyUp={test}
-        />
-        <input type="button" value="🔍" onClick={test} /> */}
         <div class="input-group">
           <input
             type="search"
@@ -52,6 +54,7 @@ const Search = ({ setSearchData, setIsEmpty }) => {
             aria-describedby="search-addon"
             onKeyUp={test}
           />
+          <input style={{ display: "none " }} />
           <button type="button" class="btn btn-outline-primary" onClick={test}>
             search
           </button>

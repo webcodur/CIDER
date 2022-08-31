@@ -2,8 +2,11 @@
   position: absolute;
   top: 10px;
   left: 34%;
-  width: 35%;
+  width: 1000px;
   margin-top: 15px;
   display: flex;
   z-index: 100;
+}
+#formwidth {
+  width: 50%;
 }
