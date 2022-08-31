@@ -11,6 +11,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   const [email, setEmail] = useState(user?.email);
   const [description, setDescription] = useState(user?.description);
   const [isEmpty, setIsEmpty] = useState(true);
+  const [image, setImage] = useState(true);
   const ThemeMode = useTheme();
   const theme = ThemeMode[0];
   const handleSubmit = async (e) => {
@@ -31,8 +32,24 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     setIsEditing(false);
   };
 
-  const onImgChange = (e) => {
-    e.preventDefault();
+  const onImgChange = async (e) => {
+    let file = e.target.files[0];
+    let formData = new FormData();
+    formData.append("file", file);
+    for (let key of formData.keys()) {
+      console.log(key, ":", formData.get(key));
+    }
+    // await Api.filepost("user/images/profile", {
+    //   formData,
+    // }).then((res) => setImage(res.data));
+    const response = await fetch("http://localhost:5001/user/images/profile", {
+      method: "POST",
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+      },
+    });
+
     console.log(e.target.files[0]);
   };
 

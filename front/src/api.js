@@ -41,7 +41,18 @@ async function post(endpoint, data) {
     },
   });
 }
+async function filepost(endpoint, data) {
+  const bodyData = JSON.stringify(data);
+  console.log(`%cPOST 요청: ${serverUrl + endpoint}`, "color: #296aba;");
+  console.log(`%cPOST 요청 데이터: ${bodyData}`, "color: #296aba;");
 
+  return axios.post(serverUrl + endpoint, bodyData, {
+    headers: {
+      // "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+    },
+  });
+}
 async function put(endpoint, data) {
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
   // 예시: {name: "Kim"} => {"name": "Kim"}
@@ -86,4 +97,4 @@ async function patch(endpoint, params = "", data) {
 
 // 아래처럼 export한 후, import * as A 방식으로 가져오면,
 // A.get, A.post 로 쓸 수 있음.
-export { get, post, put, del as delete, patch, get2 };
+export { get, post, put, del as delete, patch, get2, filepost };

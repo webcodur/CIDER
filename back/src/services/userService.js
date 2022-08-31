@@ -170,7 +170,7 @@ class userAuthService {
     const newValue = {
       originalname,
       filename,
-      path: path.match(/\/profiles\/.*/g)[0],
+      path: path[1].match(/\/profiles\/.*/g),
     };
     const updatedUser = await User.update({
       user_id: userId,

@@ -1,20 +1,20 @@
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { Card, Row, Button, Col } from 'react-bootstrap';
-import React, { useContext } from 'react';
-import { UserStateContext } from '../../App';
-import LikeButton from '../UI/LikeButton';
-import { useTheme } from '../darkmode/themeProvider';
-import '../../../src/styles/index.css';
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { Card, Row, Button, Col } from "react-bootstrap";
+import React, { useContext } from "react";
+import { UserStateContext } from "../../App";
+import LikeButton from "../UI/LikeButton";
+import { useTheme } from "../darkmode/themeProvider";
+import "../../../src/styles/index.css";
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const navigate = useNavigate();
   const userState = useContext(UserStateContext);
   const ThemeMode = useTheme();
   const theme = ThemeMode[0];
   const id = userState?.user?.id;
-  let userstr = '';
+  let userstr = "";
   function recentlyView() {
-    let origin = localStorage.getItem('recentlyView1');
+    let origin = localStorage.getItem("recentlyView1");
     if (!origin) {
       userstr = JSON.stringify([{ name: user?.name, id: user?.id }]);
     } else {
@@ -25,32 +25,36 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
       userstr = JSON.stringify([...origin, { name: user?.name, id: user?.id }]);
     }
     navigate(`/users/${user.id}`);
-    localStorage.setItem('recentlyView1', userstr);
+    localStorage.setItem("recentlyView1", userstr);
   }
 
   const str = user?.id ? user.id : id;
   const regex = /[^0-9]/g;
-  let result = '';
+  let result = "";
   if (str) {
-    result = str.replace(regex, '');
+    result = str.replace(regex, "");
   }
   const slicenum = result.slice(0, 3);
   const number = parseInt(slicenum);
-
+  console.log(user);
+  console.log(user?.profileImage?.path);
   return (
     <Card
       className="mb-2 ms-3 mr-5"
-      style={{ width: '18rem' }}
-      id={theme == 'light' ? 'light' : 'dark'}
+      style={{ width: "18rem" }}
+      id={theme == "light" ? "light" : "dark"}
     >
       <Card.Body>
         <Row className="justify-content-md-center">
+          {console.log("/back/public" + user?.profileImage?.path)}
           <Card.Img
-            style={{ width: '10rem', height: '8rem' }}
+            style={{ width: "10rem", height: "8rem" }}
             className="mb-3"
-            src={`http://placekitten.com/${number}/${number}`}
+            // src={"/back/src/images" + user?.profileImage?.path}
+            // src={`http://placekitten.com/${number}/${number}`}
+            src={`/default_profile_image.png`}
             // src="http://placekitten.com/200/200" 고정으로 사용하고 싶다면 이렇게 하면 됌
-            alt="랜덤 고양이 사진 (http://placekitten.com API 사용)"
+            alt="사용자 프로필 사진"
           />
         </Row>
         <Card.Title>{user?.name}</Card.Title>
@@ -89,6 +93,6 @@ export default UserCard;
 const StyledDiv = styled.div`
   border-radius: 4px;
   border: ${(props) =>
-    props.theme === 'light' ? '1px solid #31302E' : '1px solid #bbb'};
-  color: ${(props) => (props.theme === 'light' ? '#31302E' : '#bbb')};
+    props.theme === "light" ? "1px solid #31302E" : "1px solid #bbb"};
+  color: ${(props) => (props.theme === "light" ? "#31302E" : "#bbb")};
 `;
