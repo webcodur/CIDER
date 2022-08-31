@@ -1,7 +1,7 @@
-import React, { useContext, useState, useRef, useEffect } from "react";
-import * as Api from "../../api";
-import { Col, Button, Overlay, Tooltip } from "react-bootstrap";
-import "../../styles/tooltip.css";
+import React, { useContext, useState, useRef, useEffect } from 'react';
+import * as Api from '../../api';
+import { Col, Button, Overlay, Tooltip } from 'react-bootstrap';
+import '../../styles/tooltip.css';
 
 const DeleteButton = ({ educationid, onRemove }) => {
   const [isConfirm, setConfirm] = useState(false);
@@ -36,7 +36,7 @@ const DeleteButton = ({ educationid, onRemove }) => {
       </Button>
 
       <Overlay target={target.current} show={isConfirm} placement="left">
-        <Tooltip>정말 삭제하시겠습니까?</Tooltip>
+        <Tooltip className="red-tooltip">정말 삭제하시겠습니까?</Tooltip>
       </Overlay>
     </Col>
   );
