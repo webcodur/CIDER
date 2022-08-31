@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 import styles from "../../styles/anime.css";
+import styled from "styled-components";
+import "../../../src/styles/index.css";
+import { useTheme } from "../darkmode/themeProvider";
+
 function UserEditForm({ user, setIsEditing, setUser }) {
   const [name, setName] = useState(user?.name);
   const [email, setEmail] = useState(user?.email);
   const [description, setDescription] = useState(user?.description);
   const [isEmpty, setIsEmpty] = useState(true);
+  const ThemeMode = useTheme();
+  const theme = ThemeMode[0];
   const handleSubmit = async (e) => {
     e.preventDefault();
     // if (name === "" || description === "") {
@@ -34,7 +40,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   };
 
   return (
-    <Card className="mb-2">
+    <Card className="mb-2" id={theme == "light" ? "light" : "dark"}>
       <Card.Body>
         <Form onSubmit={handleSubmit}>
           {!isEmpty && (

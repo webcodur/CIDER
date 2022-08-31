@@ -26,11 +26,11 @@ function Header() {
         </Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        {isLogin && (
+        {/* {isLogin && (
           <ThemeToggle toggle={toggleTheme} mode={ThemeMode}>
             DarkMode
           </ThemeToggle>
-        )}
+        )} */}
       </Nav.Item>
       <Nav.Item>
         <Nav.Link onClick={() => navigate("/")}>나의 페이지</Nav.Link>

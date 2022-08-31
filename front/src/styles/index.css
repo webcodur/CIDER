@@ -79,3 +79,13 @@ body {
   justify-content: center;
   display: inline-block;
 }
+#light {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  color: black;
+}
+#dark {
+  background: #1e1e22;
+  border: 1px solid white;
+  color: white;
+}

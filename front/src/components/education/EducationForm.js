@@ -61,7 +61,11 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
         </div>
       )}
       <Form.Group>
-        <FloatingLabel label="학교 이름" className="mt-3 mb-3">
+        <FloatingLabel
+          label="학교 이름"
+          className="mt-3 mb-3"
+          style={{ color: "black" }}
+        >
           <Form.Control
             name="school"
             type="text"
@@ -71,7 +75,11 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
         </FloatingLabel>
       </Form.Group>
       <Form.Group className="mt-3">
-        <FloatingLabel label="상세 내역" className="mb-3">
+        <FloatingLabel
+          label="상세 내역"
+          className="mb-3"
+          style={{ color: "black" }}
+        >
           <Form.Control
             type="text"
             name="major"

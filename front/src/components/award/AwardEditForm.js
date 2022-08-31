@@ -64,7 +64,11 @@ const AwardEditForm = (props) => {
         </div>
       )}
       <Form.Group>
-        <FloatingLabel label="수상 내역" className="mt-3 mb-3">
+        <FloatingLabel
+          label="수상 내역"
+          className="mt-3 mb-3"
+          style={{ color: "black" }}
+        >
           <Form.Control
             type="text"
             autoComplete="on"
@@ -75,7 +79,11 @@ const AwardEditForm = (props) => {
       </Form.Group>
 
       <Form.Group>
-        <FloatingLabel label="상세 내역" className="mt-3 mb-3">
+        <FloatingLabel
+          label="상세 내역"
+          className="mt-3 mb-3"
+          style={{ color: "black" }}
+        >
           <Form.Control
             type="text"
             autoComplete="on"

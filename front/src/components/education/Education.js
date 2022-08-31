@@ -4,9 +4,13 @@ import EducationForm from "./EducationForm";
 import EducationCard from "./EducationCard";
 import { UserStateContext } from "../../App";
 import * as Api from "../../api";
+import { useTheme } from "../darkmode/themeProvider";
+import "../../../src/styles/index.css";
 
 const Education = ({ isEditable, portfolioOwnerId }) => {
   const [isAdding, setIsAdding] = useState(false);
+  const ThemeMode = useTheme();
+  const theme = ThemeMode[0];
   const toggleAddEducationForm = () => {
     setIsAdding(!isAdding);
   };
@@ -33,7 +37,7 @@ const Education = ({ isEditable, portfolioOwnerId }) => {
     ).then((res) => setEducations(res.data));
   }, [portfolioOwnerId]);
   return (
-    <Card className="mb-2 ms-3 mr-5 ">
+    <Card className="mb-2 ms-3 mr-5 " id={theme == "light" ? "light" : "dark"}>
       <Card.Body>
         <Card.Title>학력</Card.Title>
         <EducationCard

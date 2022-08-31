@@ -26,9 +26,9 @@ const AwardForm = (props) => {
       description: details,
     };
 
-    await Api.post('award', awardObj);
+    await Api.post("award", awardObj);
 
-    const res2 = await Api.get('awards', userState.user.id);
+    const res2 = await Api.get("awards", userState.user.id);
     const datas = res2.data;
 
     let dataArr = [];
@@ -56,6 +56,7 @@ const AwardForm = (props) => {
                 autoComplete="on"
                 value={award}
                 placeholder="수상 내역"
+                style={{ color: "black" }}
                 onChange={(e) => setAward(e.target.value)}
               />
             </Form.Group>
@@ -66,6 +67,7 @@ const AwardForm = (props) => {
                 autoComplete="on"
                 value={details}
                 placeholder="상세 내역"
+                style={{ color: "black" }}
                 onChange={(e) => setDetails(e.target.value)}
               />
             </Form.Group>
