@@ -3,9 +3,12 @@ import React, { useState, useContext, useEffect, useCallback } from "react";
 import { UserStateContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import "../../../src/styles/index.css";
+import { useTheme } from "../darkmode/themeProvider";
 function ThemeToggle({ toggle, mode }) {
   const [watchs, setWatchs] = useState();
   const navigate = useNavigate();
+  const ThemeMode = useTheme();
+  const theme = ThemeMode[0];
   let origins = localStorage.getItem("recentlyView1");
   const userState = useContext(UserStateContext);
   let id = null;
@@ -25,7 +28,7 @@ function ThemeToggle({ toggle, mode }) {
 
   return (
     <div>
-      <div className="sideBox">
+      <div className="sideBox" id={theme == "light" ? "light" : "dark"}>
         <div
           style={{
             justifyContent: "center",
