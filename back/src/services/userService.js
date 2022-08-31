@@ -65,6 +65,7 @@ class userAuthService {
       name,
       description,
       likes: user.likes,
+      profileImage: user.profileImage,
       errorMessage: null,
     };
 
@@ -156,6 +157,25 @@ class userAuthService {
 
       return updatedUser.likes;
     }
+  }
+
+  static async setUserProfileImage({ userId, originalname, filename, path }) {
+    const user = await User.findById({ user_id: userId });
+    if (!user) {
+      throw new Error(ERRORS.USER_ID_ERROR.errorCode);
+    }
+    const newValue = {
+      originalname,
+      filename,
+      path: path.match(/\/profiles\/.*/g)[0],
+    };
+    const updatedUser = await User.update({
+      user_id: userId,
+      fieldToUpdate: "profileImage",
+      newValue,
+    });
+
+    return updatedUser;
   }
 }
 

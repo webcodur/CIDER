@@ -5,10 +5,10 @@ const multer = require("multer");
 // 프로필 사진 업로드 미들웨어
 const profilestorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, __dirname + `/../images/profiles/${req.currentUserId}`);
+    cb(null, __dirname + `/../images/profiles`);
   },
   filename: (req, file, cb) => {
-    cb(null, "profile_image" + `.${file.mimetype.split("/")[1]}`);
+    cb(null, `${req.currentUserId}.${file.mimetype.split("/")[1]}`);
   },
 });
 

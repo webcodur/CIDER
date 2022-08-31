@@ -35,4 +35,10 @@ const ERRORS = {
   },
 };
 
-export { ERRORS };
+const DEFAULT_PROFILE_IMAGE = {
+  originalName: "default_profile_image.png",
+  fileName: "default_profile_image.png",
+  path: "/default_profile_image.png",
+};
+
+export { ERRORS, DEFAULT_PROFILE_IMAGE };
