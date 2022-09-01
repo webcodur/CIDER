@@ -31,7 +31,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     });
     const updatedUser = res.data;
     setUser(updatedUser);
-    const response = await fetch(serverUrl + `/user/images/profile`, {
+    const response = await fetch(serverUrl + `user/images/profile`, {
       method: "POST",
       body: formData,
       headers: {
