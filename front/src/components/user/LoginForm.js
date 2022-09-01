@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Col, Row, Form, Button } from 'react-bootstrap';
 
@@ -7,7 +7,7 @@ import { DispatchContext } from '../../App';
 import { useTheme } from '../darkmode/themeProvider';
 import '../../../src/styles/index.css';
 
-import styles from '../../styles/anime.css';
+import styles from '../../styles/login-animation.css';
 
 function LoginForm({ isEditable }) {
   const navigate = useNavigate();
@@ -19,6 +19,14 @@ function LoginForm({ isEditable }) {
   const [password, setPassword] = useState('');
 
   const [isEmpty, setIsEmpty] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsEmpty(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [isEmpty]);
 
   const validateEmail = (email) => {
     return email
@@ -58,17 +66,6 @@ function LoginForm({ isEditable }) {
   return (
     <Container>
       <Row className="justify-content-md-center mt-5">
-        {isEmpty && (
-          <div className="text-danger text-center" style={{ styles }}>
-            <span
-              className="text-danger text-center"
-              id="anime"
-              style={{ styles }}
-            >
-              로그인에 실패했습니다.
-            </span>
-          </div>
-        )}
         <Col lg={8}>
           <Form
             onSubmit={handleSubmit}
@@ -124,6 +121,19 @@ function LoginForm({ isEditable }) {
             </Form.Group>
           </Form>
         </Col>
+      </Row>
+      <Row className="mt-5">
+        {isEmpty && (
+          <div className="text-danger text-center" style={{ styles }}>
+            <span
+              className="text-danger text-center"
+              id="anime"
+              style={{ styles }}
+            >
+              로그인에 실패했습니다.
+            </span>
+          </div>
+        )}
       </Row>
     </Container>
   );
