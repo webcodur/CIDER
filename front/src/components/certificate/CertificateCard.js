@@ -62,52 +62,7 @@ const CertificateCard = (props) => {
 
   return (
     <>
-      <div className="mb-4">
-        <div className="align-items-center row" id={arr[idx][0]}>
-          {!isEditing && (
-            <Col>
-              {arr[idx][1]} <br />
-              <span className="text-muted">{arr[idx][2]}</span> <br />
-              <span className="text-muted">{arr[idx][3]}</span>
-            </Col>
-          )}
-          {!isEditing && props.isEditable && id === state && (
-            <Col className="col-lg-1">
-              <Button
-                css={{ displayToggleCss }}
-                variant="outline-info"
-                onClick={openEditForm}
-                className="me-1 mb-1 mr-3 toggleTarget"
-                size="sm"
-              >
-                편집
-              </Button>
-              <Button
-                css={{ displayToggleCss }}
-                variant="outline-danger"
-                onClick={checkDelete}
-                ref={target}
-                className="mr-3 btn-sm toggleTarget"
-                size="sm"
-              >
-                삭제
-              </Button>
-              <Overlay
-                target={target.current}
-                show={isConfirm}
-                placement="left"
-              >
-                {
-                  <Tooltip className="red-tooltip">
-                    정말 삭제하시겠습니까?
-                  </Tooltip>
-                }
-              </Overlay>
-            </Col>
-          )}
-        </div>
-      </div>
-      {isEditing && id === state && (
+      {isEditing && id === state ? (
         <CertificateEditForm
           eleID={eleID}
           arr={arr}
@@ -115,6 +70,50 @@ const CertificateCard = (props) => {
           isEditing={isEditing}
           setIsEditing={setIsEditing}
         />
+      ) : (
+        <div className="mb-4">
+          <div className="align-items-center row" id={arr[idx][0]}>
+            <Col>
+              {arr[idx][1]} <br />
+              <span className="text-muted">{arr[idx][2]}</span> <br />
+              <span className="text-muted">{arr[idx][3]}</span>
+            </Col>
+            {props.isEditable && id === state && (
+              <Col className="col-lg-1">
+                <Button
+                  css={{ displayToggleCss }}
+                  variant="outline-info"
+                  onClick={openEditForm}
+                  className="me-1 mb-1 mr-3 toggleTarget"
+                  size="sm"
+                >
+                  편집
+                </Button>
+                <Button
+                  css={{ displayToggleCss }}
+                  variant="outline-danger"
+                  onClick={checkDelete}
+                  ref={target}
+                  className="mr-3 btn-sm toggleTarget"
+                  size="sm"
+                >
+                  삭제
+                </Button>
+                <Overlay
+                  target={target.current}
+                  show={isConfirm}
+                  placement="left"
+                >
+                  {
+                    <Tooltip className="red-tooltip">
+                      정말 삭제하시겠습니까?
+                    </Tooltip>
+                  }
+                </Overlay>
+              </Col>
+            )}
+          </div>
+        </div>
       )}
     </>
   );
