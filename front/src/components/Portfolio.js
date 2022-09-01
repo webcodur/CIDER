@@ -48,15 +48,15 @@ function Portfolio() {
 
   return (
     <Container fluid style={{ zIndex: 0 }}>
-      <Row style={{ width: '100%' }}>
-        <Col md="3" lg="2">
+      <Row style={{ width: '95%' }}>
+        <Col md="3" lg="3">
           <User
             portfolioOwnerId={portfolioOwner.id}
             isEditable={isEditable}
             setIsEditable={setIsEditable}
           />
         </Col>
-        <Col style={{ paddingLeft: '0px', paddingRight: '10px' }}>
+        <Col>
           <Education
             isEditable={isEditable}
             portfolioOwnerId={portfolioOwner.id}
@@ -71,7 +71,7 @@ function Portfolio() {
             portfolioOwnerId={portfolioOwner.id}
           />
         </Col>
-        <Col style={{ paddingLeft: '30px' }} md="2">
+        <Col md="2">
           <Anchor />
           <LatestViews />
         </Col>
