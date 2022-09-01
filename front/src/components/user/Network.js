@@ -16,6 +16,7 @@ function Network() {
   const [users, setUsers] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [isEmpty, setIsEmpty] = useState(false);
+  const [didClick, setDidClick] = useState(false);
   const ThemeMode = useTheme();
   const theme = ThemeMode[0];
 
@@ -32,18 +33,25 @@ function Network() {
       <SearchBar
         setSearchData={setSearchData}
         setIsEmpty={setIsEmpty}
+        setDidClick={setDidClick}
       ></SearchBar>
       <Container fluid>
         <Col md="10">
           <Row xs="auto" className="jusify-content-center">
-            {console.log(isEmpty, searchData?.length)}
-            {!isEmpty ? (
+            {console.log(
+              isEmpty,
+              searchData?.length,
+              users,
+              searchData,
+              didClick
+            )}
+            {!didClick ? (
               users.map((user) => (
                 <>
                   <UserCard key={user.id} user={user} isNetwork />
                 </>
               ))
-            ) : searchData?.length === 0 ? (
+            ) : didClick && searchData?.length === 0 ? (
               <div
                 className="nodata"
                 style={{
