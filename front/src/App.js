@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useReducer,
-  createContext,
-  useContext,
-} from 'react';
+import React, { useState, useEffect, useReducer, createContext } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import * as Api from './api';
 import { loginReducer } from './reducer';
@@ -57,7 +51,6 @@ function App() {
     <DispatchContext.Provider value={dispatch}>
       <UserStateContext.Provider value={userState}>
         <Router>
-<<<<<<< HEAD
           <ErrorModalContextProvider>
             <ErrorModalAppLayout>
               <ThemeProvider>
@@ -78,31 +71,6 @@ function App() {
               </ThemeProvider>
             </ErrorModalAppLayout>
           </ErrorModalContextProvider>
-=======
-          <ThemeProvider>
-            <GlobalStyle />
-            <Header />
-            {/* <div
-              style={{ width: "100%", height: "200px" }}
-              className="alwaysnone apear"
-              // className="hide"
-            ></div> */}
-            <div className="elice" style={{
-              // marginTop:'50px'
-            }}>
-              <AppLayout>
-                <Routes>
-                  <Route path="/" exact element={<Portfolio />} />
-                  <Route path="/login" element={<LoginForm />} />
-                  <Route path="/register" element={<RegisterForm />} />
-                  <Route path="/users/:userId" element={<Portfolio />} />
-                  <Route path="/network" element={<Network />} />
-                  <Route path="*" element={<Portfolio />} />
-                </Routes>
-              </AppLayout>
-            </div>
-          </ThemeProvider>
->>>>>>> bb84765cfe7f1017aada9457b69492d4f0d333fb
         </Router>
       </UserStateContext.Provider>
     </DispatchContext.Provider>
