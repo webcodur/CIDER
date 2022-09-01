@@ -10,6 +10,8 @@ import * as Api from '../api';
 import User from './user/User';
 import Anchor from './UI/Anchor';
 import LatestViews from './UI/LatestViews';
+import ErrorModalContext from './stores/ErrorModalContext';
+import ErrorModal from './UI/ErrorModal';
 
 function Portfolio() {
   const navigate = useNavigate();
@@ -19,6 +21,8 @@ function Portfolio() {
   const userState = useContext(UserStateContext);
 
   const [isEditable, setIsEditable] = useState(false);
+
+  const errorModalContext = useContext(ErrorModalContext);
 
   const fetchPorfolioOwner = async (ownerId) => {
     const res = await Api.get('users', ownerId);

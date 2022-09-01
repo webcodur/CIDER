@@ -2,12 +2,14 @@ import React, { useState, useContext } from 'react';
 import * as Api from '../../../api';
 
 import AuthContext from '../stores/AuthContext';
+import ErrorModalContext from '../../stores/ErrorModalContext';
 import CheckButton from './CheckButton';
 import { Form, Col, FloatingLabel } from 'react-bootstrap';
 import styles from '../../../styles/anime.css';
 
 const AddForm = (props) => {
   const context = useContext(AuthContext);
+  const errorModalContext = useContext(ErrorModalContext);
   const [dataValues, setDataValues] = useState({});
   const [isEmpty, setIsEmpty] = useState(false);
   const DATA_ENDPOINT = 'project';
@@ -54,7 +56,7 @@ const AddForm = (props) => {
       await props.callFetch();
       context.setIsAdding(false);
     } catch (err) {
-      context.setModalText('데이터 전송에 실패했습니다.');
+      errorModalContext.setModalText('데이터 전송에 실패했습니다.');
     }
   };
 

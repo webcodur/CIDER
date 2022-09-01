@@ -2,16 +2,18 @@ import React, { useState, useEffect, useContext } from 'react';
 import * as Api from '../../../api';
 
 import AuthContext from '../stores/AuthContext';
+import ErrorModalContext from '../../stores/ErrorModalContext';
+
 import CardElement from '../CardElement';
 import AddForm from './AddForm';
 import AddButton from './AddButton';
-import ErrorModal from './ErrorModal';
 import { Card } from 'react-bootstrap';
 import { useTheme } from '../../darkmode/themeProvider';
 import '../../../../src/styles/index.css';
 
 const CardFrame = ({ portfolioOwnerId, isEditable }) => {
   const context = useContext(AuthContext);
+  const errorModalContext = useContext(ErrorModalContext);
   const USER_ENDPOINT = 'users';
   const DATA_ENDPOINT = 'projects';
   const ThemeMode = useTheme();
@@ -29,7 +31,8 @@ const CardFrame = ({ portfolioOwnerId, isEditable }) => {
 
       return userInfo;
     } catch (err) {
-      context.setModalText(err.message);
+      errorModalContext.setModalText(err.message);
+      console.log(errorModalContext);
     }
   };
 
@@ -40,10 +43,10 @@ const CardFrame = ({ portfolioOwnerId, isEditable }) => {
 
       return fetchedData;
     } catch (err) {
-      context.setModalText(err.message);
+      errorModalContext.setModalText(err.message);
 
       if (err.message.includes('iterable')) {
-        context.setModalText('프로젝트 데이터에 문제가 있습니다.');
+        errorModalContext.setModalText('프로젝트 데이터에 문제가 있습니다.');
       }
 
       const fetchedData = [];
@@ -64,7 +67,6 @@ const CardFrame = ({ portfolioOwnerId, isEditable }) => {
 
   return (
     <React.Fragment>
-      {context.modalText && <ErrorModal />}
       <Card className="mb-2 ms-3 mr-5" id={theme == 'light' ? 'light' : 'dark'}>
         <Card.Body>
           <Card.Title>프로젝트</Card.Title>

@@ -1,13 +1,13 @@
 import { useContext } from 'react';
-import AuthContext from '../stores/AuthContext';
+import ErrorModalContext from '../stores/ErrorModalContext';
 import { Button, Modal } from 'react-bootstrap';
-import '../../../styles/modal.css';
+import '../../styles/modal.css';
 
 const ErrorModal = () => {
-  const context = useContext(AuthContext);
+  const errorModalContext = useContext(ErrorModalContext);
 
   const errorModalCheck = () => {
-    context.setModalText('');
+    errorModalContext.setModalText('');
   };
 
   return (
@@ -17,7 +17,7 @@ const ErrorModal = () => {
           <Modal.Title>사이트가 많이 아파요...</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>{context.modalText}</p>
+          <p>{errorModalContext.modalText}</p>
         </Modal.Body>
         <Modal.Footer>
           <Button className="modal-button" onClick={errorModalCheck}>

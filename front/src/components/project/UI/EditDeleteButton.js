@@ -2,11 +2,13 @@ import React, { useContext, useState, useRef, useEffect } from 'react';
 import * as Api from '../../../api';
 
 import AuthContext from '../stores/AuthContext';
+import ErrorModalContext from '../../stores/ErrorModalContext';
 import { Col, Button, Overlay, Tooltip } from 'react-bootstrap';
 import '../../../styles/tooltip.css';
 
 const EditDeleteButton = (props) => {
   const context = useContext(AuthContext);
+  const errorModalContext = useContext(ErrorModalContext);
   const [isConfirm, setConfirm] = useState(false);
   const target = useRef(null);
   const DATA_ENDPOINT = 'project';
@@ -32,7 +34,7 @@ const EditDeleteButton = (props) => {
       await Api.delete(DATA_ENDPOINT, id);
       await props.callFetch();
     } catch (err) {
-      context.setModalText('데이터 삭제에 실패했습니다.');
+      errorModalContext.setModalText('데이터 삭제에 실패했습니다.');
     }
   };
 
