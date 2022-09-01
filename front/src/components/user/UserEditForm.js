@@ -13,6 +13,9 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   const ThemeMode = useTheme();
   const theme = ThemeMode[0];
   let formData = new FormData();
+  const backendPortNumber = "5001";
+  const serverUrl =
+    "http://" + window.location.hostname + ":" + backendPortNumber + "/";
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (name === "" || description === "") {
@@ -28,7 +31,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     });
     const updatedUser = res.data;
     setUser(updatedUser);
-    const response = await fetch("http://localhost:5001/user/images/profile", {
+    const response = await fetch(serverUrl + `/user/images/profile`, {
       method: "POST",
       body: formData,
       headers: {
