@@ -32,7 +32,6 @@ const CardFrame = ({ portfolioOwnerId, isEditable }) => {
       return userInfo;
     } catch (err) {
       errorModalContext.setModalText(err.message);
-      console.log(errorModalContext);
     }
   };
 
