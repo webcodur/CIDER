@@ -3,9 +3,9 @@
   top: -80px;
   left: 34%;
   min-width: 541px;
-  height: 58px;
+  /* height: 58px; */
   margin-top: 8px;
-  display: flex;
+  display: inline-flex;
   z-index: 100;
 }
 #formwidth {
