@@ -69,9 +69,6 @@ function UserCard({
             className="mb-3"
             src={photo}
             alt="사용자 프로필 사진"
-            onClick={() => {
-              navigate(`/users/${user.id}`, { state: user.id });
-            }}
           />
         </Row>
         <Card.Title>
@@ -85,7 +82,13 @@ function UserCard({
           )}
         </Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
-        <Card.Text>{user?.description}</Card.Text>
+        <Card.Text
+          className={
+            userState?.user?.id === portfolioOwnerId ? "" : "text-truncate"
+          }
+        >
+          {user?.description}
+        </Card.Text>
         <Row className="mt-4">
           {isNetwork && (
             <Col sm>

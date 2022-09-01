@@ -1,14 +1,14 @@
-import React, { useEffect, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { UserStateContext } from '../../App';
-import { Container, Row, Col } from 'react-bootstrap';
-import '../../styles/index.css';
-import { useTheme } from '../../components/darkmode/themeProvider';
-import * as Api from '../../api';
-import UserCard from './UserCard';
-import SearchBar from './SearchBar';
-import Anchor from '../UI/Anchor';
-import LatestViews from '../UI/LatestViews';
+import React, { useEffect, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserStateContext } from "../../App";
+import { Container, Row, Col } from "react-bootstrap";
+import "../../styles/index.css";
+import { useTheme } from "../../components/darkmode/themeProvider";
+import * as Api from "../../api";
+import UserCard from "./UserCard";
+import SearchBar from "./SearchBar";
+import Anchor from "../UI/Anchor";
+import LatestViews from "../UI/LatestViews";
 
 function Network() {
   const navigate = useNavigate();
@@ -21,10 +21,10 @@ function Network() {
 
   useEffect(() => {
     if (!userState.user) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
-    Api.get('userlist').then((res) => setUsers(res.data));
+    Api.get("userlist").then((res) => setUsers(res.data));
   }, [userState, navigate]);
 
   return (
@@ -36,7 +36,8 @@ function Network() {
       <Container fluid>
         <Col md="10">
           <Row xs="auto" className="jusify-content-center">
-            {searchData?.length === 0 && !isEmpty ? (
+            {console.log(isEmpty, searchData?.length)}
+            {!isEmpty ? (
               users.map((user) => (
                 <>
                   <UserCard key={user.id} user={user} isNetwork />
@@ -46,9 +47,9 @@ function Network() {
               <div
                 className="nodata"
                 style={{
-                  width: '1300px',
+                  width: "1300px",
                 }}
-                id={theme == 'light' ? 'blight' : 'bdark'}
+                id={theme == "light" ? "blight" : "bdark"}
               >
                 검색 결과가 없습니다
               </div>
