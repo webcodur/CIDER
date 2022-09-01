@@ -69,6 +69,9 @@ function UserCard({
             className="mb-3"
             src={photo}
             alt="사용자 프로필 사진"
+            onClick={() => {
+              navigate(`/users/${user.id}`, { state: user.id });
+            }}
           />
         </Row>
         <Card.Title>

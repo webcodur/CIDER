@@ -7,15 +7,11 @@ const Search = ({ setSearchData, setIsEmpty }) => {
   const [inputValue, setInputValue] = useState("");
   const test = (e) => {
     e.preventDefault();
-    // handleChangeInput(e);
-    if (inputValue && Selected) {
-      Api.get2(`search?option=${Selected}&contents=${inputValue}`).then(
-        (res) => {
-          setSearchData(res.data);
-          console.log(res.data);
-        }
-      );
-    }
+    console.log(inputValue);
+    Api.get2(`search?option=${Selected}&contents=${inputValue}`).then((res) => {
+      setSearchData(res.data);
+      console.log(res.data);
+    });
   };
   const handleChangeInput = (e) => {
     e.preventDefault();
@@ -24,7 +20,6 @@ const Search = ({ setSearchData, setIsEmpty }) => {
   };
 
   const handleChangeSelect = (e) => {
-    e.preventDefault();
     setSelected(e.target.value);
   };
 
@@ -50,10 +45,17 @@ const Search = ({ setSearchData, setIsEmpty }) => {
             placeholder="Search"
             aria-label="Search"
             aria-describedby="search-addon"
-            onKeyUpCapture={test}
+            // onKeyUpCapture={test}
+            onChange={handleChangeInput}
           />
+
           <input style={{ display: "none " }} />
-          <button type="button" class="btn btn-outline-primary" onClick={test}>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            style={{ marginLeft: "0px" }}
+            onClick={test}
+          >
             search
           </button>
         </div>

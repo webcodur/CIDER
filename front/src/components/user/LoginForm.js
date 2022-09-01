@@ -66,6 +66,7 @@ function LoginForm({ isEditable }) {
                 autoComplete="on"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                maxlength="20"
               />
               {!isEmailValid && (
                 <Form.Text className="text-success">
@@ -81,6 +82,7 @@ function LoginForm({ isEditable }) {
                 autoComplete="on"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                maxlength="20"
               />
               {!isPasswordValid && (
                 <Form.Text className="text-success">

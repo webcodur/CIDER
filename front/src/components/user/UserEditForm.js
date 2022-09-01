@@ -62,6 +62,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
               placeholder="이름"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              maxlength="10"
             />
           </Form.Group>
 
@@ -89,6 +90,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
               placeholder="선택된 파일 없음"
               id="formFile"
               // value={}
+              maxlength="100"
               onChange={onImgChange}
             />
           </Form.Group>

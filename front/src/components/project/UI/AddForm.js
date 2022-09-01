@@ -57,6 +57,7 @@ const AddForm = (props) => {
             type="text"
             placeholder="프로젝트 제목"
             onChange={setProjectValues}
+            maxlength="20"
           />
         </FloatingLabel>
       </Form.Group>
@@ -71,6 +72,7 @@ const AddForm = (props) => {
             type="text"
             placeholder="상세 내역"
             onChange={setProjectValues}
+            maxlength="400"
           />
         </FloatingLabel>
       </Form.Group>

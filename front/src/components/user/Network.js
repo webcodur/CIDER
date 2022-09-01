@@ -21,10 +21,10 @@ function Network() {
 
   useEffect(() => {
     if (!userState.user) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
-    Api.get('userlist').then((res) => setUsers(res.data));
+    Api.get("userlist").then((res) => setUsers(res.data));
   }, [userState, navigate]);
 
   return (
@@ -46,9 +46,13 @@ function Network() {
               <div
                 className="nodata"
                 style={{
-                  width: '1300px',
+                  width: "1300px",
                 }}
+<<<<<<< HEAD
                 id={theme == 'light' ? 'blight' : 'bdark'}
+=======
+                id={theme == "light" ? "blight" : "bdark"}
+>>>>>>> 025a191da1433def4dc4b7f2897b4292f3b673a5
               >
                 검색 결과가 없습니다
               </div>
@@ -66,6 +70,10 @@ function Network() {
           <LatestViews />
         </Col>
       </Container>
+<<<<<<< HEAD
+=======
+      <div style={{ width: "15%" }}></div>
+>>>>>>> 025a191da1433def4dc4b7f2897b4292f3b673a5
     </div>
   );
 }
