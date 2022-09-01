@@ -10,11 +10,13 @@ const LikeButton = (props) => {
   const [isShowingTooltip, setIsShowingTooltip] = useState(false);
   const [count, setCount] = useState(0);
   const [tooltipText, setToolTipText] = useState('');
-
-  let tempCount = props.user?.likes.length ? props.user.likes.length : null;
+  const [checkedButton, setCheckedButton] = useState(false);
 
   const context = useContext(AuthContext);
   const userState = useContext(UserStateContext);
+
+  let tempCount = props.user?.likes.length ? props.user.likes.length : null;
+  let checkUserLikes = props.user?.likes.includes(userState.user.id);
 
   const target = useRef(null);
 
@@ -52,8 +54,8 @@ const LikeButton = (props) => {
     }
 
     setIsClicked(!isClicked);
-    console.log(isClicked);
     setIsShowingTooltip(true);
+    setCheckedButton(!checkedButton);
 
     try {
       await Api.patch(props.user.id, 'likes');
@@ -69,6 +71,18 @@ const LikeButton = (props) => {
         variant="outline-info"
         size="sm"
         onClick={updateLikes}
+        style={{
+          backgroundColor:
+            (checkUserLikes && !checkedButton) ||
+            (!checkUserLikes && checkedButton)
+              ? '#0dcaf0'
+              : 'transparent',
+          color:
+            (checkUserLikes && !checkedButton) ||
+            (!checkUserLikes && checkedButton)
+              ? 'black'
+              : '#0dcaf0',
+        }}
       >
         {count || (!isClicked && tempCount)} 👍
       </Button>

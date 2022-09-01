@@ -30,36 +30,32 @@ const LatestViews = () => {
 
   return (
     <ToggleBoxWrapper id={theme == 'light' ? 'light' : 'dark'}>
-      <Row>
-        <Col className="mb-4">
-          <span style={{ fontWeight: 'bold' }}>최근 본 포트폴리오</span>
-        </Col>
-        <Col>
-          <ul
-            style={{
-              listStyleType: 'circle',
-              listStylePosition: 'inside',
-              textAlign: 'left',
-              display: 'inline-block',
-            }}
-          >
-            {watchs &&
-              watchs.map((watch, index) => {
-                return (
-                  <li
-                    key={index}
-                    onClick={() => {
-                      navigate(`/users/${watch.id}`, { state: watch.id });
-                    }}
-                    className="cursor_test"
-                  >
-                    {watch.name}
-                  </li>
-                );
-              })}
-          </ul>
-        </Col>
-      </Row>
+      <span className="mb-4" style={{ fontWeight: 'bold' }}>
+        최근 본 포트폴리오
+      </span>
+      <ul
+        className="mt-2"
+        style={{
+          listStyleType: 'circle',
+          textAlign: 'left',
+          display: 'inline-block',
+        }}
+      >
+        {watchs &&
+          watchs.map((watch, index) => {
+            return (
+              <li
+                key={index}
+                onClick={() => {
+                  navigate(`/users/${watch.id}`, { state: watch.id });
+                }}
+                className="cursor_test"
+              >
+                {watch.name}
+              </li>
+            );
+          })}
+      </ul>
     </ToggleBoxWrapper>
   );
 };
@@ -74,7 +70,8 @@ const ToggleBoxWrapper = styled.button`
   border: ${(props) => props.theme.borderColor};
 
   display: flex;
-  justify-content: left;
+  justify-content: center;
+  flex-direction: column;
   align-items: center;
   width: 180px;
   height: 280px;
