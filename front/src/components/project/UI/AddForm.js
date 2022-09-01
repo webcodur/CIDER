@@ -1,14 +1,14 @@
-import React, { useState, useContext } from "react";
-import * as Api from "../../../api";
+import React, { useState, useContext } from 'react';
+import * as Api from '../../../api';
 
-import AuthContext from "../stores/AuthContext";
-import CheckButton from "./CheckButton";
-import { Form, Col, FloatingLabel } from "react-bootstrap";
+import AuthContext from '../stores/AuthContext';
+import CheckButton from './CheckButton';
+import { Form, Col, FloatingLabel } from 'react-bootstrap';
 
 const AddForm = (props) => {
   const context = useContext(AuthContext);
   const [dataValues, setDataValues] = useState({});
-  const DATA_ENDPOINT = "project";
+  const DATA_ENDPOINT = 'project';
 
   const setProjectValues = (e) => {
     const { name, value } = e.target;
@@ -16,10 +16,14 @@ const AddForm = (props) => {
   };
 
   const checkProjectValues = (projectValues) => {
-    const startDay = projectValues.startDay.split("-").join("");
-    const endDay = projectValues.endDay.split("-").join("");
+    const startDay = projectValues.startDay.split('-').join('');
+    const endDay = projectValues.endDay.split('-').join('');
 
     if (startDay - endDay > 0) {
+      return false;
+    }
+
+    if (startDay > 9999 || endDay > 9999) {
       return false;
     }
 
@@ -36,7 +40,7 @@ const AddForm = (props) => {
       await props.callFetch();
       context.setIsAdding(false);
     } catch (err) {
-      context.setModalText("데이터 전송에 실패했습니다.");
+      context.setModalText('데이터 전송에 실패했습니다.');
     }
   };
 
@@ -50,7 +54,7 @@ const AddForm = (props) => {
         <FloatingLabel
           label="프로젝트 제목"
           className="mt-3 mb-3"
-          style={{ color: "black" }}
+          style={{ color: 'black' }}
         >
           <Form.Control
             name="title"
@@ -65,7 +69,7 @@ const AddForm = (props) => {
         <FloatingLabel
           label="상세 내역"
           className="mb-3"
-          style={{ color: "black" }}
+          style={{ color: 'black' }}
         >
           <Form.Control
             name="content"
@@ -89,7 +93,7 @@ const AddForm = (props) => {
         </Col>
       </Form.Group>
       <CheckButton
-        className={"mt-3 text-center"}
+        className={'mt-3 text-center'}
         submitHandler={callPost}
         cancelHandler={setIsAddingFalse}
       />

@@ -1,10 +1,11 @@
-import * as Api from "../../api";
-import { useState } from "react";
-import searchBar from "../../styles/searchBar.css";
+import * as Api from '../../api';
+import { useState } from 'react';
+import searchBar from '../../styles/searchBar.css';
+import { FloatingLabel } from 'react-bootstrap';
 
 const Search = ({ setSearchData, setIsEmpty }) => {
-  const [Selected, setSelected] = useState("all");
-  const [inputValue, setInputValue] = useState("");
+  const [Selected, setSelected] = useState('all');
+  const [inputValue, setInputValue] = useState('');
   const test = (e) => {
     e.preventDefault();
     console.log(inputValue);
@@ -26,7 +27,7 @@ const Search = ({ setSearchData, setIsEmpty }) => {
   return (
     <div css={{ searchBar }} id="formInput">
       <select onChange={handleChangeSelect}>
-        <option value="all">통합검색</option>
+        <option value="all">통합 검색</option>
         <option value="name">이름</option>
         <option value="email">이메일</option>
         <option value="description">내용</option>
@@ -39,24 +40,20 @@ const Search = ({ setSearchData, setIsEmpty }) => {
         autoComplete="on"
       >
         <div class="input-group">
-          <input
-            type="search"
-            class="form-control rounded"
-            placeholder="Search"
-            aria-label="Search"
-            aria-describedby="search-addon"
-            // onKeyUpCapture={test}
-            onChange={handleChangeInput}
-          />
-
-          <input style={{ display: "none " }} />
-          <button
-            type="button"
-            class="btn btn-outline-primary"
-            style={{ marginLeft: "0px" }}
-            onClick={test}
-          >
-            search
+          <FloatingLabel label="내용">
+            <input
+              type="search"
+              class="form-control rounded"
+              placeholder="Search"
+              aria-label="Search"
+              aria-describedby="search-addon"
+              // onKeyUpCapture={test}
+              onChange={handleChangeInput}
+              style={{ width: '25rem' }}
+            />
+          </FloatingLabel>
+          <button type="button" class="btn btn-outline-primary" onClick={test}>
+            검색
           </button>
         </div>
       </form>
