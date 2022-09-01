@@ -49,7 +49,7 @@ function Portfolio() {
   return (
     <Container fluid style={{ zIndex: 0 }}>
       <Row style={{ width: '100%' }}>
-        <Col md="3" lg="3">
+        <Col md="3" lg="2">
           <User
             portfolioOwnerId={portfolioOwner.id}
             isEditable={isEditable}

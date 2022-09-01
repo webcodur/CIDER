@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserStateContext } from '../../App';
 import { Container, Row, Col } from 'react-bootstrap';
 import '../../styles/index.css';
+import { useTheme } from '../../components/darkmode/themeProvider';
 import * as Api from '../../api';
 import UserCard from './UserCard';
 import SearchBar from './SearchBar';
@@ -15,6 +16,8 @@ function Network() {
   const [users, setUsers] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [isEmpty, setIsEmpty] = useState(false);
+  const ThemeMode = useTheme();
+  const theme = ThemeMode[0];
 
   useEffect(() => {
     if (!userState.user) {
@@ -45,6 +48,7 @@ function Network() {
                 style={{
                   width: '1300px',
                 }}
+                id={theme == 'light' ? 'blight' : 'bdark'}
               >
                 검색 결과가 없습니다
               </div>
