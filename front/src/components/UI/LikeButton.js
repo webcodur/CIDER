@@ -16,7 +16,7 @@ const LikeButton = (props) => {
   const userState = useContext(UserStateContext);
 
   let tempCount = props.user?.likes.length ? props.user.likes.length : null;
-  let checkUserLikes = props.user?.likes.includes(userState.user.id);
+  let checkUserLikes = props.user?.likes.includes(userState.user?.id);
 
   const target = useRef(null);
 

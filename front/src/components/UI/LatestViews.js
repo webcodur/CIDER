@@ -62,7 +62,7 @@ const LatestViews = () => {
 
 const ToggleBoxWrapper = styled.button`
   position: fixed;
-  z-index: 999999;
+  z-index: 9;
   bottom: 40%;
   right: 4.5%;
 
