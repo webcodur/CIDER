@@ -4,10 +4,12 @@ import * as Api from '../../../api';
 import AuthContext from '../stores/AuthContext';
 import CheckButton from './CheckButton';
 import { Form, Col, FloatingLabel } from 'react-bootstrap';
+import styles from '../../../styles/anime.css';
 
 const EditForm = (props) => {
   const context = useContext(AuthContext);
   const [dataValues, setDataValues] = useState({});
+  const [isEmpty, setIsEmpty] = useState(false);
   const DATA_ENDPOINT = 'project';
 
   const setProjectValues = (e) => {
@@ -19,11 +21,23 @@ const EditForm = (props) => {
     const startDay = projectValues.startDay.split('-').join('');
     const endDay = projectValues.endDay.split('-').join('');
 
+    if (
+      !projectValues.startDay ||
+      !projectValues.endDay ||
+      !projectValues.title ||
+      !projectValues.content
+    ) {
+      setIsEmpty(true);
+      return;
+    }
+
     if (startDay - endDay > 0) {
+      alert('시작 날짜와 종료 날짜를 제대로 적어주세요.');
       return false;
     }
 
-    if (startDay > 9999 || endDay > 9999) {
+    if (startDay > 99991231 || endDay > 99991231) {
+      alert('연도는 네자리를 넘을 수 없습니다.');
       return false;
     }
 
@@ -58,6 +72,11 @@ const EditForm = (props) => {
   return (
     <Form className="toggleTarget">
       <Form.Group>
+        {isEmpty && (
+          <div className="text-danger text-center" style={{ styles }}>
+            <span id="anime">빈 값이 있습니다.</span>
+          </div>
+        )}
         <FloatingLabel
           label="프로젝트 이름"
           className="mt-3 mb-3"
