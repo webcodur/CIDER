@@ -1,7 +1,10 @@
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import { awardService } from "../services/awardService";
-import { validationMiddleware } from "../middlewares/validationMiddleware";
+import {
+  awardPostValidator,
+  awardPatchValidator,
+} from "../middlewares/awardValidator";
 
 const awardRouter = Router();
 
@@ -9,7 +12,7 @@ const awardRouter = Router();
 awardRouter.post(
   "/award",
   login_required,
-  validationMiddleware,
+  awardPostValidator(),
   async (req, res, next) => {
     try {
       const userId = req.currentUserId;
@@ -46,12 +49,12 @@ awardRouter.get("/awards/:userId", login_required, async (req, res, next) => {
 awardRouter.patch(
   "/award/:awardId",
   login_required,
-  validationMiddleware,
+  awardPatchValidator(),
   async (req, res, next) => {
     try {
       const userId = req.currentUserId;
       const { awardId } = req.params;
-      const toUpdate = req.body;
+      const toUpdate = req.toUpdate;
 
       const updatedAward = await awardService.updateAward({
         userId,

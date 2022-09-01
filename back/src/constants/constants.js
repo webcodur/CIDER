@@ -53,6 +53,11 @@ const ERRORS = {
     errorCode: "DATE_TERM_ERROR",
     errorMessage: "입력값의 날짜 기간이 유효하지 않습니다.",
   },
+
+  EDUCATION_DATA_ERROR: {
+    errorCode: "EDUCATION_DATA_ERROR",
+    errorMessage: "유효하지 않은 EDUACATION DATA입니다.",
+  },
 };
 
 const DEFAULT_PROFILE_IMAGE = {

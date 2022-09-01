@@ -45,25 +45,10 @@ const certificateService = {
       throw new Error(ERRORS.ITEM_ID_ERROR.errorCode);
     }
 
-    const update = {};
-    if (toUpdate.title) {
-      update.title = toUpdate.title;
-    }
-    if (toUpdate.content) {
-      update.content = toUpdate.content;
-    }
-    if (toUpdate.day) {
-      update.day = toUpdate.day;
-    }
-
-    if (is.emptyObject(update)) {
-      throw new Error(ERRORS.UPDATE_DATA_ERROR.errorCode);
-    }
-
     const updatedCertificate = await Certificate.update({
       userId,
       certificateId,
-      update,
+      update: toUpdate,
     });
 
     return updatedCertificate;

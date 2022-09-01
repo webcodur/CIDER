@@ -4,8 +4,7 @@ import { login_required } from "../middlewares/login_required";
 import {
   projectPostValidator,
   projectPatchValidator,
-  validationMiddleware,
-} from "../middlewares/validationMiddleware";
+} from "../middlewares/projectValidator";
 
 const projectRouter = Router();
 

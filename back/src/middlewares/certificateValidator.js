@@ -1,6 +1,6 @@
 import is from "@sindresorhus/is";
 import { ERRORS } from "../constants/constants";
-import { body, check, param, validationResult } from "express-validator";
+import { body, validationResult } from "express-validator";
 
 const validate = (req, res, next) => {
   const errors = validationResult(req);
@@ -12,7 +12,7 @@ const validate = (req, res, next) => {
   return next({ message: errors.errors[0].msg });
 };
 
-exports.projectPostValidator = () => {
+exports.certificatePostValidator = () => {
   return [
     body("title")
       .notEmpty()
@@ -26,31 +26,17 @@ exports.projectPostValidator = () => {
       .bail()
       .isLength({ min: 1, max: 200 })
       .withMessage(ERRORS.CONTENT_LENGTH_ERROR.errorCode),
-    body("startDay")
+    body("day")
       .notEmpty()
       .withMessage(ERRORS.BODY_DATA_ERROR.errorCode)
       .bail()
       .isISO8601("yyyy-mm-dd")
       .withMessage(ERRORS.DATE_FORMAT_ERROR.errorCode),
-    body("endDay")
-      .notEmpty()
-      .withMessage(ERRORS.BODY_DATA_ERROR.errorCode)
-      .bail()
-      .isISO8601("yyyy-mm-dd")
-      .withMessage(ERRORS.DATE_FORMAT_ERROR.errorCode)
-      .custom((value, { req }) => {
-        let endDay = new Date(value);
-        let startDay = new Date(req.body.startDay); // <-- startDay
-        if (endDay < startDay) {
-          throw new Error(ERRORS.DATE_TERM_ERROR.errorCode);
-        }
-        return true;
-      }),
     validate,
   ];
 };
 
-exports.projectPatchValidator = () => {
+exports.certificatePatchValidator = () => {
   return [
     body().custom((value, { req }) => {
       const update = {};
@@ -68,17 +54,11 @@ exports.projectPatchValidator = () => {
         }
         update.content = toUpdate.content;
       }
-      if (toUpdate.startDay) {
-        if (!regex.test(toUpdate.startDay)) {
+      if (toUpdate.day) {
+        if (!regex.test(toUpdate.day)) {
           throw new Error(ERRORS.DATE_FORMAT_ERROR.errorCode);
         }
-        update.startDay = toUpdate.startDay;
-      }
-      if (toUpdate.endDay) {
-        if (!regex.test(toUpdate.startDay)) {
-          throw new Error(ERRORS.DATE_FORMAT_ERROR.errorCode);
-        }
-        update.endDay = toUpdate.endDay;
+        update.day = toUpdate.day;
       }
 
       if (is.emptyObject(update)) {
@@ -92,14 +72,3 @@ exports.projectPatchValidator = () => {
     validate,
   ];
 };
-
-function validationMiddleware(req, res, next) {
-  if (is.emptyObject(req.body)) {
-    const error = new Error(ERRORS.CONTENT_TYPE_ERROR.errorCode);
-    next(error);
-    return;
-  }
-  next();
-}
-
-export { validationMiddleware };

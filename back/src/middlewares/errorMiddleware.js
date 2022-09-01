@@ -44,6 +44,10 @@ function errorMiddleware(error, req, res, next) {
       res.status(400).json(ERRORS.DATE_TERM_ERROR);
       break;
 
+    case ERRORS.EDUCATION_DATA_ERROR.errorCode:
+      res.status(400).json(ERRORS.EDUCATION_DATA_ERROR);
+      break;
+
     default:
       res.status(400).json(ERRORS.UNDEFINED_ERROR);
       break;
