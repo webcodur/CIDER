@@ -1,4 +1,5 @@
 import { ERRORS } from "../constants/constants";
+import { v4 as uuidv4 } from "uuid";
 
 const multer = require("multer");
 const path = require("path");
@@ -20,7 +21,7 @@ const profilestorage = multer.diskStorage({
     cb(null, uploadPath);
   },
   filename: (req, file, cb) => {
-    cb(null, `${req.currentUserId}.${file.mimetype.split("/")[1]}`);
+    cb(null, `${uuidv4()}.${file.mimetype.split("/")[1]}`);
   },
 });
 

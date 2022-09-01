@@ -177,7 +177,7 @@ userAuthRouter.post(
         userId,
         originalname,
         filename,
-        path,
+        imagePath: path,
       });
 
       res.status(201).json(updatedUser);
