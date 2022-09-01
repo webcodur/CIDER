@@ -26,7 +26,11 @@ function ThemeToggle({ toggle, mode }) {
   }, [origins]);
 
   return (
-    <ToggleWrapper onClick={toggle} mode={mode}>
+    <ToggleWrapper
+      onClick={toggle}
+      mode={mode}
+      id={theme == 'light' ? 'light' : 'dark'}
+    >
       {mode === 'dark' ? '🌚' : '🌝'}
     </ToggleWrapper>
   );

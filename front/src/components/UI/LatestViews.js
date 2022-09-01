@@ -29,7 +29,7 @@ const LatestViews = () => {
   }, [origins]);
 
   return (
-    <ToggleBoxWrapper>
+    <ToggleBoxWrapper id={theme == 'light' ? 'light' : 'dark'}>
       <Row>
         <Col className="mb-4">
           <span style={{ fontWeight: 'bold' }}>최근 본 포트폴리오</span>
