@@ -82,7 +82,13 @@ function UserCard({
           )}
         </Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
-        <Card.Text>{user?.description}</Card.Text>
+        <Card.Text
+          className={
+            userState?.user?.id === portfolioOwnerId ? "" : "text-truncate"
+          }
+        >
+          {user?.description}
+        </Card.Text>
         <Row className="mt-4">
           {isNetwork && (
             <Col sm>
