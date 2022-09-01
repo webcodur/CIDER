@@ -3,11 +3,12 @@ import { useState } from "react";
 import searchBar from "../../styles/searchBar.css";
 import { FloatingLabel } from "react-bootstrap";
 
-const Search = ({ setSearchData, setIsEmpty }) => {
+const Search = ({ setSearchData, setIsEmpty, setDidClick }) => {
   const [Selected, setSelected] = useState("all");
   const [inputValue, setInputValue] = useState("");
   const test = (e) => {
     e.preventDefault();
+    setDidClick(true);
     console.log(inputValue);
     Api.get2(`search?option=${Selected}&contents=${inputValue}`).then((res) => {
       setSearchData(res.data);
