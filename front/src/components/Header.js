@@ -10,6 +10,8 @@ function Header() {
   const userState = useContext(UserStateContext);
   const dispatch = useContext(DispatchContext);
   const isLogin = !!userState.user;
+  const ThemeMode = useTheme();
+  const theme = ThemeMode[0];
 
   const logout = () => {
     sessionStorage.removeItem("userToken");
@@ -17,22 +19,40 @@ function Header() {
     navigate("/");
   };
   return (
-    <Nav activeKey={location.pathname} className="elice">
+    <Nav
+      activeKey={location.pathname}
+      className="elice"
+      style={{ border: "0px" }}
+    >
       <Nav.Item className="me-auto mb-5">
         <Nav.Link disabled>
-          <span>안녕하세요, 포트폴리오 공유 서비스입니다.</span>
+          <span id={theme == "light" ? "blight" : "bdark"}>
+            안녕하세요, 포트폴리오 공유 서비스입니다.
+          </span>
         </Nav.Link>
       </Nav.Item>
       <Nav.Item></Nav.Item>
       <Nav.Item>
-        <Nav.Link onClick={() => navigate("/")}>나의 페이지</Nav.Link>
+        <Nav.Link
+          id={theme == "light" ? "blight" : "bdark"}
+          onClick={() => navigate("/")}
+        >
+          나의 페이지
+        </Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link onClick={() => navigate("/network")}>네트워크</Nav.Link>
+        <Nav.Link
+          id={theme == "light" ? "blight" : "bdark"}
+          onClick={() => navigate("/network")}
+        >
+          네트워크
+        </Nav.Link>
       </Nav.Item>
       {isLogin && (
         <Nav.Item>
-          <Nav.Link onClick={logout}>로그아웃</Nav.Link>
+          <Nav.Link id={theme == "light" ? "blight" : "bdark"} onClick={logout}>
+            로그아웃
+          </Nav.Link>
         </Nav.Item>
       )}
     </Nav>

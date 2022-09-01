@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import React, { useState, useContext, useEffect } from "react";
 import { UserStateContext } from "../../App";
@@ -17,7 +16,6 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const id = userState?.user?.id;
   let userstr = "";
 
-  console.log(id, user?.id);
   useEffect(() => {
     Api.get(`${user?.id ? user?.id : id}/images/profile`).then((res) => {
       setPhoto(res.data);
@@ -59,7 +57,6 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
     >
       <Card.Body>
         <Row className="justify-content-md-center">
-          {console.log(photo)}
           <Card.Img
             style={{ width: "10rem", height: "8rem" }}
             className="mb-3"
@@ -103,10 +100,3 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
 }
 
 export default UserCard;
-
-const StyledDiv = styled.div`
-  border-radius: 4px;
-  border: ${(props) =>
-    props.theme === "light" ? "1px solid #31302E" : "1px solid #bbb"};
-  color: ${(props) => (props.theme === "light" ? "#31302E" : "#bbb")};
-`;

@@ -1,14 +1,14 @@
-import React, { useState, useContext } from 'react';
-import * as Api from '../../../api';
+import React, { useState, useContext } from "react";
+import * as Api from "../../../api";
 
-import AuthContext from '../stores/AuthContext';
-import CheckButton from './CheckButton';
-import { Form, Col, FloatingLabel } from 'react-bootstrap';
+import AuthContext from "../stores/AuthContext";
+import CheckButton from "./CheckButton";
+import { Form, Col, FloatingLabel } from "react-bootstrap";
 
 const EditForm = (props) => {
   const context = useContext(AuthContext);
   const [dataValues, setDataValues] = useState({});
-  const DATA_ENDPOINT = 'project';
+  const DATA_ENDPOINT = "project";
 
   const setProjectValues = (e) => {
     const { name, value } = e.target;
@@ -16,8 +16,8 @@ const EditForm = (props) => {
   };
 
   const checkProjectValues = (projectValues) => {
-    const startDay = projectValues.startDay.split('-').join('');
-    const endDay = projectValues.endDay.split('-').join('');
+    const startDay = projectValues.startDay.split("-").join("");
+    const endDay = projectValues.endDay.split("-").join("");
 
     if (startDay - endDay > 0) {
       return false;
@@ -41,7 +41,7 @@ const EditForm = (props) => {
       await Api.patch(DATA_ENDPOINT, projectId, editedValues);
       await props.callFetch();
     } catch (err) {
-      context.setModalText('데이터 수정에 실패했습니다.');
+      context.setModalText("데이터 수정에 실패했습니다.");
     }
   };
 
@@ -52,9 +52,13 @@ const EditForm = (props) => {
   };
 
   return (
-    <Form className='toggleTarget'>
+    <Form className="toggleTarget">
       <Form.Group>
-        <FloatingLabel label="프로젝트 이름" className="mt-3 mb-3">
+        <FloatingLabel
+          label="프로젝트 이름"
+          className="mt-3 mb-3"
+          style={{ color: "black" }}
+        >
           <Form.Control
             name="title"
             type="text"
@@ -64,7 +68,11 @@ const EditForm = (props) => {
         </FloatingLabel>
       </Form.Group>
       <Form.Group className="mt-3">
-        <FloatingLabel label="상세 내역" className="mb-3">
+        <FloatingLabel
+          label="상세 내역"
+          className="mb-3 "
+          style={{ color: "black" }}
+        >
           <Form.Control
             name="content"
             type="text"
@@ -79,7 +87,7 @@ const EditForm = (props) => {
             name="startDay"
             type="date"
             onChange={setProjectValues}
-            defaultValue={props.project.startDay.split('T')[0]}
+            defaultValue={props.project.startDay.split("T")[0]}
           />
         </Col>
         <Col className="col-auto">
@@ -87,12 +95,12 @@ const EditForm = (props) => {
             name="endDay"
             type="date"
             onChange={setProjectValues}
-            defaultValue={props.project.endDay.split('T')[0]}
+            defaultValue={props.project.endDay.split("T")[0]}
           />
         </Col>
       </Form.Group>
       <CheckButton
-        className={'mt-3 text-center'}
+        className={"mt-3 text-center"}
         submitHandler={confirmEdit}
         cancelHandler={deleteIdFromIdList}
         project={props.project}

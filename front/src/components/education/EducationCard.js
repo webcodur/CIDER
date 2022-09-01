@@ -63,14 +63,15 @@ function EducationCard({ educations, setEducations, isEditable }) {
           return (
             <div key={education.id} className="mb-4 card-text">
               <div className="align-items-center row">
-                <div className="col">
-                  <div className="text-muted">{education.school}</div>
-                  <div className="text-muted">
-                    {education.major}({education.position})
+                {!isEditing && (
+                  <div className="col">
+                    <div className="text-muted">{education.school}</div>
+                    <div className="text-muted">
+                      {education.major}({education.position})
+                    </div>
                   </div>
-                </div>
-                {/* {isEditable ? ( */}
-                {id === state && isEditable ? (
+                )}
+                {!isEditing && id === state && isEditable ? (
                   <Col className="col-lg-1 col">
                     <Button
                       variant="outline-info"
