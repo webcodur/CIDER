@@ -48,7 +48,7 @@ function Portfolio() {
 
   return (
     <Container fluid style={{ zIndex: 0 }}>
-      <Row style={{ width: '95%' }}>
+      <Row style={{ width: '96%' }}>
         <Col md="3" lg="3">
           <User
             portfolioOwnerId={portfolioOwner.id}
