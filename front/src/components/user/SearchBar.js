@@ -1,11 +1,11 @@
-import * as Api from '../../api';
-import { useState } from 'react';
-import searchBar from '../../styles/searchBar.css';
-import { FloatingLabel } from 'react-bootstrap';
+import * as Api from "../../api";
+import { useState } from "react";
+import searchBar from "../../styles/searchBar.css";
+import { FloatingLabel } from "react-bootstrap";
 
 const Search = ({ setSearchData, setIsEmpty }) => {
-  const [Selected, setSelected] = useState('all');
-  const [inputValue, setInputValue] = useState('');
+  const [Selected, setSelected] = useState("all");
+  const [inputValue, setInputValue] = useState("");
   const test = (e) => {
     e.preventDefault();
     console.log(inputValue);
@@ -49,9 +49,10 @@ const Search = ({ setSearchData, setIsEmpty }) => {
               aria-describedby="search-addon"
               // onKeyUpCapture={test}
               onChange={handleChangeInput}
-              style={{ width: '25rem' }}
+              style={{ width: "25rem" }}
             />
           </FloatingLabel>
+          <input type="search" style={{ display: "none" }} />
           <button type="button" class="btn btn-outline-primary" onClick={test}>
             검색
           </button>
