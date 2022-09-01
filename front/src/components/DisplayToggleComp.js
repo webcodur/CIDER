@@ -42,7 +42,7 @@ const DisplayToggleComp = (props) => {
       variant="outline-info"
       size="sm"
     >
-      {props.isEditable ? '✏️ 편집 모드' : '🔎 감상 모드'}
+      {props.isEditable ? '🔎 감상 모드' : '✏️ 편집 모드'}
     </Button>
   );
 };
