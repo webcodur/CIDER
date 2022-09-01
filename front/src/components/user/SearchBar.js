@@ -1,7 +1,7 @@
 import * as Api from "../../api";
 import { useState } from "react";
 import searchBar from "../../styles/searchBar.css";
-
+import { Form } from "react-bootstrap";
 const Search = ({ setSearchData, setIsEmpty }) => {
   const [Selected, setSelected] = useState("all");
   const [inputValue, setInputValue] = useState("");
@@ -27,12 +27,12 @@ const Search = ({ setSearchData, setIsEmpty }) => {
 
   return (
     <div css={{ searchBar }} id="formInput">
-      <select onChange={handleChangeSelect}>
+      {/* <select onChange={handleChangeSelect}>
         <option value="all">통합 검색</option>
         <option value="name">이름</option>
         <option value="email">이메일</option>
         <option value="description">내용</option>
-      </select>
+      </select> */}
 
       <form
         // id="formInput"
@@ -41,21 +41,35 @@ const Search = ({ setSearchData, setIsEmpty }) => {
         onChange={handleChangeInput}
         autoComplete="on"
       >
-        <div class="input-group">
-          <input
+        <Form.Select
+          aria-label="Default select example"
+          onChange={handleChangeSelect}
+          style={{ height: "100%", width: "150px" }}
+        >
+          <option value="all">통합 검색</option>
+          <option value="name">이름</option>
+          <option value="email">이메일</option>
+          <option value="description">내용</option>
+        </Form.Select>
+
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Control
             type="search"
-            class="form-control rounded"
+            className="form-control rounded formsearch"
             placeholder="Search"
             aria-label="Search"
             aria-describedby="search-addon"
             onKeyUpCapture={test}
-            style={{ width: "25rem" }}
+            // style={{ height: "38px", width: "150px" }}
+            style={{ Width: "100%", minWidth: "150px" }}
           />
           <input style={{ display: "none " }} />
-          {/* <button type="button" class="btn btn-outline-primary" onClick={test}>
+          <Form.Text className="text-muted"></Form.Text>
+        </Form.Group>
+
+        {/* <button type="button" class="btn btn-outline-primary" onClick={test}>
             search
           </button> */}
-        </div>
       </form>
     </div>
   );

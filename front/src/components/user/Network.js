@@ -9,7 +9,6 @@ import UserCard from "./UserCard";
 import SearchBar from "./SearchBar";
 import Anchor from "../UI/Anchor";
 import LatestViews from "../UI/LatestViews";
-import NWmediaQuery from '../../styles/NWmediaQuery.css'
 
 function Network() {
   const navigate = useNavigate();
@@ -30,10 +29,12 @@ function Network() {
 
   return (
     <div>
-      <SearchBar
-        setSearchData={setSearchData}
-        setIsEmpty={setIsEmpty}
-      ></SearchBar>
+      <div style={{ width: "100%" }}>
+        <SearchBar
+          setSearchData={setSearchData}
+          setIsEmpty={setIsEmpty}
+        ></SearchBar>
+      </div>
       <Container fluid>
         <Col md="10">
           <Row xs="auto" className="jusify-content-center">
@@ -63,7 +64,7 @@ function Network() {
             )}
           </Row>
         </Col>
-        <Col md="2" style={{NWmediaQuery}} id='NWmediaQueryLoc'>
+        <Col md="2" className="hide">
           <Anchor />
           <LatestViews />
         </Col>

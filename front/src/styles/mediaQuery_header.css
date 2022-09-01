@@ -1,0 +1,19 @@
+@media (max-width: 4000px) {
+  #newline{
+    display:inline-flex;
+  }
+  .marginBottom{
+    margin-bottom: 3rem!important;
+  }
+}
+
+@media (max-width: 800px) {
+  #newline{
+    display:flex;
+    justify-content: center;
+    width:800px;
+  }
+  .marginBottom{
+    margin-bottom: 0rem!important;
+  }
+}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Container, Col, Row } from 'react-bootstrap';
@@ -12,6 +13,20 @@ import Anchor from './UI/Anchor';
 import LatestViews from './UI/LatestViews';
 import ErrorModalContext from './stores/ErrorModalContext';
 import ErrorModal from './UI/ErrorModal';
+=======
+import React, { useContext, useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Container, Col, Row } from "react-bootstrap";
+import Award from "./award/Award";
+import Certificate from "./certificate/Certificate";
+import Education from "./education/Education";
+import Project from "./project/Project";
+import { UserStateContext } from "../App";
+import * as Api from "../api";
+import User from "./user/User";
+import Anchor from "./UI/Anchor";
+import LatestViews from "./UI/LatestViews";
+>>>>>>> bb84765cfe7f1017aada9457b69492d4f0d333fb
 
 function Portfolio() {
   const navigate = useNavigate();
@@ -25,7 +40,7 @@ function Portfolio() {
   const errorModalContext = useContext(ErrorModalContext);
 
   const fetchPorfolioOwner = async (ownerId) => {
-    const res = await Api.get('users', ownerId);
+    const res = await Api.get("users", ownerId);
     const ownerData = res.data;
     setPortfolioOwner(ownerData);
     setIsFetchCompleted(true);
@@ -33,7 +48,7 @@ function Portfolio() {
 
   useEffect(() => {
     if (!userState.user) {
-      navigate('/login', { replace: true });
+      navigate("/login", { replace: true });
       return;
     }
 
@@ -47,12 +62,12 @@ function Portfolio() {
   }, [params, userState, navigate]);
 
   if (!isFetchCompleted) {
-    return 'loading...';
+    return "loading...";
   }
 
   return (
     <Container fluid style={{ zIndex: 0 }}>
-      <Row style={{ width: '96%' }}>
+      <Row style={{ width: "96%" }}>
         <Col md="3" lg="3">
           <User
             portfolioOwnerId={portfolioOwner.id}
@@ -75,7 +90,7 @@ function Portfolio() {
             portfolioOwnerId={portfolioOwner.id}
           />
         </Col>
-        <Col md="2">
+        <Col md="2" className="hide">
           <Anchor />
           <LatestViews />
         </Col>
