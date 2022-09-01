@@ -9,6 +9,7 @@ import UserCard from "./UserCard";
 import SearchBar from "./SearchBar";
 import Anchor from "../UI/Anchor";
 import LatestViews from "../UI/LatestViews";
+import NWmediaQuery from '../../styles/NWmediaQuery.css'
 
 function Network() {
   const navigate = useNavigate();
@@ -70,7 +71,7 @@ function Network() {
             )}
           </Row>
         </Col>
-        <Col md="2">
+        <Col md="2" style={{NWmediaQuery}} id='NWmediaQueryLoc'>
           <Anchor />
           <LatestViews />
         </Col>
