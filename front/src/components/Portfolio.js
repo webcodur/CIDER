@@ -71,7 +71,7 @@ function Portfolio() {
             portfolioOwnerId={portfolioOwner.id}
           />
         </Col>
-        <Col md="2">
+        <Col md="2" className="hide">
           <Anchor />
           <LatestViews />
         </Col>
