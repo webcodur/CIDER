@@ -8,8 +8,8 @@ import Project from './project/Project';
 import { UserStateContext } from '../App';
 import * as Api from '../api';
 import User from './user/User';
-import SideBar from './darkmode/SideBar';
 import Anchor from './UI/Anchor';
+import LatestViews from './UI/LatestViews';
 
 function Portfolio() {
   const navigate = useNavigate();
@@ -49,15 +49,14 @@ function Portfolio() {
   return (
     <Container fluid style={{ zIndex: 0 }}>
       <Row style={{ width: '100%' }}>
-        <Col md="3" lg="2">
+        <Col md="3" lg="3">
           <User
             portfolioOwnerId={portfolioOwner.id}
             isEditable={isEditable}
             setIsEditable={setIsEditable}
           />
         </Col>
-        <Col md="7">
-          <Anchor />
+        <Col style={{ paddingLeft: '0px', paddingRight: '10px' }}>
           <Education
             isEditable={isEditable}
             portfolioOwnerId={portfolioOwner.id}
@@ -72,7 +71,10 @@ function Portfolio() {
             portfolioOwnerId={portfolioOwner.id}
           />
         </Col>
-        <SideBar />
+        <Col style={{ paddingLeft: '30px' }} md="2">
+          <Anchor />
+          <LatestViews />
+        </Col>
       </Row>
     </Container>
   );

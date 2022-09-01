@@ -1,15 +1,15 @@
-import styled from "styled-components";
-import React, { useState, useContext, useEffect, useCallback } from "react";
-import { UserStateContext } from "../../App";
-import { useNavigate } from "react-router-dom";
-import "../../../src/styles/index.css";
-import { useTheme } from "../darkmode/themeProvider";
+import styled from 'styled-components';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
+import { UserStateContext } from '../../App';
+import { useNavigate } from 'react-router-dom';
+import '../../../src/styles/index.css';
+import { useTheme } from '../darkmode/themeProvider';
 function ThemeToggle({ toggle, mode }) {
   const [watchs, setWatchs] = useState();
   const navigate = useNavigate();
   const ThemeMode = useTheme();
   const theme = ThemeMode[0];
-  let origins = localStorage.getItem("recentlyView1");
+  let origins = localStorage.getItem('recentlyView1');
   const userState = useContext(UserStateContext);
   let id = null;
   if (id) {
@@ -26,43 +26,9 @@ function ThemeToggle({ toggle, mode }) {
   }, [origins]);
 
   return (
-    <div>
-      <div className="sideBox" id={theme == "light" ? "light" : "dark"}>
-        <div
-          style={{
-            justifyContent: "center",
-            display: "flex",
-            marginTop: "10px",
-          }}
-        >
-          최근 본 포트폴리오
-        </div>
-        <div className="sideInnerBox">
-          <ul>
-            {watchs &&
-              watchs.map((watch, index) => {
-                return (
-                  <li
-                    key={index}
-                    onClick={() => {
-                      navigate(`/users/${watch.id}`, { state: watch.id });
-                    }}
-                    style={{ marginBottom: "10px" }}
-                    className="cursor_test"
-                  >
-                    • {watch.name}
-                  </li>
-                );
-              })}
-          </ul>
-        </div>
-        <div className="flex_center">
-          <ToggleWrapper onClick={toggle} mode={mode}>
-            {mode === "dark" ? "🌚" : "🌝"}
-          </ToggleWrapper>
-        </div>
-      </div>
-    </div>
+    <ToggleWrapper onClick={toggle} mode={mode}>
+      {mode === 'dark' ? '🌚' : '🌝'}
+    </ToggleWrapper>
   );
 }
 export default ThemeToggle;
@@ -83,7 +49,7 @@ const ToggleWrapper = styled.button`
   height: 48px;
   border-radius: 30px;
   box-shadow: ${(props) =>
-    props.mode === "dark"
-      ? "0px 5px 10px rgba(40, 40, 40, 1), 0px 2px 4px rgba(40, 40, 40, 1)"
-      : "0 5px 10px rgba(100, 100, 100, 0.15), 0 2px 4px rgba(100, 100, 100, 0.15)"};
+    props.mode === 'dark'
+      ? '0px 5px 10px rgba(40, 40, 40, 1), 0px 2px 4px rgba(40, 40, 40, 1)'
+      : '0 5px 10px rgba(100, 100, 100, 0.15), 0 2px 4px rgba(100, 100, 100, 0.15)'};
 `;

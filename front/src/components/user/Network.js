@@ -7,6 +7,7 @@ import * as Api from '../../api';
 import UserCard from './UserCard';
 import SearchBar from './SearchBar';
 import Anchor from '../UI/Anchor';
+import LatestViews from '../UI/LatestViews';
 
 function Network() {
   const navigate = useNavigate();
@@ -56,9 +57,11 @@ function Network() {
             )}
           </Row>
         </Col>
-        <Anchor />
+        <Col md="2">
+          <Anchor />
+          <LatestViews />
+        </Col>
       </Container>
-      <div style={{ width: '15%' }}></div>
     </div>
   );
 }
