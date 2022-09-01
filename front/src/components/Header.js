@@ -4,6 +4,8 @@ import Nav from "react-bootstrap/Nav";
 import { UserStateContext, DispatchContext } from "../App";
 import { useTheme } from "../components/darkmode/themeProvider";
 import "../styles/index.css";
+import mediaQuery_header from '../styles/mediaQuery_header.css'
+
 function Header() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,39 +24,48 @@ function Header() {
     <Nav
       activeKey={location.pathname}
       className="elice"
-      style={{ border: "0px" }}
+      style={{ border: "0px"}}
     >
-      <Nav.Item className="me-auto mb-5">
+
+      <Nav.Item className="me-auto marginBottom" style={{mediaQuery_header}} id='newline'>
         <Nav.Link disabled>
           <span id={theme == "light" ? "blight" : "bdark"}>
             안녕하세요, 포트폴리오 공유 서비스입니다.
           </span>
         </Nav.Link>
       </Nav.Item>
-      <Nav.Item></Nav.Item>
-      <Nav.Item>
-        <Nav.Link
-          id={theme == "light" ? "blight" : "bdark"}
-          onClick={() => navigate("/")}
-        >
-          나의 페이지
-        </Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link
-          id={theme == "light" ? "blight" : "bdark"}
-          onClick={() => navigate("/network")}
-        >
-          네트워크
-        </Nav.Link>
-      </Nav.Item>
-      {isLogin && (
-        <Nav.Item>
-          <Nav.Link id={theme == "light" ? "blight" : "bdark"} onClick={logout}>
-            로그아웃
+
+
+      <div style={{mediaQuery_header}} id='newline'>
+        
+        <Nav.Item >
+          <Nav.Link
+            id={theme == "light" ? "blight" : "bdark"}
+            onClick={() => navigate("/")}
+          >
+            나의 페이지
           </Nav.Link>
         </Nav.Item>
-      )}
+        
+        <Nav.Item >
+          <Nav.Link
+            id={theme == "light" ? "blight" : "bdark"}
+            onClick={() => navigate("/network")}
+          >
+            네트워크
+          </Nav.Link>
+        </Nav.Item>
+
+        {isLogin && (
+          <Nav.Item >
+            <Nav.Link id={theme == "light" ? "blight" : "bdark"} onClick={logout}>
+              로그아웃
+            </Nav.Link>
+          </Nav.Item>
+        )}
+      
+      </div>
+      
     </Nav>
   );
 }

@@ -55,7 +55,9 @@ function App() {
               className="alwaysnone apear"
               // className="hide"
             ></div> */}
-            <div className="elice">
+            <div className="elice" style={{
+              // marginTop:'50px'
+            }}>
               <AppLayout>
                 <Routes>
                   <Route path="/" exact element={<Portfolio />} />
