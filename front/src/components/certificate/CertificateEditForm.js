@@ -9,7 +9,7 @@ import {
 import { useState, useContext } from "react";
 import { UserStateContext } from "../../App";
 import * as Api from "../../api";
-import styles from "../../styles/anime.css";
+import anime from "../../styles/anime.css";
 import { useLocation } from "react-router";
 
 const CertificateEditForm = (props) => {
@@ -73,6 +73,11 @@ const CertificateEditForm = (props) => {
 
   return (
     <Form onSubmit={submitEditForm} className="toggleTarget">
+      {isMessageNecessary && (
+        <div className="text-danger text-center" style={{ anime }}>
+          <span id="anime">빈 값이 있습니다.</span>
+        </div>
+      )}
       <Form.Group>
         <FloatingLabel
           label="자격증 제목"

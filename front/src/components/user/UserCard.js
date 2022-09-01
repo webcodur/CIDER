@@ -1,8 +1,8 @@
-import { useNavigate } from 'react-router-dom';
 import { Card, Row, Button, Col } from 'react-bootstrap';
 import React, { useState, useContext, useEffect } from 'react';
 import { UserStateContext } from '../../App';
 import LikeButton from '../UI/LikeButton';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as Api from '../../api';
 import { useTheme } from '../darkmode/themeProvider';
 import '../../../src/styles/index.css';
@@ -18,6 +18,7 @@ function UserCard({
 }) {
   const [photo, setPhoto] = useState([]);
   const navigate = useNavigate();
+  const params = useParams();
   const userState = useContext(UserStateContext);
   const ThemeMode = useTheme();
   const theme = ThemeMode[0];
@@ -86,12 +87,9 @@ function UserCard({
             </Col>
           </Row>
         </Card.Title>
+        {console.log(params)}
         <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
-        <Card.Text
-          className={
-            userState?.user?.id === portfolioOwnerId ? '' : 'text-truncate'
-          }
-        >
+        <Card.Text className={!isNetwork ? '' : 'text-truncate'}>
           {user?.description}
         </Card.Text>
         <Row className="mt-4">

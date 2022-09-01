@@ -33,12 +33,14 @@ const Search = ({ setSearchData, setIsEmpty, setDidClick }) => {
         <option value="email">이메일</option>
         <option value="description">내용</option>
       </select>
+
       <form
         // id="formInput"
         id="formwidth"
         name="profile"
         onChange={handleChangeInput}
         autoComplete="on"
+        style={{ display: "inline-flex" }}
       >
         <div class="input-group">
           <FloatingLabel label="내용">
