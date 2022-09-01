@@ -1,14 +1,16 @@
-import CertificateEditForm from "./CertificateEditForm";
-import { Button, Overlay, Tooltip, Card, Col } from "react-bootstrap";
-import * as Api from "../../api";
-import { useState, useContext, useRef, useEffect } from "react";
-import { UserStateContext } from "../../App";
-import displayToggleCss from "../../styles/displayToggle.css";
-import "../../styles/tooltip.css";
-import { useLocation } from "react-router";
+import CertificateEditForm from './CertificateEditForm';
+import { Button, Overlay, Tooltip, Card, Col } from 'react-bootstrap';
+import * as Api from '../../api';
+import { useState, useContext, useRef, useEffect } from 'react';
+import { UserStateContext } from '../../App';
+import displayToggleCss from '../../styles/displayToggle.css';
+import '../../styles/tooltip.css';
+import { useLocation } from 'react-router';
+import ErrorModalContext from '../stores/ErrorModalContext';
 
 const CertificateCard = (props) => {
   const userState = useContext(UserStateContext);
+  const errorModalContext = useContext(ErrorModalContext);
   const id = userState?.user?.id;
 
   const [isEditing, setIsEditing] = useState(false);
@@ -22,7 +24,7 @@ const CertificateCard = (props) => {
   const target = useRef(null);
 
   let { state } = useLocation();
-  if (state === null || typeof state === "object") {
+  if (state === null || typeof state === 'object') {
     state = id;
   }
 
@@ -39,18 +41,24 @@ const CertificateCard = (props) => {
   };
 
   const confirmDelete = async (e) => {
-    const eleID = e.target.parentNode.parentNode.id;
-    await Api.delete("certificate", eleID);
+    try {
+      const eleID = e.target.parentNode.parentNode.id;
+      await Api.delete('certificate', eleID);
 
-    const getRes = await Api.get("certificates", id);
-    const datas = getRes.data;
-    let dataArr = [];
+      const getRes = await Api.get('certificates', id);
+      const datas = getRes.data;
+      let dataArr = [];
 
-    dataArr = datas.map((ele) => {
-      return [ele.id, ele.title, ele.content, ele.day.slice(0, 10)];
-    });
+      dataArr = datas.map((ele) => {
+        return [ele.id, ele.title, ele.content, ele.day.slice(0, 10)];
+      });
 
-    props.setArr(dataArr);
+      props.setArr(dataArr);
+    } catch (err) {
+      errorModalContext.setModalText(
+        `${err.message} // 자격증 데이터를 삭제하는 과정에서 문제가 발생했습니다.`
+      );
+    }
   };
 
   const checkDelete = async (e) => {

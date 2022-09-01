@@ -5,15 +5,17 @@ import {
   Form,
   Button,
   FloatingLabel,
-} from "react-bootstrap";
-import { useState, useContext } from "react";
-import { UserStateContext } from "../../App";
-import * as Api from "../../api";
-import anime from "../../styles/anime.css";
-import { useLocation } from "react-router";
+} from 'react-bootstrap';
+import { useState, useContext } from 'react';
+import { UserStateContext } from '../../App';
+import * as Api from '../../api';
+import anime from '../../styles/anime.css';
+import { useLocation } from 'react-router';
+import ErrorModalContext from '../stores/ErrorModalContext';
 
 const CertificateEditForm = (props) => {
   const userState = useContext(UserStateContext);
+  const errorModalContext = useContext(ErrorModalContext);
   const id = userState?.user?.id;
 
   const [certificate, setCertificate] = useState(props.arr[props.idx][1]);
@@ -28,14 +30,14 @@ const CertificateEditForm = (props) => {
   const submitEditForm = async (e) => {
     e.preventDefault();
 
-    const arr = day.split("-");
+    const arr = day.split('-');
     if (arr[0].length > 4) {
-      alert("연도는 네자리를 넘을 수 없습니다.");
+      alert('연도는 네자리를 넘을 수 없습니다.');
       return;
     }
 
     isClicked = true;
-    isEmpty = certificate === "" || details === "" || day === "" ? true : false;
+    isEmpty = certificate === '' || details === '' || day === '' ? true : false;
     setIsMessageNecessary(isClicked && isEmpty);
     isClicked = false;
 
@@ -51,17 +53,23 @@ const CertificateEditForm = (props) => {
       day: day,
     };
 
-    await Api.patch("certificate", certID, obj);
+    try {
+      await Api.patch('certificate', certID, obj);
+    } catch (err) {
+      errorModalContext.setModalText(
+        `${err.message} // 자격증 데이터를 수정하는 과정에서 문제가 발생했습니다.`
+      );
+    }
 
     getData();
-    setCertificate("");
-    setDetails("");
-    setDay("");
+    setCertificate('');
+    setDetails('');
+    setDay('');
     props.setIsEditing(false);
   };
 
   const getData = async () => {
-    const getRes = await Api.get("certificates", userState.user.id);
+    const getRes = await Api.get('certificates', userState.user.id);
     const datas = getRes.data;
     let dataArr = [];
 
@@ -82,7 +90,7 @@ const CertificateEditForm = (props) => {
         <FloatingLabel
           label="자격증 제목"
           className="mt-3 mb-3"
-          style={{ color: "black" }}
+          style={{ color: 'black' }}
         >
           <Form.Control
             type="text"
@@ -99,7 +107,7 @@ const CertificateEditForm = (props) => {
         <FloatingLabel
           label="상세 내역"
           className="mt-3 mb-3"
-          style={{ color: "black" }}
+          style={{ color: 'black' }}
         >
           <Form.Control
             type="text"

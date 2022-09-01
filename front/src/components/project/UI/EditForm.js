@@ -20,18 +20,8 @@ const EditForm = (props) => {
   };
 
   const checkProjectValues = (projectValues) => {
-    const startDay = projectValues.startDay.split('-').join('');
-    const endDay = projectValues.endDay.split('-').join('');
-
-    if (
-      !projectValues.startDay ||
-      !projectValues.endDay ||
-      !projectValues.title ||
-      !projectValues.content
-    ) {
-      setIsEmpty(true);
-      return;
-    }
+    const startDay = projectValues.startDay?.split('-').join('');
+    const endDay = projectValues.endDay?.split('-').join('');
 
     if (startDay - endDay > 0) {
       alert('시작 날짜와 종료 날짜를 제대로 적어주세요.');
@@ -61,7 +51,9 @@ const EditForm = (props) => {
       await Api.patch(DATA_ENDPOINT, projectId, editedValues);
       await props.callFetch();
     } catch (err) {
-      errorModalContext.setModalText('데이터 수정에 실패했습니다.');
+      errorModalContext.setModalText(
+        `${err.message} // 프로젝트 데이터를 수정하는 과정에서 문제가 발생했습니다.`
+      );
     }
   };
 

@@ -20,8 +20,8 @@ const AddForm = (props) => {
   };
 
   const checkProjectValues = (projectValues) => {
-    const startDay = projectValues.startDay.split('-').join('');
-    const endDay = projectValues.endDay.split('-').join('');
+    const startDay = projectValues.startDay?.split('-').join('');
+    const endDay = projectValues.endDay?.split('-').join('');
 
     if (
       !projectValues.startDay ||
@@ -56,7 +56,9 @@ const AddForm = (props) => {
       await props.callFetch();
       context.setIsAdding(false);
     } catch (err) {
-      errorModalContext.setModalText('데이터 전송에 실패했습니다.');
+      errorModalContext.setModalText(
+        `${err.message} // 프로젝트 데이터를 전송하는 과정에 문제가 발생했습니다.`
+      );
     }
   };
 

@@ -16,8 +16,10 @@ const ErrorModal = () => {
         <Modal.Header>
           <Modal.Title>사이트가 많이 아파요...</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <p>{errorModalContext.modalText}</p>
+        <Modal.Body style={{ width: '40rem' }}>
+          {errorModalContext.modalText.split('//').map((text) => (
+            <p key={text}>{text}</p>
+          ))}
         </Modal.Body>
         <Modal.Footer>
           <Button className="modal-button" onClick={errorModalCheck}>

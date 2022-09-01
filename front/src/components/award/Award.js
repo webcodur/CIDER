@@ -7,9 +7,11 @@ import AwardForm from './AwardForm';
 import * as Api from '../../api';
 import { useTheme } from '../darkmode/themeProvider';
 import '../../../src/styles/index.css';
+import ErrorModalContext from '../stores/ErrorModalContext';
 
 const Award = ({ isEditable, paramsUserId }) => {
   const userState = useContext(UserStateContext);
+  const errorModalContext = useContext(ErrorModalContext);
   const id = userState?.user?.id;
   const ThemeMode = useTheme();
   const theme = ThemeMode[0];
@@ -27,12 +29,18 @@ const Award = ({ isEditable, paramsUserId }) => {
   }, []);
 
   async function getData() {
-    const getRes = await Api.get('awards', paramsUserId ? paramsUserId : id);
-    const datas = getRes.data;
-    let dataArr = [];
+    try {
+      const getRes = await Api.get('awards', paramsUserId ? paramsUserId : id);
+      const datas = getRes.data;
+      let dataArr = [];
 
-    dataArr = datas.map((ele) => [ele.id, ele.title, ele.description]);
-    setArr(dataArr);
+      dataArr = datas.map((ele) => [ele.id, ele.title, ele.description]);
+      setArr(dataArr);
+    } catch (err) {
+      errorModalContext.setModalText(
+        `${err.message} // 수상 이력 데이터를 불러오는 과정에서 문제가 발생했습니다.`
+      );
+    }
   }
 
   return (

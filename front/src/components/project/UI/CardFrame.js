@@ -26,12 +26,14 @@ const CardFrame = ({ portfolioOwnerId, isEditable }) => {
       const userInfo = { ...getUser.data };
 
       if (!userInfo.id) {
-        throw new Error('유저 데이터에 문제가 있습니다.');
+        throw new Error('프로젝트 유저 데이터에 문제가 발생했습니다.');
       }
 
       return userInfo;
     } catch (err) {
-      errorModalContext.setModalText(err.message);
+      errorModalContext.setModalText(
+        `${err.message} // 프로젝트 유저 데이터를 불러오는 과정에서 문제가 발생했습니다.`
+      );
     }
   };
 
@@ -42,10 +44,14 @@ const CardFrame = ({ portfolioOwnerId, isEditable }) => {
 
       return fetchedData;
     } catch (err) {
-      errorModalContext.setModalText(err.message);
+      errorModalContext.setModalText(
+        `${err.message} // 프로젝트 데이터를 불러오는 과정에서 문제가 발생했습니다.`
+      );
 
       if (err.message.includes('iterable')) {
-        errorModalContext.setModalText('프로젝트 데이터에 문제가 있습니다.');
+        errorModalContext.setModalText(
+          `${err.message} // 프로젝트 데이터에 문제가 발생했습니다.`
+        );
       }
 
       const fetchedData = [];

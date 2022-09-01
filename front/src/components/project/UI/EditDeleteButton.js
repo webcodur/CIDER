@@ -34,7 +34,9 @@ const EditDeleteButton = (props) => {
       await Api.delete(DATA_ENDPOINT, id);
       await props.callFetch();
     } catch (err) {
-      errorModalContext.setModalText('데이터 삭제에 실패했습니다.');
+      errorModalContext.setModalText(
+        `${err.message} // 프로젝트 데이터를 삭제하는 과정에서 문제가 발생했습니다.`
+      );
     }
   };
 
