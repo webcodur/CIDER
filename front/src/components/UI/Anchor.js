@@ -1,18 +1,18 @@
-import styled from 'styled-components';
-import { Button } from 'react-bootstrap';
+import styled from "styled-components";
+import { Button } from "react-bootstrap";
 
 const Anchor = () => {
   const goToTheTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
 
   return (
     <ToggleWrapper>
       <Button
-        style={{ border: 'none' }}
+        style={{ border: "none" }}
         onClick={goToTheTop}
         size="lg"
         variant="outline-info"
@@ -42,7 +42,7 @@ const ToggleWrapper = styled.button`
   height: 48px;
   border-radius: 30px;
   box-shadow: ${(props) =>
-    props.mode === 'dark'
-      ? '0px 5px 10px rgba(40, 40, 40, 1), 0px 2px 4px rgba(40, 40, 40, 1)'
-      : '0 5px 10px rgba(100, 100, 100, 0.15), 0 2px 4px rgba(100, 100, 100, 0.15)'};
+    props.mode === "dark"
+      ? "0px 5px 10px rgba(40, 40, 40, 1), 0px 2px 4px rgba(40, 40, 40, 1)"
+      : "0 5px 10px rgba(100, 100, 100, 0.15), 0 2px 4px rgba(100, 100, 100, 0.15)"};
 `;

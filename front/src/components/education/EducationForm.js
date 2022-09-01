@@ -71,6 +71,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
             type="text"
             value={targetEducation.school}
             onChange={handleChange}
+            maxlength="20"
           />
         </FloatingLabel>
       </Form.Group>
@@ -85,6 +86,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
             name="major"
             value={targetEducation.major}
             onChange={handleChange}
+            maxlength="200"
           />
         </FloatingLabel>
       </Form.Group>

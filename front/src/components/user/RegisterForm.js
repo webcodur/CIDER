@@ -62,6 +62,7 @@ function RegisterForm() {
                 autoComplete="off"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                maxlength="20"
               />
               {!isEmailValid && (
                 <Form.Text className="text-success">
@@ -77,6 +78,7 @@ function RegisterForm() {
                 autoComplete="off"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                maxlength="20"
               />
               {!isPasswordValid && (
                 <Form.Text className="text-success">
@@ -92,6 +94,7 @@ function RegisterForm() {
                 autoComplete="off"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                maxlength="20"
               />
               {!isPasswordSame && (
                 <Form.Text className="text-success">
@@ -107,6 +110,7 @@ function RegisterForm() {
                 autoComplete="off"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                maxlength="30"
               />
               {!isNameValid && (
                 <Form.Text className="text-success">

@@ -85,25 +85,11 @@ const CertificateEditForm = (props) => {
             value={certificate}
             placeholder="자격증 제목"
             onChange={(e) => setCertificate(e.target.value)}
+            maxlength="20"
           />
         </FloatingLabel>
       </Form.Group>
 
-      {/* <Form.Group controlId="certID">
-              <Form.Label></Form.Label>
-              {isMessageNecessary && (
-                <div className="text-danger text-center" style={{ styles }}>
-                  <span id="anime">빈 값이 있습니다.</span>
-                </div>
-              )}
-              <Form.Control
-                type="text"
-                autoComplete="on"
-                value={certificate}
-                placeholder="자격증 제목"
-                onChange={(e) => setCertificate(e.target.value)}
-              />
-            </Form.Group> */}
       <Form.Group className="mt-3">
         <FloatingLabel
           label="상세 내역"
@@ -116,6 +102,7 @@ const CertificateEditForm = (props) => {
             value={details}
             placeholder="상세 내역"
             onChange={(e) => setDetails(e.target.value)}
+            maxlength="200"
           />
         </FloatingLabel>
       </Form.Group>

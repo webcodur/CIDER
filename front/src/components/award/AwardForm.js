@@ -67,6 +67,7 @@ const AwardForm = (props) => {
             placeholder="수상 내역"
             style={{ color: "black" }}
             onChange={(e) => setAward(e.target.value)}
+            maxLength={20}
           />
         </FloatingLabel>
       </Form.Group>
@@ -84,6 +85,7 @@ const AwardForm = (props) => {
             placeholder="상세 내역"
             style={{ color: "black" }}
             onChange={(e) => setDetails(e.target.value)}
+            maxlength="200"
           />
         </FloatingLabel>
       </Form.Group>

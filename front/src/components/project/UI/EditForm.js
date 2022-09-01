@@ -64,6 +64,7 @@ const EditForm = (props) => {
             type="text"
             onChange={setProjectValues}
             defaultValue={props.project.title}
+            maxlength="20"
           />
         </FloatingLabel>
       </Form.Group>
@@ -78,6 +79,7 @@ const EditForm = (props) => {
             type="text"
             onChange={setProjectValues}
             defaultValue={props.project.content}
+            maxlength="400"
           />
         </FloatingLabel>
       </Form.Group>
