@@ -29,10 +29,12 @@ function Network() {
 
   return (
     <div>
-      <SearchBar
-        setSearchData={setSearchData}
-        setIsEmpty={setIsEmpty}
-      ></SearchBar>
+      <div style={{ width: "100%" }}>
+        <SearchBar
+          setSearchData={setSearchData}
+          setIsEmpty={setIsEmpty}
+        ></SearchBar>
+      </div>
       <Container fluid>
         <Col md="10">
           <Row xs="auto" className="jusify-content-center">
@@ -62,7 +64,7 @@ function Network() {
             )}
           </Row>
         </Col>
-        <Col md="2">
+        <Col md="2" className="hide">
           <Anchor />
           <LatestViews />
         </Col>

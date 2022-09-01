@@ -1,13 +1,17 @@
 #formInput {
-  position: absolute;
-  top: -80px;
-  left: 34%;
-  min-width: 541px;
+  /* position: absolute; */
+  /* min-width: 100px; */
   /* height: 58px; */
+  width: 100%;
   margin-top: 8px;
-  display: inline-flex;
+  display: flex;
+  justify-content: center;
   z-index: 100;
 }
 #formwidth {
-  width: 541px;
+  min-width: 100px;
+  display: flex;
+}
+#formsearch {
+  min-width: 200px;
 }

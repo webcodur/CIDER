@@ -50,6 +50,11 @@ function App() {
           <ThemeProvider>
             <GlobalStyle />
             <Header />
+            {/* <div
+              style={{ width: "100%", height: "200px" }}
+              className="alwaysnone apear"
+              // className="hide"
+            ></div> */}
             <div className="elice">
               <AppLayout>
                 <Routes>
