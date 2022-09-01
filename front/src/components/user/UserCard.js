@@ -1,33 +1,42 @@
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { Card, Row, Button, Col } from "react-bootstrap";
-import React, { useState, useContext, useEffect } from "react";
-import { UserStateContext } from "../../App";
-import LikeButton from "../UI/LikeButton";
-import * as Api from "../../api";
-import { useTheme } from "../darkmode/themeProvider";
-import "../../../src/styles/index.css";
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { Card, Row, Button, Col } from 'react-bootstrap';
+import React, { useState, useContext, useEffect } from 'react';
+import { UserStateContext } from '../../App';
+import LikeButton from '../UI/LikeButton';
+import * as Api from '../../api';
+import { useTheme } from '../darkmode/themeProvider';
+import '../../../src/styles/index.css';
+import DisplayToggleComp from '../DisplayToggleComp';
 
-function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
+function UserCard({
+  user,
+  setIsEditing,
+  isEditable,
+  isNetwork,
+  portfolioOwnerId,
+  setIsEditable,
+}) {
   const [photo, setPhoto] = useState([]);
   const navigate = useNavigate();
   const userState = useContext(UserStateContext);
   const ThemeMode = useTheme();
   const theme = ThemeMode[0];
   const id = userState?.user?.id;
-  let userstr = "";
+  let userstr = '';
 
   console.log(id, user?.id);
   useEffect(() => {
     Api.get(`${user?.id ? user?.id : id}/images/profile`).then((res) => {
       setPhoto(res.data);
+      console.log();
 
-      console.log("res", res.data);
+      console.log('res', res.data);
     });
   }, [user?.id ? user?.id : id]);
 
   function recentlyView() {
-    let origin = localStorage.getItem("recentlyView1");
+    let origin = localStorage.getItem('recentlyView1');
     if (!origin) {
       userstr = JSON.stringify([{ name: user?.name, id: user?.id }]);
     } else {
@@ -38,14 +47,14 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
       userstr = JSON.stringify([...origin, { name: user?.name, id: user?.id }]);
     }
     navigate(`/users/${user.id}`);
-    localStorage.setItem("recentlyView1", userstr);
+    localStorage.setItem('recentlyView1', userstr);
   }
 
   const str = user?.id ? user.id : id;
   const regex = /[^0-9]/g;
-  let result = "";
+  let result = '';
   if (str) {
-    result = str.replace(regex, "");
+    result = str.replace(regex, '');
   }
   const slicenum = result.slice(0, 3);
   const number = parseInt(slicenum);
@@ -54,14 +63,14 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   return (
     <Card
       className="mb-2 ms-3 mr-5"
-      style={{ width: "18rem" }}
-      id={theme == "light" ? "light" : "dark"}
+      style={{ width: '18rem' }}
+      id={theme == 'light' ? 'light' : 'dark'}
     >
       <Card.Body>
         <Row className="justify-content-md-center">
           {console.log(photo)}
           <Card.Img
-            style={{ width: "10rem", height: "8rem" }}
+            style={{ width: '10rem', height: '8rem' }}
             className="mb-3"
             src={photo}
             // src={"/back/src/images" + user?.profileImage?.path}
@@ -71,7 +80,16 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
             alt="사용자 프로필 사진"
           />
         </Row>
-        <Card.Title>{user?.name}</Card.Title>
+        <Card.Title>
+          {user?.name}
+          {userState?.user?.id === portfolioOwnerId && (
+            <DisplayToggleComp
+              isEditable={isEditable}
+              setIsEditable={setIsEditable}
+              portfolioOwnerId={portfolioOwnerId}
+            />
+          )}
+        </Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
         <Card.Text>{user?.description}</Card.Text>
         <Row className="mt-4">
@@ -107,6 +125,6 @@ export default UserCard;
 const StyledDiv = styled.div`
   border-radius: 4px;
   border: ${(props) =>
-    props.theme === "light" ? "1px solid #31302E" : "1px solid #bbb"};
-  color: ${(props) => (props.theme === "light" ? "#31302E" : "#bbb")};
+    props.theme === 'light' ? '1px solid #31302E' : '1px solid #bbb'};
+  color: ${(props) => (props.theme === 'light' ? '#31302E' : '#bbb')};
 `;

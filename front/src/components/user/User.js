@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import UserEditForm from "./UserEditForm";
-import UserCard from "./UserCard";
-import * as Api from "../../api";
+import React, { useState, useEffect } from 'react';
+import UserEditForm from './UserEditForm';
+import UserCard from './UserCard';
+import * as Api from '../../api';
 
-function User({ portfolioOwnerId, isEditable }) {
+function User({ portfolioOwnerId, isEditable, setIsEditable }) {
   const [isEditing, setIsEditing] = useState(false);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    Api.get("users", portfolioOwnerId).then((res) => setUser(res.data));
+    Api.get('users', portfolioOwnerId).then((res) => setUser(res.data));
   }, [portfolioOwnerId]);
 
   return (
@@ -23,7 +23,9 @@ function User({ portfolioOwnerId, isEditable }) {
         <UserCard
           user={user}
           setIsEditing={setIsEditing}
+          setIsEditable={setIsEditable}
           isEditable={isEditable}
+          portfolioOwnerId={portfolioOwnerId}
         />
       )}
     </>
