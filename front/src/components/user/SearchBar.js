@@ -1,19 +1,18 @@
 import * as Api from "../../api";
 import { useState } from "react";
 import searchBar from "../../styles/searchBar.css";
-import { FloatingLabel } from "react-bootstrap";
 
-const Search = ({ setSearchData, setIsEmpty, setDidClick }) => {
+const Search = ({ setSearchData, setIsEmpty }) => {
   const [Selected, setSelected] = useState("all");
   const [inputValue, setInputValue] = useState("");
-  const test = (e) => {
-    e.preventDefault();
-    setDidClick(true);
-    console.log(inputValue);
-    Api.get2(`search?option=${Selected}&contents=${inputValue}`).then((res) => {
-      setSearchData(res.data);
-      console.log(res.data);
-    });
+  const test = () => {
+    setTimeout(() => {
+      Api.get2(`search?option=${Selected}&contents=${inputValue}`).then(
+        (res) => {
+          setSearchData(res.data);
+        }
+      );
+    }, 1000);
   };
   const handleChangeInput = (e) => {
     e.preventDefault();
@@ -22,6 +21,7 @@ const Search = ({ setSearchData, setIsEmpty, setDidClick }) => {
   };
 
   const handleChangeSelect = (e) => {
+    e.preventDefault();
     setSelected(e.target.value);
   };
 
@@ -40,25 +40,21 @@ const Search = ({ setSearchData, setIsEmpty, setDidClick }) => {
         name="profile"
         onChange={handleChangeInput}
         autoComplete="on"
-        style={{ display: "inline-flex" }}
       >
         <div class="input-group">
-          <FloatingLabel label="내용">
-            <input
-              type="search"
-              class="form-control rounded"
-              placeholder="Search"
-              aria-label="Search"
-              aria-describedby="search-addon"
-              // onKeyUpCapture={test}
-              onChange={handleChangeInput}
-              style={{ width: "25rem" }}
-            />
-          </FloatingLabel>
-          <input type="search" style={{ display: "none" }} />
-          <button type="button" class="btn btn-outline-primary" onClick={test}>
-            검색
-          </button>
+          <input
+            type="search"
+            class="form-control rounded"
+            placeholder="Search"
+            aria-label="Search"
+            aria-describedby="search-addon"
+            onKeyUpCapture={test}
+            style={{ width: "25rem" }}
+          />
+          <input style={{ display: "none " }} />
+          {/* <button type="button" class="btn btn-outline-primary" onClick={test}>
+            search
+          </button> */}
         </div>
       </form>
     </div>
@@ -76,5 +72,7 @@ export default Search;
   그다음에는 네트워크 페이지에서 usercard(?) map하시면 될거 같아요.
   나중에 종합적인 에러처리 관련해서 같이 처리 
 
+
+  
 */
 }
