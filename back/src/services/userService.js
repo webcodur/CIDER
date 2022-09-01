@@ -169,7 +169,7 @@ class userAuthService {
     if (!user) {
       throw new Error(ERRORS.USER_ID_ERROR.errorCode);
     }
-    const re = new RegExp(`[${pathSep}]profiles[${pathSep}].*`, "g");
+    const re = new RegExp(`[\\${pathSep}]profiles[\\${pathSep}].*`, "g");
     const newValue = {
       originalname,
       filename,
