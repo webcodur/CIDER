@@ -2,12 +2,12 @@
   position: absolute;
   top: -80px;
   left: 34%;
-  width: 541px;
-  height: 58px;
+  min-width: 541px;
+  /* height: 58px; */
   margin-top: 8px;
-  display: flex;
+  display: inline-flex;
   z-index: 100;
 }
 #formwidth {
-  width: 100%;
+  width: 541px;
 }

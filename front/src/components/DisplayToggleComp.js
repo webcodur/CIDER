@@ -37,12 +37,12 @@ const DisplayToggleComp = (props) => {
   };
   return (
     <Button
+      style={{ border: 'none' }}
       onClick={displayToggler}
       variant="outline-info"
       size="sm"
-      style={{ border: 'none' }}
     >
-      {props.isEditable ? '✏️' : '🔎'}
+      {props.isEditable ? '✏️ 편집 모드' : '🔎 감상 모드'}
     </Button>
   );
 };

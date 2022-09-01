@@ -38,7 +38,7 @@ function ThemeToggle({ toggle, mode }) {
 export default ThemeToggle;
 const ToggleWrapper = styled.button`
   position: fixed;
-  z-index: 999999;
+  z-index: 9;
   bottom: 4%;
   right: 4%;
 

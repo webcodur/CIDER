@@ -31,7 +31,7 @@ export default Anchor;
 
 const ToggleWrapper = styled.button`
   position: fixed;
-  z-index: 999999;
+  z-index: 9;
   bottom: 4%;
   right: 9.5%;
 
