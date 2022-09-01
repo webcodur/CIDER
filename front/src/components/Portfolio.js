@@ -9,7 +9,7 @@ import { UserStateContext } from '../App';
 import * as Api from '../api';
 import User from './user/User';
 import SideBar from './darkmode/SideBar';
-import DisplayToggleComp from './DisplayToggleComp';
+import Anchor from './UI/Anchor';
 
 function Portfolio() {
   const navigate = useNavigate();
@@ -57,6 +57,7 @@ function Portfolio() {
           />
         </Col>
         <Col md="7">
+          <Anchor />
           <Education
             isEditable={isEditable}
             portfolioOwnerId={portfolioOwner.id}
