@@ -6,10 +6,6 @@ import { ERRORS } from "../constants/constants";
 const projectService = {
   // userId와 project데이터를 받아서 project 생성
   addProject: async ({ userId, title, content, startDay, endDay }) => {
-    if (!title || !content || !startDay || !endDay) {
-      throw new Error(ERRORS.BODY_DATA_ERROR.errorCode);
-    }
-
     const id = uuidv4();
     const newProject = {
       user_id: userId,
@@ -42,25 +38,26 @@ const projectService = {
       throw new Error(ERRORS.ITEM_ID_ERROR.errorCode);
     }
 
-    const update = {};
-    if (toUpdate.title) {
-      update.title = toUpdate.title;
-    }
-    if (toUpdate.content) {
-      update.content = toUpdate.content;
-    }
-    if (toUpdate.startDay) {
-      update.startDay = toUpdate.startDay;
-    }
-    if (toUpdate.endDay) {
-      update.endDay = toUpdate.endDay;
-    }
-
-    if (is.emptyObject(update)) {
-      throw new Error(ERRORS.UPDATE_DATA_ERROR.errorCode);
+    const { startDay, endDay } = toUpdate;
+    if (startDay && endDay) {
+      if (new Date(startDay) > new Date(endDay)) {
+        throw new Error(ERRORS.DATE_TERM_ERROR.errorCode);
+      }
+    } else if (startDay) {
+      if (new Date(startDay) > new Date(project.endDay)) {
+        throw new Error(ERRORS.DATE_TERM_ERROR.errorCode);
+      }
+    } else if (endDay) {
+      if (new Date(project.startDay) > new Date(endDay)) {
+        throw new Error(ERRORS.DATE_TERM_ERROR.errorCode);
+      }
     }
 
-    const updatedProject = await Project.update({ userId, projectId, update });
+    const updatedProject = await Project.update({
+      userId,
+      projectId,
+      update: toUpdate,
+    });
 
     return updatedProject;
   },

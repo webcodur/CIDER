@@ -38,6 +38,21 @@ const ERRORS = {
     errorCode: "DEFAULT_IMAGE_ERROR",
     errorMessage: "이미 프로필 사진이 DEFAULT_IMAGE 입니다.",
   },
+
+  CONTENT_LENGTH_ERROR: {
+    errorCode: "CONTENT_LENGTH_ERROR",
+    errorMessage: "입력값의 길이가 허용 범위를 초과하였습니다.",
+  },
+
+  DATE_FORMAT_ERROR: {
+    errorCode: "DATE_FORMAT_ERROR",
+    errorMessage: "입력값의 날짜의 양식이 맞지 않습니다.",
+  },
+
+  DATE_TERM_ERROR: {
+    errorCode: "DATE_TERM_ERROR",
+    errorMessage: "입력값의 날짜 기간이 유효하지 않습니다.",
+  },
 };
 
 const DEFAULT_PROFILE_IMAGE = {

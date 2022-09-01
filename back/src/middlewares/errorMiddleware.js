@@ -32,6 +32,18 @@ function errorMiddleware(error, req, res, next) {
       res.status(400).json(ERRORS.DEFAULT_IMAGE_ERROR);
       break;
 
+    case ERRORS.CONTENT_LENGTH_ERROR.errorCode:
+      res.status(400).json(ERRORS.CONTENT_LENGTH_ERROR);
+      break;
+
+    case ERRORS.DATE_FORMAT_ERROR.errorCode:
+      res.status(400).json(ERRORS.DATE_FORMAT_ERROR);
+      break;
+
+    case ERRORS.DATE_TERM_ERROR.errorCode:
+      res.status(400).json(ERRORS.DATE_TERM_ERROR);
+      break;
+
     default:
       res.status(400).json(ERRORS.UNDEFINED_ERROR);
       break;

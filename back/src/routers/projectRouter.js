@@ -1,7 +1,11 @@
 import { Router } from "express";
 import { projectService } from "../services/projectService";
 import { login_required } from "../middlewares/login_required";
-import { validationMiddleware } from "../middlewares/validationMiddleware";
+import {
+  projectPostValidator,
+  projectPatchValidator,
+  validationMiddleware,
+} from "../middlewares/validationMiddleware";
 
 const projectRouter = Router();
 
@@ -9,7 +13,7 @@ const projectRouter = Router();
 projectRouter.post(
   "/project",
   login_required,
-  validationMiddleware,
+  projectPostValidator(),
   async (req, res, next) => {
     try {
       const userId = req.currentUserId;
@@ -50,12 +54,12 @@ projectRouter.get(
 projectRouter.patch(
   "/project/:projectId",
   login_required,
-  validationMiddleware,
+  projectPatchValidator(),
   async (req, res, next) => {
     try {
       const userId = req.currentUserId;
       const { projectId } = req.params;
-      const toUpdate = req.body;
+      const toUpdate = req.toUpdate;
 
       const updatedProject = await projectService.updateProject({
         userId,
