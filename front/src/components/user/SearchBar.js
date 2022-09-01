@@ -44,7 +44,7 @@ const Search = ({ setSearchData, setIsEmpty }) => {
         <Form.Select
           aria-label="Default select example"
           onChange={handleChangeSelect}
-          style={{ height: "38px", width: "150px" }}
+          style={{ height: "100%", width: "150px" }}
         >
           <option value="all">통합 검색</option>
           <option value="name">이름</option>
