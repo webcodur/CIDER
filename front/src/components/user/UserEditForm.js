@@ -12,6 +12,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   const [isEmpty, setIsEmpty] = useState(true);
   const ThemeMode = useTheme();
   const theme = ThemeMode[0];
+  let formData = new FormData();
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (name === "" || description === "") {
@@ -27,19 +28,6 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     });
     const updatedUser = res.data;
     setUser(updatedUser);
-    setIsEditing(false);
-  };
-
-  const onImgChange = async (e) => {
-    let file = e.target.files[0];
-    let formData = new FormData();
-    formData.append("file", file);
-    for (let key of formData.keys()) {
-      console.log(key, ":", formData.get(key));
-    }
-    // await Api.filepost("user/images/profile", {
-    //   formData,
-    // }).then((res) => setImage(res.data));
     const response = await fetch("http://localhost:5001/user/images/profile", {
       method: "POST",
       body: formData,
@@ -47,8 +35,16 @@ function UserEditForm({ user, setIsEditing, setUser }) {
         Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
       },
     });
+    setIsEditing(false);
+  };
 
-    console.log(e.target.files[0]);
+  const onImgChange = async (e) => {
+    let file = e.target.files[0];
+
+    formData.append("file", file);
+    // for (let key of formData.keys()) {
+    //   console.log(key, ":", formData.get(key));
+    // }
   };
 
   return (

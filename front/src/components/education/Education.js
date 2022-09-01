@@ -14,7 +14,7 @@ const Education = ({ isEditable, portfolioOwnerId }) => {
   const toggleAddEducationForm = () => {
     setIsAdding(!isAdding);
   };
-
+  console.log(__dirname);
   const [educations, setEducations] = useState([]);
   const userState = useContext(UserStateContext);
   let educationid = "";

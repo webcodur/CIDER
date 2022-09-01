@@ -1,14 +1,27 @@
 import { ERRORS } from "../constants/constants";
+import { v4 as uuidv4 } from "uuid";
 
 const multer = require("multer");
+const path = require("path");
+const pathSep = path.sep;
+
+const uploadPath = path.join(
+  __dirname,
+  pathSep,
+  "..",
+  pathSep,
+  "images",
+  pathSep,
+  "profiles"
+);
 
 // 프로필 사진 업로드 미들웨어
 const profilestorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, __dirname + `/../images/profiles`);
+    cb(null, uploadPath);
   },
   filename: (req, file, cb) => {
-    cb(null, `${req.currentUserId}.${file.mimetype.split("/")[1]}`);
+    cb(null, `${uuidv4()}.${file.mimetype.split("/")[1]}`);
   },
 });
 

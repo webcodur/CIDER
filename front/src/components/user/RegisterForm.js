@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import * as Api from "../../api";
-
+import { useTheme } from "../darkmode/themeProvider";
+import "../../../src/styles/index.css";
 function RegisterForm() {
   const navigate = useNavigate();
 
@@ -10,7 +11,8 @@ function RegisterForm() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
-
+  const ThemeMode = useTheme();
+  const theme = ThemeMode[0];
   const validateEmail = (email) => {
     return email
       .toLowerCase()
@@ -48,7 +50,11 @@ function RegisterForm() {
     <Container>
       <Row className="justify-content-md-center mt-5">
         <Col lg={8}>
-          <Form onSubmit={handleSubmit}>
+          <Form
+            onSubmit={handleSubmit}
+            style={{ border: "0px" }}
+            id={theme == "light" ? "light" : "dark"}
+          >
             <Form.Group controlId="registerEmail">
               <Form.Label>이메일 주소</Form.Label>
               <Form.Control

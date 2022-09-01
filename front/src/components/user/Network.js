@@ -29,30 +29,32 @@ function Network() {
         setIsEmpty={setIsEmpty}
       ></SearchBar>
       <Container fluid>
-        <Row xs="auto" className="jusify-content-center">
-          {searchData?.length === 0 && !isEmpty ? (
-            users.map((user) => (
-              <>
-                <UserCard key={user.id} user={user} isNetwork />
-              </>
-            ))
-          ) : searchData?.length === 0 ? (
-            <div
-              className="nodata"
-              style={{
-                width: "1300px",
-              }}
-            >
-              검색 결과가 없습니다
-            </div>
-          ) : (
-            searchData.map((user) => (
-              <>
-                <UserCard key={user.id} user={user} isNetwork />
-              </>
-            ))
-          )}
-        </Row>
+        <Col md="10">
+          <Row xs="auto" className="jusify-content-center">
+            {searchData?.length === 0 && !isEmpty ? (
+              users.map((user) => (
+                <>
+                  <UserCard key={user.id} user={user} isNetwork />
+                </>
+              ))
+            ) : searchData?.length === 0 ? (
+              <div
+                className="nodata"
+                style={{
+                  width: "1300px",
+                }}
+              >
+                검색 결과가 없습니다
+              </div>
+            ) : (
+              searchData.map((user) => (
+                <>
+                  <UserCard key={user.id} user={user} isNetwork />
+                </>
+              ))
+            )}
+          </Row>
+        </Col>
       </Container>
       <div style={{ width: "15%" }}></div>
     </div>

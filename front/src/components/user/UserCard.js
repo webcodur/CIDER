@@ -1,18 +1,31 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Card, Row, Button, Col } from "react-bootstrap";
-import React, { useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { UserStateContext } from "../../App";
 import LikeButton from "../UI/LikeButton";
+import * as Api from "../../api";
 import { useTheme } from "../darkmode/themeProvider";
 import "../../../src/styles/index.css";
+
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
+  const [photo, setPhoto] = useState([]);
   const navigate = useNavigate();
   const userState = useContext(UserStateContext);
   const ThemeMode = useTheme();
   const theme = ThemeMode[0];
   const id = userState?.user?.id;
   let userstr = "";
+
+  console.log(id, user?.id);
+  useEffect(() => {
+    Api.get(`${user?.id ? user?.id : id}/images/profile`).then((res) => {
+      setPhoto(res.data);
+
+      console.log("res", res.data);
+    });
+  }, [user?.id ? user?.id : id]);
+
   function recentlyView() {
     let origin = localStorage.getItem("recentlyView1");
     if (!origin) {
@@ -36,8 +49,8 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   }
   const slicenum = result.slice(0, 3);
   const number = parseInt(slicenum);
-  console.log(user);
-  console.log(user?.profileImage?.path);
+  // console.log(user);
+  // console.log(user?.profileImage?.path);
   return (
     <Card
       className="mb-2 ms-3 mr-5"
@@ -46,13 +59,14 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
     >
       <Card.Body>
         <Row className="justify-content-md-center">
-          {console.log("/back/public" + user?.profileImage?.path)}
+          {console.log(photo)}
           <Card.Img
             style={{ width: "10rem", height: "8rem" }}
             className="mb-3"
+            src={photo}
             // src={"/back/src/images" + user?.profileImage?.path}
             // src={`http://placekitten.com/${number}/${number}`}
-            src={`/default_profile_image.png`}
+            // src={`/default_profile_image.png`}
             // src="http://placekitten.com/200/200" 고정으로 사용하고 싶다면 이렇게 하면 됌
             alt="사용자 프로필 사진"
           />

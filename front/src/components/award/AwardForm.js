@@ -56,33 +56,36 @@ const AwardForm = (props) => {
           </div>
         )}
         <FloatingLabel
-          label="수상내역"
+          label="수상 내역"
           className="mt-3 mb-3"
           style={{ color: "black" }}
-        ></FloatingLabel>
-        <Form.Control
-          type="text"
-          autoComplete="on"
-          value={award}
-          placeholder="수상 내역"
-          style={{ color: "black" }}
-          onChange={(e) => setAward(e.target.value)}
-        />
+        >
+          <Form.Control
+            type="text"
+            autoComplete="on"
+            value={award}
+            placeholder="수상 내역"
+            style={{ color: "black" }}
+            onChange={(e) => setAward(e.target.value)}
+          />
+        </FloatingLabel>
       </Form.Group>
       <Form.Group controlId="detailsID" className="mt-3 mb-3 form-floating">
         <FloatingLabel
           label="상세 내역"
           className="mt-3 mb-3"
           style={{ color: "black" }}
-        ></FloatingLabel>
-        <Form.Control
-          type="text"
-          autoComplete="on"
-          value={details}
-          placeholder="상세 내역"
-          style={{ color: "black" }}
-          onChange={(e) => setDetails(e.target.value)}
-        />
+        >
+          {" "}
+          <Form.Control
+            type="text"
+            autoComplete="on"
+            value={details}
+            placeholder="상세 내역"
+            style={{ color: "black" }}
+            onChange={(e) => setDetails(e.target.value)}
+          />
+        </FloatingLabel>
       </Form.Group>
       <Form.Group as={Row} className="mt-3 text-center">
         <Col sm={{ span: 20 }}>

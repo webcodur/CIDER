@@ -40,7 +40,6 @@ const DisplayToggleComp = (props) => {
       alert("asdf");
     }
   };
-  console.log(theme);
   return (
     <>
       <ToggleWrapper
