@@ -6,6 +6,8 @@ import { ERRORS, DEFAULT_PROFILE_IMAGE } from "../constants/constants";
 import "dotenv/config";
 
 const fs = require("fs");
+const path = require("path");
+const pathSep = path.sep;
 
 class userAuthService {
   static async addUser({ name, email, password }) {
@@ -167,10 +169,11 @@ class userAuthService {
     if (!user) {
       throw new Error(ERRORS.USER_ID_ERROR.errorCode);
     }
+    const re = new RegExp(`[${pathSep}]profiles[${pathSep}].*`, "g");
     const newValue = {
       originalname,
       filename,
-      path: path.match(/\/profiles\/.*/g)[0],
+      path: path.match(re)[0],
     };
     const updatedUser = await User.update({
       user_id: userId,
@@ -204,7 +207,15 @@ class userAuthService {
     ) {
       throw new Error(ERRORS.DEFAULT_IMAGE_ERROR.errorCode);
     }
-    fs.unlink(__dirname + `/../images/${user.profileImage.path}`, (err) => {
+    const targetPath = path.join(
+      __dirname,
+      pathSep,
+      "..",
+      pathSep,
+      "images",
+      user.profileImage.path
+    );
+    fs.unlink(targetPath, (err) => {
       if (err) console.log(err);
     });
     const updatedUser = await User.update({
