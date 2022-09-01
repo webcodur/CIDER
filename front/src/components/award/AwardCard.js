@@ -67,6 +67,7 @@ const AwardCard = (props) => {
           <AwardEditForm
             eleID={eleID}
             arr={arr}
+            idx={idx}
             setArr={setArr}
             isEditing={isEditing}
             setIsEditing={setIsEditing}

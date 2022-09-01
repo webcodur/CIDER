@@ -15,8 +15,8 @@ const AwardEditForm = (props) => {
   const userState = useContext(UserStateContext);
   const id = userState.user.id;
 
-  const [award, setAward] = useState("");
-  const [details, setDetails] = useState("");
+  const [award, setAward] = useState(props.arr[props.idx][1]);
+  const [details, setDetails] = useState(props.arr[props.idx][2]);
   const [isMessageNecessary, setIsMessageNecessary] = useState(false);
 
   let isClicked = false;

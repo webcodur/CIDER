@@ -9,9 +9,9 @@ const CertificateEditForm = (props) => {
   const userState = useContext(UserStateContext);
   const id = userState?.user?.id;
 
-  const [certificate, setCertificate] = useState("");
-  const [details, setDetails] = useState("");
-  const [day, setDay] = useState("");
+  const [certificate, setCertificate] = useState(props.arr[props.idx][1]);
+  const [details, setDetails] = useState(props.arr[props.idx][2]);
+  const [day, setDay] = useState(props.arr[props.idx][3]);
   const [isMessageNecessary, setIsMessageNecessary] = useState(false);
   const { state } = useLocation();
 

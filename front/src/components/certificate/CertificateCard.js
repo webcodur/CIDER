@@ -66,6 +66,7 @@ const CertificateCard = (props) => {
         <CertificateEditForm
           eleID={eleID}
           arr={arr}
+          idx={idx}
           setArr={setArr}
           isEditing={isEditing}
           setIsEditing={setIsEditing}
