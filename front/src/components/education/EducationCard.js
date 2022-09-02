@@ -76,7 +76,7 @@ function EducationCard({ educations, setEducations, isEditable }) {
               <div className="align-items-center row">
                 {education.id !== clickID && (
                   <div className="col">
-                    <div className="text-muted">{education.school}</div>
+                    <div>{education.school}</div>
                     <div
                       className="text-muted"
                       id="widthx"

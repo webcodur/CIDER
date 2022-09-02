@@ -84,7 +84,7 @@ const AwardCard = (props) => {
         <div className="mb-4">
           <div className="align-items-center row" id={arr[idx][0]}>
             <Col id="widthx" style={{ width: "584px" }}>
-              <span className="text-muted"> {arr[idx][1]}</span> <br />
+              <span> {arr[idx][1]}</span> <br />
               <span className="text-muted"> {arr[idx][2]}</span>
             </Col>
             {props.isEditable && id === state && (
