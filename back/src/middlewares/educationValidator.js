@@ -34,8 +34,10 @@ exports.educationPostValidator = () => {
       .withMessage(ERRORS.CONTENT_LENGTH_ERROR.errorCode)
       .custom((value) => {
         if (!["재학중", "학사졸업", "석사졸업", "박사졸업"].includes(value)) {
+          console.log(value);
           throw new Error(ERRORS.EDUCATION_DATA_ERROR.errorCode);
         }
+        return true;
       }),
     validate,
   ];
