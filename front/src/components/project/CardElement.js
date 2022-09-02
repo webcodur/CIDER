@@ -12,7 +12,6 @@ const CardElement = (props) => {
       <EditForm
         key={project.id}
         project={project}
-        DATA_ENDPOINT={props.DATA_ENDPOINT}
         callFetch={props.callFetch}
       />
     ) : (
@@ -20,7 +19,6 @@ const CardElement = (props) => {
         key={project.id}
         isEditable={props.isEditable}
         project={project}
-        DATA_ENDPOINT={props.DATA_ENDPOINT}
         callFetch={props.callFetch}
       />
     )

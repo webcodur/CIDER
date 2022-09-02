@@ -1,41 +1,71 @@
 import React, { useState } from "react";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
+import styles from "../../styles/anime.css";
+import "../../../src/styles/index.css";
+import { useTheme } from "../darkmode/themeProvider";
+
 function UserEditForm({ user, setIsEditing, setUser }) {
   const [name, setName] = useState(user?.name);
   const [email, setEmail] = useState(user?.email);
   const [description, setDescription] = useState(user?.description);
-
+  const [isEmpty, setIsEmpty] = useState(true);
+  const ThemeMode = useTheme();
+  const theme = ThemeMode[0];
+  let formData = new FormData();
+  const backendPortNumber = "5001";
+  const serverUrl =
+    "http://" + window.location.hostname + ":" + backendPortNumber + "/";
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (name === "" || description === "") {
-      return console.log("빈 값은 입력이 불가 합니다.");
+      setIsEmpty(false);
+      return;
+    } else {
+      setIsEmpty(true);
     }
-    // "users/유저id" 엔드포인트로 PUT 요청함.
     const res = await Api.put(`users/${user.id}`, {
       name,
       email,
       description,
     });
-    // 유저 정보는 response의 data임.
     const updatedUser = res.data;
-    // 해당 유저 정보로 user을 세팅함.
     setUser(updatedUser);
-
-    // isEditing을 false로 세팅함.
+    const response = await fetch(serverUrl + `user/images/profile`, {
+      method: "POST",
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+      },
+    });
     setIsEditing(false);
   };
 
+  const onImgChange = async (e) => {
+    let file = e.target.files[0];
+
+    formData.append("file", file);
+    // for (let key of formData.keys()) {
+    //   console.log(key, ":", formData.get(key));
+    // }
+  };
+
   return (
-    <Card className="mb-2">
+    <Card className="mb-2" id={theme == "light" ? "light" : "dark"}>
       <Card.Body>
         <Form onSubmit={handleSubmit}>
+          {!isEmpty && (
+            <div className="text-danger text-center" style={{ styles }}>
+              <span id="anime">빈 값이 있습니다.</span>
+            </div>
+          )}
           <Form.Group controlId="useEditName" className="mb-3">
             <Form.Control
               type="text"
               placeholder="이름"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              maxlength="10"
             />
           </Form.Group>
 
@@ -49,12 +79,23 @@ function UserEditForm({ user, setIsEditing, setUser }) {
             />
           </Form.Group>
 
-          <Form.Group controlId="userEditDescription">
+          <Form.Group controlId="userEditDescription" className="mb-3">
             <Form.Control
               type="text"
               placeholder="정보, 인사말"
               value={description}
+              maxlength="100"
               onChange={(e) => setDescription(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group controlId="userEditProfile">
+            <Form.Control
+              type="file"
+              placeholder="선택된 파일 없음"
+              id="formFile"
+              // value={}
+              maxlength="100"
+              onChange={onImgChange}
             />
           </Form.Group>
 

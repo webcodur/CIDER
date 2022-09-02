@@ -10,8 +10,10 @@ const AddButton = () => {
     <div className="mt-3 text-center mb-4 row">
       <div className="col-sm-20">
         <Button
-          className="btn btn-primary"
-          onClick={() => context.setIsAdding(true)}
+          className="btn btn-primary toggleTarget"
+          onClick={() => {
+            context.setIsAdding(true);
+          }}
         >
           +
         </Button>

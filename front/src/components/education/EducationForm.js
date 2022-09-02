@@ -1,17 +1,22 @@
-import React, { useState, useContext } from "react";
-import { Button, Form, Col, Row } from "react-bootstrap";
-import "../../../src/index.css";
-import { UserStateContext } from "../../App";
-import * as Api from "../../api";
+import React, { useState, useContext } from 'react';
+import { Button, Form, Col, Row, FloatingLabel } from 'react-bootstrap';
+import '../../../src/styles/index.css';
+import { UserStateContext } from '../../App';
+import * as Api from '../../api';
+import styles from '../../styles/anime.css';
+import ErrorModalContext from '../stores/ErrorModalContext';
+
 const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
-  const [data, setData] = useState();
   const [targetEducation, setTargetEducation] = useState({
     ...education,
   });
   const userState = useContext(UserStateContext);
-  const id = userState.user.id;
+  const errorModalContext = useContext(ErrorModalContext);
+
+  const id = userState?.user?.id;
+
+  const [isEmpty, setIsEmpty] = useState(true);
   const handleChange = (e) => {
-    console.log(e.target);
     const { name, value } = e.target;
     setTargetEducation({
       ...targetEducation,
@@ -20,38 +25,32 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
   };
   const editedValues = {
     ...targetEducation,
-    // id,
   };
   const handleConfirm = async (e) => {
     e.preventDefault();
+    if (targetEducation.school === '' || targetEducation.major === '') {
+      setIsEmpty(false);
+      return;
+    } else {
+      setIsEmpty(true);
+    }
     try {
-      // "user/register" 엔드포인트로 post요청함.
-      console.log(targetEducation.school, targetEducation.major);
-      if (targetEducation.school === "" || targetEducation.major === "") {
-        return console.log("빈 값은 입력이 불가 합니다.");
-      }
-
       if (!byEditbtn) {
-        //수정이 아닌 경우
-        console.log("추가", byEditbtn);
-        console.log(id, targetEducation);
         onConfirm({ ...targetEducation });
-        await Api.post("educations", {
+        await Api.post('education', {
           ...targetEducation,
           id,
         }).then((res) => onConfirm(res.data));
-      } //수정인 경우
-      else {
-        console.log("수정", byEditbtn);
-        await Api.patch(`educations`, education.id, editedValues).then((res) =>
+      } else {
+        await Api.patch(`education`, education.id, editedValues).then((res) =>
           onConfirm(res.data)
         );
       }
-      console.log(targetEducation, "targetEducation");
-
-      // 로그인 페이지로 이동함.
     } catch (err) {
-      console.log("학력 등록에 실패하셨습니다.", err);
+      console.log('학력 등록에 실패하셨습니다.', err);
+      errorModalContext.setModalText(
+        `${err.message} // 학력 데이터를 등록하는 과정에서 문제가 발생했습니다.`
+      );
     }
     onCancel();
   };
@@ -61,23 +60,43 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
   };
 
   return (
-    <Form className="margin10">
-      <input
-        className="form-control"
-        placeholder="학교 이름"
-        name="school"
-        value={targetEducation.school}
-        onChange={handleChange}
-      ></input>
-      <br />
-      <input
-        className="form-control"
-        placeholder="전공"
-        name="major"
-        value={targetEducation.major}
-        onChange={handleChange}
-      ></input>
-      <br />
+    <Form className="toggleTarget">
+      {!isEmpty && (
+        <div className="text-danger text-center" style={{ styles }}>
+          <span id="anime">빈 값이 있습니다.</span>
+        </div>
+      )}
+      <Form.Group>
+        <FloatingLabel
+          label="학교 이름"
+          className="mt-3 mb-3"
+          style={{ color: 'black' }}
+        >
+          <Form.Control
+            name="school"
+            type="text"
+            value={targetEducation.school}
+            onChange={handleChange}
+            maxlength="20"
+          />
+        </FloatingLabel>
+      </Form.Group>
+      <Form.Group className="mt-3">
+        <FloatingLabel
+          label="상세 내역"
+          className="mb-3"
+          style={{ color: 'black' }}
+        >
+          <Form.Control
+            type="text"
+            name="major"
+            value={targetEducation.major}
+            onChange={handleChange}
+            maxlength="200"
+          />
+        </FloatingLabel>
+      </Form.Group>
+
       <div className="mb-3 mt-3">
         <div className="form-check form-check-inline">
           <input
@@ -86,7 +105,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
             id="radio-add-1"
             className="form-check-input"
             value="재학중"
-            checked={targetEducation.position === "재학중"}
+            checked={targetEducation.position === '재학중'}
             onChange={handleChange}
           ></input>
           <label title="" htmlFor="radio-add-1" className="form-check-label">
@@ -100,7 +119,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
             id="radio-add-2"
             className="form-check-input"
             value="학사졸업"
-            checked={targetEducation.position === "학사졸업"}
+            checked={targetEducation.position === '학사졸업'}
             onChange={handleChange}
           ></input>
           <label title="" htmlFor="radio-add-2" className="form-check-label">
@@ -114,7 +133,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
             id="radio-add-3"
             className="form-check-input"
             value="석사졸업"
-            checked={targetEducation.position === "석사졸업"}
+            checked={targetEducation.position === '석사졸업'}
             onChange={handleChange}
           ></input>
           <label title="" htmlFor="radio-add-3" className="form-check-label">
@@ -128,7 +147,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
             id="radio-add-4"
             className="form-check-input"
             value="박사졸업"
-            checked={targetEducation.position === "박사졸업"}
+            checked={targetEducation.position === '박사졸업'}
             onChange={handleChange}
           ></input>
           <label title="" htmlFor="radio-add-4" className="form-check-label">
@@ -139,17 +158,15 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
       <Form.Group as={Row} className="mt-3 text-center">
         <Col sm={{ span: 20 }}>
           <Button
-            variant="primary ms-3 float-right"
+            className="me-3 btn btn-primary"
             type="submit"
             onClick={handleConfirm}
           >
             확인
           </Button>
-          <Button variant="secondary ms-3 float-right" onClick={handleCancel}>
+          <Button className="btn btn-secondary" onClick={handleCancel}>
             취소
           </Button>
-          <br></br>
-          <br></br>
         </Col>
       </Form.Group>
     </Form>

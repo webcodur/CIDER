@@ -1,11 +1,24 @@
-import React, { useState } from "react";
-import "../../../src/index.css";
-import EducationForm from "./EducationForm";
-import * as Api from "../../api";
+import React, { useState, useContext } from 'react';
+import '../../../src/styles/index.css';
+import EducationForm from './EducationForm';
+import * as Api from '../../api';
+import { Col, Button } from 'react-bootstrap';
+import DeleteButton from './DeleteButton';
+import { useLocation } from 'react-router';
+import { UserStateContext } from '../../App';
+import ErrorModalContext from '../stores/ErrorModalContext';
+
 function EducationCard({ educations, setEducations, isEditable }) {
+  const errorModalContext = useContext(ErrorModalContext);
   const [isEditing, setIsEditing] = useState(false);
   const [byEditbtn, setByEditbtn] = useState(false);
   const [targetId, setTargetId] = useState(null);
+  const userState = useContext(UserStateContext);
+  const id = userState?.user?.id;
+  let { state } = useLocation();
+  if (state === null || typeof state === 'object') {
+    state = id;
+  }
   const toggleEditEducationForm = (id) => {
     if (targetId === id && isEditing) {
       setTargetId(null);
@@ -16,9 +29,7 @@ function EducationCard({ educations, setEducations, isEditable }) {
     }
   };
 
-  // 편집 - 확인 함수
   const confirmEditEducation = (targetEducation) => {
-    // TODO : 학교이름, 전공 유효성 검사
     const resultEducations = [...educations];
     resultEducations[
       resultEducations.findIndex(
@@ -28,8 +39,6 @@ function EducationCard({ educations, setEducations, isEditable }) {
       ...targetEducation,
     };
     setEducations([...resultEducations]);
-    console.log(targetEducation, "fwefwef");
-    // setEducations();
     cancelEditEducation();
   };
 
@@ -39,20 +48,21 @@ function EducationCard({ educations, setEducations, isEditable }) {
   };
 
   const onRemove = async (educationid) => {
-    // const onRemove = (educationid) => {
-    // user.id 가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듬
-    // = user.id 가 id 인 것을 제거함
-    // console.log("remove: ", educations, education.id, targetEducation);
     setEducations(
       educations.filter((education) => education.id !== educationid)
     );
-    // alert(educationid);
-    await Api.delete(`educations/${educationid}`);
-    console.log("삭제 완료", educationid);
+
+    try {
+      await Api.delete(`education/${educationid}`);
+    } catch (err) {
+      errorModalContext.setModalText(
+        `${err.message} // 학력 데이터를 삭제하는 과정에서 문제가 발생했습니다.`
+      );
+    }
+    console.log('삭제 완료', educationid);
   };
 
   const EditHandle = () => {
-    // toggleEditEducationForm(education.id);
     setByEditbtn(true);
   };
 
@@ -60,41 +70,35 @@ function EducationCard({ educations, setEducations, isEditable }) {
     <div>
       <div>
         {educations.map((education, index) => {
-          {
-            console.log(education);
-          }
           return (
-            <div key={education.id}>
-              <div className="align-items-center row margin_tb10">
-                <div className="col">
-                  <div>{education.school}</div>
-                  <div>
-                    {education.major}({education.position})
+            <div key={education.id} className="mb-4 card-text">
+              <div className="align-items-center row">
+                {!isEditing && (
+                  <div className="col">
+                    <div className="text-muted">{education.school}</div>
+                    <div className="text-muted">
+                      {education.major} ({education.position})
+                    </div>
                   </div>
-                </div>
-                {isEditable ? (
-                  <div
-                    className="col-lg-1 col"
-                    style={{ width: "138px", display: "flex" }}
-                  >
-                    <button
-                      type="button"
-                      className="mr-3 btn btn-outline-info"
+                )}
+                {!isEditing && id === state && isEditable ? (
+                  <Col className="col-lg-1 col">
+                    <Button
+                      variant="outline-info"
+                      size="sm"
+                      className="me-1 mb-1 mr-3 btn btn-outline-info btn-sm toggleTarget"
                       onClick={() => {
                         toggleEditEducationForm(education.id);
                         EditHandle();
                       }}
                     >
                       편집
-                    </button>
-                    <button
-                      type="button"
-                      className="mr-3 btn btn-outline-info"
-                      onClick={() => onRemove(education.id)}
-                    >
-                      삭제
-                    </button>
-                  </div>
+                    </Button>
+                    <DeleteButton
+                      educationid={education.id}
+                      onRemove={onRemove}
+                    ></DeleteButton>
+                  </Col>
                 ) : null}
               </div>
               {isEditing && education.id === targetId && (

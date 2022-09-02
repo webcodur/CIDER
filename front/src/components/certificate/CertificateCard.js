@@ -1,67 +1,130 @@
-import CertificateEditForm from "./CertificateEditForm";
-import { Button } from "react-bootstrap";
-import * as Api from "../../api";
-import { useState, useContext } from "react";
-import { UserStateContext } from "../../App";
+import CertificateEditForm from './CertificateEditForm';
+import { Button, Overlay, Tooltip, Card, Col } from 'react-bootstrap';
+import * as Api from '../../api';
+import { useState, useContext, useRef, useEffect } from 'react';
+import { UserStateContext } from '../../App';
+import displayToggleCss from '../../styles/displayToggle.css';
+import '../../styles/tooltip.css';
+import { useLocation } from 'react-router';
+import ErrorModalContext from '../stores/ErrorModalContext';
 
 const CertificateCard = (props) => {
   const userState = useContext(UserStateContext);
+  const errorModalContext = useContext(ErrorModalContext);
   const id = userState?.user?.id;
 
   const [isEditing, setIsEditing] = useState(false);
   const [eleID, setEleID] = useState(false);
 
-  const arr = props.arr; // [수상, 상세, 시간ID]
+  const arr = props.arr;
   const setArr = props.setArr;
   const idx = props.idx;
 
-  const 편집 = (e) => {
+  const [isConfirm, setConfirm] = useState(false);
+  const target = useRef(null);
+
+  let { state } = useLocation();
+  if (state === null || typeof state === 'object') {
+    state = id;
+  }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setConfirm(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [isConfirm]);
+
+  const openEditForm = (e) => {
     setEleID(e.target.parentNode.parentNode.id);
     setIsEditing(true);
   };
 
-  const 삭제 = async (e) => {
-    // DELETE
-    const eleID = e.target.parentNode.parentNode.id;
+  const confirmDelete = async (e) => {
+    try {
+      const eleID = e.target.parentNode.parentNode.id;
+      await Api.delete('certificate', eleID);
 
-    await Api.delete("certificates", eleID);
+      const getRes = await Api.get('certificates', id);
+      const datas = getRes.data;
+      let dataArr = [];
 
-    // GET
-    const getRes = await Api.get("certificates", id);
-    const datas = getRes.data;
-    let dataArr = [];
-    dataArr = datas.map((ele) => [ele.id, ele.title, ele.content, ele.day]);
-    props.setArr(dataArr);
+      dataArr = datas.map((ele) => {
+        return [ele.id, ele.title, ele.content, ele.day.slice(0, 10)];
+      });
+
+      props.setArr(dataArr);
+    } catch (err) {
+      errorModalContext.setModalText(
+        `${err.message} // 자격증 데이터를 삭제하는 과정에서 문제가 발생했습니다.`
+      );
+    }
+  };
+
+  const checkDelete = async (e) => {
+    if (isConfirm) {
+      await confirmDelete(e);
+    }
+    setConfirm(true);
   };
 
   return (
-    <div className="row" id={arr[idx][0]}>
-      <div className="col">
-        <div>{arr[idx][1]}</div>
-        <div>{arr[idx][2]}</div>
-        <div>{arr[idx][3]}</div>
-      </div>
-      {props.isEditable ? (
-        <div className="col">
-          <Button variant="btn float-end btn-outline-info mt-3" onClick={삭제}>
-            삭제
-          </Button>
-          <Button variant="btn float-end btn-outline-info mt-3" onClick={편집}>
-            편집
-          </Button>
-        </div>
-      ) : null}
-      <div className="mt-3"></div>
-      {isEditing && (
+    <>
+      {isEditing && id === state ? (
         <CertificateEditForm
           eleID={eleID}
           arr={arr}
+          idx={idx}
           setArr={setArr}
           isEditing={isEditing}
           setIsEditing={setIsEditing}
         />
+      ) : (
+        <div className="mb-4">
+          <div className="align-items-center row" id={arr[idx][0]}>
+            <Col>
+              {arr[idx][1]} <br />
+              <span className="text-muted">{arr[idx][2]}</span> <br />
+              <span className="text-muted">{arr[idx][3]}</span>
+            </Col>
+            {props.isEditable && id === state && (
+              <Col className="col-lg-1">
+                <Button
+                  css={{ displayToggleCss }}
+                  variant="outline-info"
+                  onClick={openEditForm}
+                  className="me-1 mb-1 mr-3 toggleTarget"
+                  size="sm"
+                >
+                  편집
+                </Button>
+                <Button
+                  css={{ displayToggleCss }}
+                  variant="outline-danger"
+                  onClick={checkDelete}
+                  ref={target}
+                  className="mr-3 btn-sm toggleTarget"
+                  size="sm"
+                >
+                  삭제
+                </Button>
+                <Overlay
+                  target={target.current}
+                  show={isConfirm}
+                  placement="left"
+                >
+                  {
+                    <Tooltip className="red-tooltip">
+                      정말 삭제하시겠습니까?
+                    </Tooltip>
+                  }
+                </Overlay>
+              </Col>
+            )}
+          </div>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
