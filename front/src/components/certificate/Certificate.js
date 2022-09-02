@@ -1,15 +1,15 @@
-import { Card, Button } from 'react-bootstrap';
-import { useState, useEffect, useContext } from 'react';
-import { UserStateContext } from '../../App';
-import { useLocation } from 'react-router';
-import CertificateCard from './CertificateCard';
-import CertificateForm from './CertificateForm';
-import { useTheme } from '../darkmode/themeProvider';
-import '../../../src/styles/index.css';
-import * as Api from '../../api';
-import ErrorModalContext from '../stores/ErrorModalContext';
+import { Card, Button } from "react-bootstrap";
+import { useState, useEffect, useContext } from "react";
+import { UserStateContext } from "../../App";
+import { useLocation } from "react-router";
+import CertificateCard from "./CertificateCard";
+import CertificateForm from "./CertificateForm";
+import { useTheme } from "../darkmode/themeProvider";
+import "../../../src/styles/index.css";
+import * as Api from "../../api";
+import ErrorModalContext from "../stores/ErrorModalContext";
 
-const Certificate = ({ isEditable, paramsUserId }) => {
+const Certificate = ({ isEditable, portfolioOwnerId }) => {
   const userState = useContext(UserStateContext);
   const errorModalContext = useContext(ErrorModalContext);
   const id = userState?.user?.id;
@@ -17,22 +17,21 @@ const Certificate = ({ isEditable, paramsUserId }) => {
   const ThemeMode = useTheme();
   const theme = ThemeMode[0];
 
-  if (state === null || typeof state === 'object') {
+  if (state === null || typeof state === "object") {
     state = id;
   }
 
   const [isEditing, setIsEditing] = useState(false);
   const [arr, setArr] = useState([]);
-
   useEffect(() => {
     getData();
-  }, [paramsUserId]);
+  }, [portfolioOwnerId]);
 
   async function getData() {
     try {
       const getRes = await Api.get(
-        'certificates',
-        paramsUserId ? paramsUserId : id
+        "certificates",
+        portfolioOwnerId ? portfolioOwnerId : id
       );
       const datas = getRes.data;
       let dataArr = [];
@@ -49,7 +48,7 @@ const Certificate = ({ isEditable, paramsUserId }) => {
   }
 
   return (
-    <Card className="mb-2 ms-3 mr-5" id={theme == 'light' ? 'light' : 'dark'}>
+    <Card className="mb-2 ms-3 mr-5" id={theme == "light" ? "light" : "dark"}>
       <Card.Body>
         <Card.Title>자격증</Card.Title>
         {arr.map((ele, idx) => {
@@ -63,6 +62,7 @@ const Certificate = ({ isEditable, paramsUserId }) => {
             ></CertificateCard>
           );
         })}
+        {console.log(arr, "arr")}
         {isEditable && id === state && (
           <div className="mt-3 text-center mb-4 row">
             <div className="col-sm-20">
