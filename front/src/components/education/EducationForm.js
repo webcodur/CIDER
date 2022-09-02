@@ -26,6 +26,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
   const editedValues = {
     ...targetEducation,
   };
+  console.log(editedValues);
   const handleConfirm = async (e) => {
     e.preventDefault();
     if (targetEducation.school === '' || targetEducation.major === '') {
