@@ -39,6 +39,7 @@ function EducationCard({ educations, setEducations, isEditable }) {
       ...targetEducation,
     };
     setEducations([...resultEducations]);
+    cancelEditEducation();
   };
 
   const cancelEditEducation = () => {
@@ -58,7 +59,6 @@ function EducationCard({ educations, setEducations, isEditable }) {
         `${err.message} // 학력 데이터를 삭제하는 과정에서 문제가 발생했습니다.`
       );
     }
-    console.log('삭제 완료', educationid);
   };
 
   const EditHandle = () => {
