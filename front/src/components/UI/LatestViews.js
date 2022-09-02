@@ -1,30 +1,23 @@
-import React, { useState, useContext, useEffect, useCallback } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { UserStateContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import "../../../src/styles/index.css";
 import { useTheme } from "../darkmode/themeProvider";
 
 const LatestViews = () => {
-  const [watchs, setWatchs] = useState();
   const navigate = useNavigate();
   const ThemeMode = useTheme();
   const theme = ThemeMode[0];
-  let origins = localStorage.getItem("recentlyView1");
   const userState = useContext(UserStateContext);
-  let id = null;
-
-  if (id) {
-    id = userState.user.id;
-  }
-
-  const setWatchsFunc = useCallback(() => {
-    setWatchs(JSON.parse(origins));
-  }, []);
+  const [recentList, setRecentList] = useState([]);
 
   useEffect(() => {
-    setWatchsFunc();
-    setWatchs(JSON.parse(origins));
-  }, [origins]);
+      setTimeout(() => {
+          const origins = JSON.parse(localStorage.getItem(userState?.user?.id) ?? '[]');
+          setRecentList(origins);
+      }, 90);
+  }, []);
+
   return (
     <div
       className={
@@ -42,17 +35,17 @@ const LatestViews = () => {
           display: "inline-block",
         }}
       >
-        {watchs &&
-          watchs.map((watch, index) => {
+        {recentList.length > 0 &&
+            recentList.map((obj, index) => {
             return (
               <li
-                key={index}
+                key={obj.id}
                 onClick={() => {
-                  navigate(`/users/${watch.id}`, { state: watch.id });
+                  navigate(`/users/${obj.id}`, { state: obj.id });
                 }}
                 className="cursor_test"
               >
-                {watch.name}
+                {obj.name}
               </li>
             );
           })}

@@ -23,7 +23,7 @@ function UserCard({
   const ThemeMode = useTheme();
   const theme = ThemeMode[0];
   const id = userState?.user?.id;
-  let userstr = "";
+  // let userstr = "";
 
   useEffect(() => {
     Api.get(`${user?.id ? user?.id : id}/images/profile`).then((res) => {
@@ -32,25 +32,25 @@ function UserCard({
   }, [user?.id ? user?.id : id]);
 
   function recentlyView() {
-    let origin = localStorage.getItem("recentlyView1");
-    if (!origin) {
-      userstr = JSON.stringify([{ name: user?.name, id: user?.id }]);
-    } else {
-      origin = JSON.parse(origin);
-
-      const set = new Set(origin);
-
-      const uniqueArr = [...set];
-
-      console.log(uniqueArr);
-      if (origin.length >= 5) {
-        origin.shift();
-      }
-
-      userstr = JSON.stringify([...origin, { name: user?.name, id: user?.id }]);
-    }
+    // let origin = localStorage.getItem("recentlyView1");
+    // if (!origin) {
+    //   userstr = JSON.stringify([{ name: user?.name, id: user?.id }]);
+    // } else {
+    //   origin = JSON.parse(origin);
+    //
+    //   const set = new Set(origin);
+    //
+    //   const uniqueArr = [...set];
+    //
+    //   console.log(uniqueArr);
+    //   if (origin.length >= 5) {
+    //     origin.shift();
+    //   }
+    //
+    //   userstr = JSON.stringify([...origin, { name: user?.name, id: user?.id }]);
+    // }
     navigate(`/users/${user.id}`);
-    localStorage.setItem("recentlyView1", userstr);
+    // localStorage.setItem("recentlyView1", userstr);
   }
 
   const str = user?.id ? user.id : id;
