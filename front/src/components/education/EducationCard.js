@@ -77,7 +77,11 @@ function EducationCard({ educations, setEducations, isEditable }) {
                 {education.id !== clickID && (
                   <div className="col">
                     <div className="text-muted">{education.school}</div>
-                    <div className="text-muted">
+                    <div
+                      className="text-muted"
+                      id="widthx"
+                      style={{ width: "584px" }}
+                    >
                       {education.major} ({education.position})
                     </div>
                   </div>
