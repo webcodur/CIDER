@@ -59,13 +59,18 @@ body {
   align-content: center;
 }
 .form-control {
-  display: block;
   width: 100%;
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
   color: #212529;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 180px;
+  border-radius: 30px;
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #ced4da;
@@ -76,14 +81,19 @@ body {
 }
 .sideBox {
   position: fixed;
-  z-index: 999999;
+  z-index: 9;
   bottom: 40%;
-  right: 5%;
-  background: white;
+  right: 4.5%;
+  border-radius: 30px;
   width: 180px;
   height: 280px;
-
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 180px;
+  height: 280px;
+  border-radius: 20px;
 }
 .sideInnerBox {
   margin-left: 12%;
@@ -94,14 +104,24 @@ body {
   display: inline-block;
 }
 #light {
-  background: white;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  color: black;
+  background: white !important;
+  border: 1px solid rgba(0, 0, 0, 0.125) !important;
+  color: black !important;
 }
 #dark {
-  background: #1e1e22;
-  border: 1px solid white;
-  color: white;
+  background: #1e1e22 !important;
+  border: 1px solid white !important;
+  color: white !important;
+}
+.light {
+  background: white !important;
+  border: 1px solid rgba(0, 0, 0, 0.125) !important;
+  color: black !important;
+}
+.dark {
+  background: #1e1e22 !important;
+  border: 1px solid white !important;
+  color: white !important;
 }
 
 #blight {
