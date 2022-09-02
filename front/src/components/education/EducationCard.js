@@ -1,12 +1,12 @@
-import React, { useState, useContext } from "react";
-import "../../../src/styles/index.css";
-import EducationForm from "./EducationForm";
-import * as Api from "../../api";
-import { Col, Button } from "react-bootstrap";
-import DeleteButton from "./DeleteButton";
-import { useLocation } from "react-router";
-import { UserStateContext } from "../../App";
-import ErrorModalContext from "../stores/ErrorModalContext";
+import React, { useState, useContext } from 'react';
+import '../../../src/styles/index.css';
+import EducationForm from './EducationForm';
+import * as Api from '../../api';
+import { Col, Button } from 'react-bootstrap';
+import DeleteButton from './DeleteButton';
+import { useLocation } from 'react-router';
+import { UserStateContext } from '../../App';
+import ErrorModalContext from '../stores/ErrorModalContext';
 
 function EducationCard({ educations, setEducations, isEditable }) {
   const errorModalContext = useContext(ErrorModalContext);
@@ -16,7 +16,7 @@ function EducationCard({ educations, setEducations, isEditable }) {
   const userState = useContext(UserStateContext);
   const id = userState?.user?.id;
   let { state } = useLocation();
-  if (state === null || typeof state === "object") {
+  if (state === null || typeof state === 'object') {
     state = id;
   }
   const toggleEditEducationForm = (id) => {
@@ -39,7 +39,6 @@ function EducationCard({ educations, setEducations, isEditable }) {
       ...targetEducation,
     };
     setEducations([...resultEducations]);
-    cancelEditEducation();
   };
 
   const cancelEditEducation = () => {
@@ -59,7 +58,7 @@ function EducationCard({ educations, setEducations, isEditable }) {
         `${err.message} // 학력 데이터를 삭제하는 과정에서 문제가 발생했습니다.`
       );
     }
-    console.log("삭제 완료", educationid);
+    console.log('삭제 완료', educationid);
   };
 
   const EditHandle = () => {

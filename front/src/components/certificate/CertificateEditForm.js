@@ -98,7 +98,7 @@ const CertificateEditForm = (props) => {
             value={certificate}
             placeholder="자격증 제목"
             onChange={(e) => setCertificate(e.target.value)}
-            maxlength="20"
+            maxLength="20"
           />
         </FloatingLabel>
       </Form.Group>
@@ -115,7 +115,7 @@ const CertificateEditForm = (props) => {
             value={details}
             placeholder="상세 내역"
             onChange={(e) => setDetails(e.target.value)}
-            maxlength="200"
+            maxLength="200"
           />
         </FloatingLabel>
       </Form.Group>
