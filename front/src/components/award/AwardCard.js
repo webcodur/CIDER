@@ -1,14 +1,16 @@
-import AwardEditForm from "./AwardEditForm";
-import { Button, Overlay, Tooltip, Card, Col } from "react-bootstrap";
-import * as Api from "../../api";
-import { useState, useContext, useRef, useEffect } from "react";
-import { UserStateContext } from "../../App";
-import displayToggleCss from "../../styles/displayToggle.css";
-import "../../styles/tooltip.css";
-import { useLocation } from "react-router";
+import AwardEditForm from './AwardEditForm';
+import { Button, Overlay, Tooltip, Card, Col } from 'react-bootstrap';
+import * as Api from '../../api';
+import { useState, useContext, useRef, useEffect } from 'react';
+import { UserStateContext } from '../../App';
+import displayToggleCss from '../../styles/displayToggle.css';
+import '../../styles/tooltip.css';
+import { useLocation } from 'react-router';
+import ErrorModalContext from '../stores/ErrorModalContext';
 
 const AwardCard = (props) => {
   const userState = useContext(UserStateContext);
+  const errorModalContext = useContext(ErrorModalContext);
   const id = userState?.user?.id;
 
   const [isEditing, setIsEditing] = useState(false);
@@ -23,7 +25,7 @@ const AwardCard = (props) => {
 
   let { state } = useLocation();
 
-  if (state === null || typeof state === "object") {
+  if (state === null || typeof state === 'object') {
     state = id;
   }
 
@@ -41,15 +43,19 @@ const AwardCard = (props) => {
   };
 
   const confirmDelete = async (e) => {
-    const eleID = e.target.parentNode.parentNode.id;
-    await Api.delete("award", eleID);
-
-    const getRes = await Api.get("awards", id);
-    const datas = getRes.data;
-    let dataArr = [];
-
-    dataArr = datas.map((ele) => [ele.id, ele.title, ele.description]);
-    props.setArr(dataArr);
+    try {
+      const eleID = e.target.parentNode.parentNode.id;
+      await Api.delete('award', eleID);
+      const getRes = await Api.get('awards', id);
+      props.setArr(dataArr);
+      const datas = getRes.data;
+      let dataArr = [];
+      dataArr = datas.map((ele) => [ele.id, ele.title, ele.description]);
+    } catch (err) {
+      errorModalContext.setModalText(
+        `${err.message} // 수상 이력 데이터를 삭제하는 과정에서 문제가 발생했습니다.`
+      );
+    }
   };
 
   const checkDelete = async (e) => {
@@ -61,64 +67,59 @@ const AwardCard = (props) => {
 
   return (
     <>
-      {isEditing && id === state 
-      ? 
-        (
-          <AwardEditForm
-            eleID={eleID}
-            arr={arr}
-            idx={idx}
-            setArr={setArr}
-            isEditing={isEditing}
-            setIsEditing={setIsEditing}
-          />
-        ) 
-      : 
-        (
-          <div className="mb-4">
-            <div className="align-items-center row" id={arr[idx][0]}>
-              <Col>
-                <span className="text-muted"> {arr[idx][1]}</span> <br />
-                <span className="text-muted"> {arr[idx][2]}</span>
+      {isEditing && id === state ? (
+        <AwardEditForm
+          eleID={eleID}
+          arr={arr}
+          idx={idx}
+          setArr={setArr}
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
+        />
+      ) : (
+        <div className="mb-4">
+          <div className="align-items-center row" id={arr[idx][0]}>
+            <Col>
+              <span className="text-muted"> {arr[idx][1]}</span> <br />
+              <span className="text-muted"> {arr[idx][2]}</span>
+            </Col>
+            {props.isEditable && id === state && (
+              <Col className="col-lg-1">
+                <Button
+                  css={{ displayToggleCss }}
+                  variant="outline-info"
+                  onClick={openEditForm}
+                  className="me-1 mb-1 mr-3 toggleTarget"
+                  size="sm"
+                >
+                  편집
+                </Button>
+                <Button
+                  css={{ displayToggleCss }}
+                  variant="outline-danger"
+                  onClick={checkDelete}
+                  ref={target}
+                  className="me-1 mb-1 mr-3 toggleTarget"
+                  size="sm"
+                >
+                  삭제
+                </Button>
+                <Overlay
+                  target={target.current}
+                  show={isConfirm}
+                  placement="left"
+                >
+                  {
+                    <Tooltip className="red-tooltip">
+                      정말 삭제하시겠습니까?
+                    </Tooltip>
+                  }
+                </Overlay>
               </Col>
-              {props.isEditable && id === state && (
-                <Col className="col-lg-1">
-                  <Button
-                    css={{ displayToggleCss }}
-                    variant="outline-info"
-                    onClick={openEditForm}
-                    className="me-1 mb-1 mr-3 toggleTarget"
-                    size="sm"
-                  >
-                    편집
-                  </Button>
-                  <Button
-                    css={{ displayToggleCss }}
-                    variant="outline-danger"
-                    onClick={checkDelete}
-                    ref={target}
-                    className="me-1 mb-1 mr-3 toggleTarget"
-                    size="sm"
-                  >
-                    삭제
-                  </Button>
-                  <Overlay
-                    target={target.current}
-                    show={isConfirm}
-                    placement="left"
-                  >
-                    {
-                      <Tooltip className="red-tooltip">
-                        정말 삭제하시겠습니까?
-                      </Tooltip>
-                    }
-                  </Overlay>
-                </Col>
-              )}
-            </div>
+            )}
           </div>
-        )
-      }
+        </div>
+      )}
     </>
   );
 };

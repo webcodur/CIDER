@@ -1,7 +1,10 @@
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import { educationService } from "../services/educationService";
-import { validationMiddleware } from "../middlewares/validationMiddleware";
+import {
+  educationPostValidator,
+  educationPatchValidator,
+} from "../middlewares/educationValidator";
 
 const educationRouter = Router();
 
@@ -9,7 +12,7 @@ const educationRouter = Router();
 educationRouter.post(
   "/education",
   login_required,
-  validationMiddleware,
+  educationPostValidator(),
   async (req, res, next) => {
     try {
       const userId = req.currentUserId;
@@ -51,12 +54,12 @@ educationRouter.get(
 educationRouter.patch(
   "/education/:educationId",
   login_required,
-  validationMiddleware,
+  educationPatchValidator(),
   async (req, res, next) => {
     try {
       const userId = req.currentUserId;
       const { educationId } = req.params;
-      const toUpdate = req.body;
+      const toUpdate = req.toUpdate;
 
       const updatedEducation = await educationService.updateEducation({
         userId,

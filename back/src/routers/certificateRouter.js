@@ -1,7 +1,10 @@
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import { certificateService } from "../services/certificateService";
-import { validationMiddleware } from "../middlewares/validationMiddleware";
+import {
+  certificatePostValidator,
+  certificatePatchValidator,
+} from "../middlewares/certificateValidator";
 
 const certificateRouter = Router();
 
@@ -9,7 +12,7 @@ const certificateRouter = Router();
 certificateRouter.post(
   "/certificate",
   login_required,
-  validationMiddleware,
+  certificatePostValidator(),
   async (req, res, next) => {
     try {
       const userId = req.currentUserId;
@@ -51,12 +54,12 @@ certificateRouter.get(
 certificateRouter.patch(
   "/certificate/:certificateId",
   login_required,
-  validationMiddleware,
+  certificatePatchValidator(),
   async (req, res, next) => {
     try {
       const userId = req.currentUserId;
       const { certificateId } = req.params;
-      const toUpdate = req.body;
+      const toUpdate = req.toUpdate;
 
       const updatedCertificate = await certificateService.updateCertificate({
         userId,

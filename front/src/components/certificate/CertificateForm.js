@@ -5,31 +5,33 @@ import {
   Form,
   Button,
   FloatingLabel,
-} from "react-bootstrap";
-import { useState, useContext } from "react";
-import { UserStateContext } from "../../App";
-import * as Api from "../../api";
-import { useLocation } from "react-router";
-import styles from "../../styles/anime.css";
+} from 'react-bootstrap';
+import { useState, useContext } from 'react';
+import { UserStateContext } from '../../App';
+import * as Api from '../../api';
+import { useLocation } from 'react-router';
+import styles from '../../styles/anime.css';
+import ErrorModalContext from '../stores/ErrorModalContext';
 
 const CertificateForm = (props) => {
   const userState = useContext(UserStateContext);
+  const errorModalContext = useContext(ErrorModalContext);
 
-  const [certificate, setCertificate] = useState("");
-  const [details, setDetails] = useState("");
-  const [day, setDay] = useState("");
+  const [certificate, setCertificate] = useState('');
+  const [details, setDetails] = useState('');
+  const [day, setDay] = useState('');
   const [isEmpty, setIsEmpty] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const arr = day.split("-");
+    const arr = day.split('-');
     if (arr[0].length > 4) {
-      alert("연도는 네자리를 넘을 수 없습니다.");
-      console.log("arr[0]", arr[0].length);
+      alert('연도는 네자리를 넘을 수 없습니다.');
+      console.log('arr[0]', arr[0].length);
       return;
     }
-    if (certificate === "" || details === "" || day === "") {
+    if (certificate === '' || details === '' || day === '') {
       setIsEmpty(false);
       return;
     }
@@ -42,20 +44,26 @@ const CertificateForm = (props) => {
       day: day,
     };
 
-    await Api.post("certificate", certificateObj);
+    try {
+      await Api.post('certificate', certificateObj);
 
-    const getRes = await Api.get("certificates", userState.user.id);
-    const datas = getRes.data;
-    let dataArr = [];
+      const getRes = await Api.get('certificates', userState.user.id);
+      const datas = getRes.data;
+      let dataArr = [];
 
-    dataArr = datas.map((ele) => {
-      return [ele.id, ele.title, ele.content, ele.day.slice(0, 10)];
-    });
+      dataArr = datas.map((ele) => {
+        return [ele.id, ele.title, ele.content, ele.day.slice(0, 10)];
+      });
+      props.setArr(dataArr);
+    } catch (err) {
+      errorModalContext.setModalText(
+        `${err.message} // 자격증 데이터를 등록하는 과정에서 문제가 발생했습니다.`
+      );
+    }
 
-    props.setArr(dataArr);
-    setCertificate("");
-    setDetails("");
-    setDay("");
+    setCertificate('');
+    setDetails('');
+    setDay('');
   };
 
   return (
@@ -69,7 +77,7 @@ const CertificateForm = (props) => {
         <FloatingLabel
           label="자격증 제목"
           className="mt-3 mb-3"
-          style={{ color: "black" }}
+          style={{ color: 'black' }}
         >
           <Form.Control
             type="text"
@@ -85,7 +93,7 @@ const CertificateForm = (props) => {
         <FloatingLabel
           label="상세 내역"
           className="mb-3"
-          style={{ color: "black" }}
+          style={{ color: 'black' }}
         >
           <Form.Control
             type="text"

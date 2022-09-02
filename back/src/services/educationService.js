@@ -6,10 +6,6 @@ import { ERRORS } from "../constants/constants";
 
 const educationService = {
   addEducation: async ({ userId, school, major, position }) => {
-    if (!school || !major || !position) {
-      throw new Error(ERRORS.BODY_DATA_ERROR.errorCode);
-    }
-
     const id = uuidv4();
     const newEducation = { user_id: userId, id, school, major, position };
     const createdNewEducation = await Education.create({ newEducation });
@@ -38,25 +34,10 @@ const educationService = {
       throw new Error(ERRORS.ITEM_ID_ERROR.errorCode);
     }
 
-    const update = {};
-    if (toUpdate.school) {
-      update.school = toUpdate.school;
-    }
-    if (toUpdate.major) {
-      update.major = toUpdate.major;
-    }
-    if (toUpdate.position) {
-      update.position = toUpdate.position;
-    }
-
-    if (is.emptyObject(update)) {
-      throw new Error(ERRORS.UPDATE_DATA_ERROR.errorCode);
-    }
-
     const updatedEducation = await Education.update({
       userId,
       educationId,
-      update,
+      update: toUpdate,
     });
 
     return updatedEducation;

@@ -11,7 +11,9 @@ const AddButton = () => {
       <div className="col-sm-20">
         <Button
           className="btn btn-primary toggleTarget"
-          onClick={() => context.setIsAdding(true)}
+          onClick={() => {
+            context.setIsAdding(true);
+          }}
         >
           +
         </Button>

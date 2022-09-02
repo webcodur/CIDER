@@ -6,10 +6,6 @@ import { ERRORS } from "../constants/constants";
 
 const awardService = {
   addAward: async ({ userId, title, description }) => {
-    if (!title || !description) {
-      throw new Error(ERRORS.BODY_DATA_ERROR.errorCode);
-    }
-
     const id = uuidv4();
     const newAward = { user_id: userId, id, title, description };
     const createdNewAward = await Award.create({ newAward });
@@ -35,22 +31,10 @@ const awardService = {
       throw new Error(ERRORS.ITEM_ID_ERROR.errorCode);
     }
 
-    const update = {};
-    if (toUpdate.title) {
-      update.title = toUpdate.title;
-    }
-    if (toUpdate.description) {
-      update.description = toUpdate.description;
-    }
-
-    if (is.emptyObject(update)) {
-      throw new Error(ERRORS.UPDATE_DATA_ERROR.errorCode);
-    }
-
     const updatedAward = await Award.update({
       userId,
       awardId,
-      update,
+      update: toUpdate,
     });
 
     return updatedAward;
