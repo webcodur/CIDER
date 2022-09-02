@@ -54,7 +54,6 @@ const AddForm = (props) => {
     try {
       await Api.post(DATA_ENDPOINT, dataValues);
       await props.callFetch();
-      context.setIsAdding(false);
     } catch (err) {
       errorModalContext.setModalText(
         `${err.message} // 프로젝트 데이터를 전송하는 과정에 문제가 발생했습니다.`
