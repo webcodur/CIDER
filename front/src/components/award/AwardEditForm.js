@@ -65,7 +65,7 @@ const AwardEditForm = (props) => {
       props.setArr(dataArr);
     } catch (err) {
       errorModalContext.setModalText(
-        `${err.message}\n 데이터를 불러오는 과정에서 문제가 발생했습니다.`
+        `${err.message} // 데이터를 불러오는 과정에서 문제가 발생했습니다.`
       );
     }
   };

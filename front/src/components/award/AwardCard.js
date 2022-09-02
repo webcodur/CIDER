@@ -45,12 +45,15 @@ const AwardCard = (props) => {
   const confirmDelete = async (e) => {
     try {
       const eleID = e.target.parentNode.parentNode.id;
+
       await Api.delete('award', eleID);
+
       const getRes = await Api.get('awards', id);
-      props.setArr(dataArr);
       const datas = getRes.data;
       let dataArr = [];
+
       dataArr = datas.map((ele) => [ele.id, ele.title, ele.description]);
+      props.setArr(dataArr);
     } catch (err) {
       errorModalContext.setModalText(
         `${err.message} // 수상 이력 데이터를 삭제하는 과정에서 문제가 발생했습니다.`
