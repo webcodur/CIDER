@@ -28,7 +28,6 @@ const CertificateCard = (props) => {
     state = id;
   }
 
-  console.log(props.ele, state, "rererer");
   useEffect(() => {
     const timer = setTimeout(() => {
       setConfirm(false);

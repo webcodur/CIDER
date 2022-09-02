@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Button, Form, Card, Col, Row } from "react-bootstrap";
-import * as Api from "../../api";
-import styles from "../../styles/anime.css";
-import "../../../src/styles/index.css";
-import { useTheme } from "../darkmode/themeProvider";
+import React, { useState } from 'react';
+import { Button, Form, Card, Col, Row } from 'react-bootstrap';
+import * as Api from '../../api';
+import styles from '../../styles/anime.css';
+import '../../../src/styles/index.css';
+import { useTheme } from '../darkmode/themeProvider';
 
 function UserEditForm({ user, setIsEditing, setUser }) {
   const [name, setName] = useState(user?.name);
@@ -13,12 +13,12 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   const ThemeMode = useTheme();
   const theme = ThemeMode[0];
   let formData = new FormData();
-  const backendPortNumber = "5001";
+  const backendPortNumber = '5001';
   const serverUrl =
-    "http://" + window.location.hostname + ":" + backendPortNumber + "/";
+    'http://' + window.location.hostname + ':' + backendPortNumber + '/';
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (name === "" || description === "") {
+    if (name === '' || description === '') {
       setIsEmpty(false);
       return;
     } else {
@@ -32,10 +32,10 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     const updatedUser = res.data;
     setUser(updatedUser);
     const response = await fetch(serverUrl + `user/images/profile`, {
-      method: "POST",
+      method: 'POST',
       body: formData,
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+        Authorization: `Bearer ${sessionStorage.getItem('userToken')}`,
       },
     });
     setIsEditing(false);
@@ -44,11 +44,11 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   const onImgChange = async (e) => {
     let file = e.target.files[0];
 
-    formData.append("file", file);
+    formData.append('file', file);
   };
 
   return (
-    <Card className="mb-2" id={theme == "light" ? "light" : "dark"}>
+    <Card className="mb-2" id={theme == 'light' ? 'light' : 'dark'}>
       <Card.Body>
         <Form onSubmit={handleSubmit}>
           {!isEmpty && (
@@ -62,7 +62,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
               placeholder="이름"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              maxlength="10"
+              maxLength="10"
             />
           </Form.Group>
 
@@ -81,7 +81,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
               type="text"
               placeholder="정보, 인사말"
               value={description}
-              maxlength="100"
+              maxLength="100"
               onChange={(e) => setDescription(e.target.value)}
             />
           </Form.Group>
@@ -91,7 +91,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
               placeholder="선택된 파일 없음"
               id="formFile"
               // value={}
-              maxlength="100"
+              maxLength="100"
               onChange={onImgChange}
             />
           </Form.Group>

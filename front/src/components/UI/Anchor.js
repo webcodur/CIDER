@@ -14,15 +14,11 @@ const Anchor = () => {
   };
 
   return (
-    <ToggleWrapper id={theme == 'light' ? 'light' : 'dark'}>
-      <Button
-        style={{ border: 'none' }}
-        onClick={goToTheTop}
-        size="lg"
-        variant="outline-info"
-      >
-        ⬆️
-      </Button>
+    <ToggleWrapper
+      id={theme == 'light' ? 'light' : 'dark'}
+      onClick={goToTheTop}
+    >
+      ⬆️
     </ToggleWrapper>
   );
 };
