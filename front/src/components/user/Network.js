@@ -38,7 +38,6 @@ function Network() {
       <Container fluid className="juscenter">
         <Col md="10">
           <Row xs="auto" className="jusify-content-center">
-            {console.log(isEmpty, searchData?.length)}
             {!isEmpty ? (
               users.map((user) => (
                 <>

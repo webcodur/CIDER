@@ -25,7 +25,6 @@ const LatestViews = () => {
     setWatchsFunc();
     setWatchs(JSON.parse(origins));
   }, [origins]);
-  console.log(theme);
   return (
     <div
       className={

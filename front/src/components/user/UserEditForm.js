@@ -45,9 +45,6 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     let file = e.target.files[0];
 
     formData.append("file", file);
-    // for (let key of formData.keys()) {
-    //   console.log(key, ":", formData.get(key));
-    // }
   };
 
   return (

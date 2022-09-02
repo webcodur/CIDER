@@ -42,7 +42,6 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
           id,
         }).then((res) => {
           onConfirm(res.data);
-          console.log(res.data);
         });
       } else {
         await Api.patch(`education`, education.id, editedValues).then((res) =>

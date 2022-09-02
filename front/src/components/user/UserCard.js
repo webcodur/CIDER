@@ -28,9 +28,6 @@ function UserCard({
   useEffect(() => {
     Api.get(`${user?.id ? user?.id : id}/images/profile`).then((res) => {
       setPhoto(res.data);
-      console.log();
-
-      console.log("res", res.data);
     });
   }, [user?.id ? user?.id : id]);
 
@@ -87,7 +84,6 @@ function UserCard({
             </Col>
           </Row>
         </Card.Title>
-        {/* {console.log(params)} */}
         <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
         <Card.Text className={!isNetwork ? "" : "text-truncate"}>
           {user?.description}
