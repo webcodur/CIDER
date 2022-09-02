@@ -40,9 +40,9 @@ function RegisterForm() {
       });
 
       navigate('/login');
-      alert('회원 가입에 성공 하셨습니다.');
+      alert('회원 가입에 성공하셨습니다.');
     } catch (err) {
-      alert('회원 실패에 성공 하셨습니다.');
+      alert('회원 가입에 실패하셨습니다.');
     }
   };
 
