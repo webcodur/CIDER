@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Container, Col, Row, Form, Button } from "react-bootstrap";
-import * as Api from "../../api";
-import { useTheme } from "../darkmode/themeProvider";
-import "../../../src/styles/index.css";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Container, Col, Row, Form, Button } from 'react-bootstrap';
+import * as Api from '../../api';
+import { useTheme } from '../darkmode/themeProvider';
+import '../../../src/styles/index.css';
 function RegisterForm() {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [name, setName] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState('');
   const ThemeMode = useTheme();
   const theme = ThemeMode[0];
   const validateEmail = (email) => {
@@ -33,17 +33,17 @@ function RegisterForm() {
     e.preventDefault();
 
     try {
-      await Api.post("user/register", {
+      await Api.post('user/register', {
         email,
         password,
         name,
       });
 
-      navigate("/login");
+      navigate('/login');
+      alert('회원 가입에 성공 하셨습니다.');
     } catch (err) {
-      console.log("회원가입에 실패하였습니다.", err);
+      alert('회원 실패에 성공 하셨습니다.');
     }
-    alert("회원가입에 성공 하셨습니다.");
   };
 
   return (
@@ -52,8 +52,8 @@ function RegisterForm() {
         <Col lg={8}>
           <Form
             onSubmit={handleSubmit}
-            style={{ border: "0px" }}
-            id={theme == "light" ? "light" : "dark"}
+            style={{ border: '0px' }}
+            id={theme == 'light' ? 'light' : 'dark'}
           >
             <Form.Group controlId="registerEmail">
               <Form.Label>이메일 주소</Form.Label>
@@ -129,7 +129,7 @@ function RegisterForm() {
 
             <Form.Group as={Row} className="mt-3 text-center">
               <Col sm={{ span: 20 }}>
-                <Button variant="light" onClick={() => navigate("/login")}>
+                <Button variant="light" onClick={() => navigate('/login')}>
                   로그인하기
                 </Button>
               </Col>
