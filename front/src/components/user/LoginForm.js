@@ -1,13 +1,13 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Container, Col, Row, Form, Button } from "react-bootstrap";
+import React, { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Container, Col, Row, Form, Button } from 'react-bootstrap';
 
-import * as Api from "../../api";
-import { DispatchContext } from "../../App";
-import { useTheme } from "../darkmode/themeProvider";
-import "../../../src/styles/index.css";
+import * as Api from '../../api';
+import { DispatchContext } from '../../App';
+import { useTheme } from '../darkmode/themeProvider';
+import '../../../src/styles/index.css';
 
-import styles from "../../styles/login-animation.css";
+import styles from '../../styles/login-animation.css';
 
 function LoginForm({ isEditable }) {
   const navigate = useNavigate();
@@ -15,8 +15,8 @@ function LoginForm({ isEditable }) {
   const ThemeMode = useTheme();
   const theme = ThemeMode[0];
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const [isEmpty, setIsEmpty] = useState(false);
 
@@ -44,21 +44,21 @@ function LoginForm({ isEditable }) {
     e.preventDefault();
 
     try {
-      const res = await Api.post("user/login", {
+      const res = await Api.post('user/login', {
         email,
         password,
       });
       const user = res.data;
       const jwtToken = user.token;
-      sessionStorage.setItem("userToken", jwtToken);
+      sessionStorage.setItem('userToken', jwtToken);
       dispatch({
-        type: "LOGIN_SUCCESS",
+        type: 'LOGIN_SUCCESS',
         payload: user,
       });
 
-      navigate("/", { state: { email } });
+      navigate('/', { state: { email } });
     } catch (err) {
-      console.log("로그인에 실패하였습니다.\n", err);
+      console.log('로그인에 실패하였습니다.\n', err);
       setIsEmpty(true);
     }
   };
@@ -69,8 +69,8 @@ function LoginForm({ isEditable }) {
         <Col lg={8}>
           <Form
             onSubmit={handleSubmit}
-            style={{ border: "0px" }}
-            id={theme == "light" ? "blight" : "bdark"}
+            style={{ border: '0px' }}
+            id={theme == 'light' ? 'blight' : 'bdark'}
           >
             <Form.Group controlId="loginEmail">
               <Form.Label>이메일 주소</Form.Label>
@@ -79,7 +79,7 @@ function LoginForm({ isEditable }) {
                 autoComplete="on"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                maxlength="20"
+                maxLength="20"
               />
               {!isEmailValid && (
                 <Form.Text className="text-success">
@@ -95,7 +95,7 @@ function LoginForm({ isEditable }) {
                 autoComplete="on"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                maxlength="20"
+                maxLength="20"
               />
               {!isPasswordValid && (
                 <Form.Text className="text-success">
@@ -114,7 +114,7 @@ function LoginForm({ isEditable }) {
 
             <Form.Group as={Row} className="mt-3 text-center">
               <Col sm={{ span: 20 }}>
-                <Button variant="light" onClick={() => navigate("/register")}>
+                <Button variant="light" onClick={() => navigate('/register')}>
                   회원 가입하기
                 </Button>
               </Col>
