@@ -56,7 +56,7 @@ const Search = ({ setSearchData, setIsEmpty }) => {
           <Form.Control
             type="search"
             className="form-control rounded formsearch"
-            placeholder="Search"
+            // placeholder="Search"
             aria-label="Search"
             aria-describedby="search-addon"
             onKeyUpCapture={test}

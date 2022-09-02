@@ -29,7 +29,7 @@ function Network() {
 
   return (
     <div>
-      <div style={{ width: "100%" }}>
+      <div style={{ width: "100%", marginBottom: "20px" }}>
         <SearchBar
           setSearchData={setSearchData}
           setIsEmpty={setIsEmpty}
