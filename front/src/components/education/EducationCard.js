@@ -1,12 +1,12 @@
-import React, { useState, useContext } from 'react';
-import '../../../src/styles/index.css';
-import EducationForm from './EducationForm';
-import * as Api from '../../api';
-import { Col, Button } from 'react-bootstrap';
-import DeleteButton from './DeleteButton';
-import { useLocation } from 'react-router';
-import { UserStateContext } from '../../App';
-import ErrorModalContext from '../stores/ErrorModalContext';
+import React, { useState, useContext } from "react";
+import "../../../src/styles/index.css";
+import EducationForm from "./EducationForm";
+import * as Api from "../../api";
+import { Col, Button } from "react-bootstrap";
+import DeleteButton from "./DeleteButton";
+import { useLocation } from "react-router";
+import { UserStateContext } from "../../App";
+import ErrorModalContext from "../stores/ErrorModalContext";
 
 function EducationCard({ educations, setEducations, isEditable }) {
   const errorModalContext = useContext(ErrorModalContext);
@@ -17,7 +17,7 @@ function EducationCard({ educations, setEducations, isEditable }) {
   const userState = useContext(UserStateContext);
   const id = userState?.user?.id;
   let { state } = useLocation();
-  if (state === null || typeof state === 'object') {
+  if (state === null || typeof state === "object") {
     state = id;
   }
   const toggleEditEducationForm = (id) => {
@@ -74,12 +74,6 @@ function EducationCard({ educations, setEducations, isEditable }) {
           return (
             <div key={education.id} className="mb-4 card-text">
               <div className="align-items-center row">
-                {console.log(
-                  education.id !== targetId,
-                  education.id,
-                  clickID,
-                  "ffs"
-                )}
                 {education.id !== clickID && (
                   <div className="col">
                     <div className="text-muted">{education.school}</div>

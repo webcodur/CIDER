@@ -40,9 +40,10 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
         await Api.post("education", {
           ...targetEducation,
           id,
-        }).then((res) => onConfirm(res.data));
-        var input = document.getElementById(id);
-        input.value = null;
+        }).then((res) => {
+          onConfirm(res.data);
+          console.log(res.data);
+        });
       } else {
         await Api.patch(`education`, education.id, editedValues).then((res) =>
           onConfirm(res.data)
