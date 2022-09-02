@@ -37,9 +37,16 @@ function UserCard({
       userstr = JSON.stringify([{ name: user?.name, id: user?.id }]);
     } else {
       origin = JSON.parse(origin);
+
+      const set = new Set(origin);
+
+      const uniqueArr = [...set];
+
+      console.log(uniqueArr);
       if (origin.length >= 5) {
         origin.shift();
       }
+
       userstr = JSON.stringify([...origin, { name: user?.name, id: user?.id }]);
     }
     navigate(`/users/${user.id}`);

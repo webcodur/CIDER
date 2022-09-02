@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Button, Form, Card, Col, Row } from 'react-bootstrap';
-import * as Api from '../../api';
-import styles from '../../styles/anime.css';
-import '../../../src/styles/index.css';
-import { useTheme } from '../darkmode/themeProvider';
+import React, { useState } from "react";
+import { Button, Form, Card, Col, Row } from "react-bootstrap";
+import * as Api from "../../api";
+import styles from "../../styles/anime.css";
+import "../../../src/styles/index.css";
+import { useTheme } from "../darkmode/themeProvider";
 
 function UserEditForm({ user, setIsEditing, setUser }) {
   const [name, setName] = useState(user?.name);
@@ -13,12 +13,12 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   const ThemeMode = useTheme();
   const theme = ThemeMode[0];
   let formData = new FormData();
-  const backendPortNumber = '5001';
+  const backendPortNumber = "5001";
   const serverUrl =
-    'http://' + window.location.hostname + ':' + backendPortNumber + '/';
+    "http://" + window.location.hostname + ":" + backendPortNumber + "/";
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (name === '' || description === '') {
+    if (name === "" || description === "") {
       setIsEmpty(false);
       return;
     } else {
@@ -31,24 +31,31 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     });
     const updatedUser = res.data;
     setUser(updatedUser);
-    const response = await fetch(serverUrl + `user/images/profile`, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem('userToken')}`,
-      },
-    });
+    let value = "";
+    for (value of formData.values()) {
+    }
+    console.log(value.length);
+    if (value.length != 0) {
+      const response = await fetch(serverUrl + `user/images/profile`, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+        },
+      });
+    } else {
+      console.log("사진을 첨부 안하셨습니다");
+    }
     setIsEditing(false);
   };
 
   const onImgChange = async (e) => {
     let file = e.target.files[0];
-
-    formData.append('file', file);
+    formData.append("file", file);
   };
 
   return (
-    <Card className="mb-2" id={theme == 'light' ? 'light' : 'dark'}>
+    <Card className="mb-2" id={theme == "light" ? "light" : "dark"}>
       <Card.Body>
         <Form onSubmit={handleSubmit}>
           {!isEmpty && (
