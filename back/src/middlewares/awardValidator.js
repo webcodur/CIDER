@@ -42,10 +42,10 @@ exports.awardPatchValidator = () => {
         update.title = toUpdate.title;
       }
       if (toUpdate.description) {
-        if (toUpdate.content.length > 200) {
+        if (toUpdate.description.length > 200) {
           throw new Error(ERRORS.CONTENT_LENGTH_ERROR.errorCode);
         }
-        update.content = toUpdate.content;
+        update.description = toUpdate.description;
       }
 
       if (is.emptyObject(update)) {

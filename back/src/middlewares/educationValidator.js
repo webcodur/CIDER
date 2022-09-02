@@ -49,19 +49,19 @@ exports.educationPatchValidator = () => {
       const update = {};
       const toUpdate = req.body;
       if (toUpdate.school) {
-        if (toUpdate.title.length > 20) {
+        if (toUpdate.school.length > 20) {
           throw new Error(ERRORS.CONTENT_LENGTH_ERROR.errorCode);
         }
-        update.title = toUpdate.title;
+        update.school = toUpdate.school;
       }
       if (toUpdate.major) {
-        if (toUpdate.content.length > 20) {
+        if (toUpdate.major.length > 20) {
           throw new Error(ERRORS.CONTENT_LENGTH_ERROR.errorCode);
         }
-        update.content = toUpdate.content;
+        update.major = toUpdate.major;
       }
       if (toUpdate.position) {
-        if (toUpdate.content.length > 20) {
+        if (toUpdate.position.length > 20) {
           throw new Error(ERRORS.CONTENT_LENGTH_ERROR.errorCode);
         }
         if (
@@ -71,7 +71,7 @@ exports.educationPatchValidator = () => {
         ) {
           throw new Error(ERRORS.EDUCATION_DATA_ERROR.errorCode);
         }
-        update.content = toUpdate.content;
+        update.position = toUpdate.position;
       }
 
       if (is.emptyObject(update)) {
