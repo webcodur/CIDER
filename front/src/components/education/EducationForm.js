@@ -1,10 +1,10 @@
-import React, { useState, useContext } from "react";
-import { Button, Form, Col, Row, FloatingLabel } from "react-bootstrap";
-import "../../../src/styles/index.css";
-import { UserStateContext } from "../../App";
-import * as Api from "../../api";
-import styles from "../../styles/anime.css";
-import ErrorModalContext from "../stores/ErrorModalContext";
+import React, { useState, useContext } from 'react';
+import { Button, Form, Col, Row, FloatingLabel } from 'react-bootstrap';
+import '../../../src/styles/index.css';
+import { UserStateContext } from '../../App';
+import * as Api from '../../api';
+import styles from '../../styles/anime.css';
+import ErrorModalContext from '../stores/ErrorModalContext';
 
 const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
   const [targetEducation, setTargetEducation] = useState({
@@ -29,7 +29,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
   console.log(editedValues);
   const handleConfirm = async (e) => {
     e.preventDefault();
-    if (targetEducation.school === "" || targetEducation.major === "") {
+    if (targetEducation.school === '' || targetEducation.major === '') {
       setIsEmpty(false);
       return;
     } else {
@@ -38,7 +38,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
     try {
       if (!byEditbtn) {
         onConfirm({ ...targetEducation });
-        await Api.post("education", {
+        await Api.post('education', {
           ...targetEducation,
           id,
         }).then((res) => onConfirm(res.data));
@@ -69,14 +69,14 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
         <FloatingLabel
           label="학교 이름"
           className="mt-3 mb-3"
-          style={{ color: "black" }}
+          style={{ color: 'black' }}
         >
           <Form.Control
             name="school"
             type="text"
             value={targetEducation.school}
             onChange={handleChange}
-            maxlength="20"
+            maxLength="20"
           />
         </FloatingLabel>
       </Form.Group>
@@ -84,14 +84,14 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
         <FloatingLabel
           label="상세 내역"
           className="mb-3"
-          style={{ color: "black" }}
+          style={{ color: 'black' }}
         >
           <Form.Control
             type="text"
             name="major"
             value={targetEducation.major}
             onChange={handleChange}
-            maxlength="200"
+            maxLength="200"
           />
         </FloatingLabel>
       </Form.Group>
@@ -104,7 +104,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
             id="radio-add-1"
             className="form-check-input"
             value="재학중"
-            checked={targetEducation.position === "재학중"}
+            checked={targetEducation.position === '재학중'}
             onChange={handleChange}
           ></input>
           <label title="" htmlFor="radio-add-1" className="form-check-label">
@@ -118,7 +118,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
             id="radio-add-2"
             className="form-check-input"
             value="학사졸업"
-            checked={targetEducation.position === "학사졸업"}
+            checked={targetEducation.position === '학사졸업'}
             onChange={handleChange}
           ></input>
           <label title="" htmlFor="radio-add-2" className="form-check-label">
@@ -132,7 +132,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
             id="radio-add-3"
             className="form-check-input"
             value="석사졸업"
-            checked={targetEducation.position === "석사졸업"}
+            checked={targetEducation.position === '석사졸업'}
             onChange={handleChange}
           ></input>
           <label title="" htmlFor="radio-add-3" className="form-check-label">
@@ -146,7 +146,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
             id="radio-add-4"
             className="form-check-input"
             value="박사졸업"
-            checked={targetEducation.position === "박사졸업"}
+            checked={targetEducation.position === '박사졸업'}
             onChange={handleChange}
           ></input>
           <label title="" htmlFor="radio-add-4" className="form-check-label">

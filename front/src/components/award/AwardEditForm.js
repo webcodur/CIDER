@@ -88,7 +88,7 @@ const AwardEditForm = (props) => {
             autoComplete="on"
             value={award}
             onChange={(e) => setAward(e.target.value)}
-            maxlength="20"
+            maxLength="20"
           />
         </FloatingLabel>
       </Form.Group>
@@ -104,7 +104,7 @@ const AwardEditForm = (props) => {
             autoComplete="on"
             value={details}
             onChange={(e) => setDetails(e.target.value)}
-            maxlength="200"
+            maxLength="200"
           />
         </FloatingLabel>
       </Form.Group>

@@ -20,8 +20,24 @@ const EditForm = (props) => {
   };
 
   const checkProjectValues = (projectValues) => {
-    const startDay = projectValues.startDay?.split('-').join('');
-    const endDay = projectValues.endDay?.split('-').join('');
+    const originalIsNotValid =
+      !projectValues.startDay &&
+      !projectValues.endDay &&
+      !projectValues.title &&
+      !projectValues.content;
+
+    if (originalIsNotValid) {
+      deleteIdFromIdList();
+      return false;
+    }
+
+    const startDay = projectValues.startDay
+      ? projectValues.startDay.split('-').join('')
+      : props.project.startDay.split('T')[0].split('-').join('');
+
+    const endDay = projectValues.endDay
+      ? projectValues.endDay.split('-').join('')
+      : props.project.endDay.split('T')[0].split('-').join('');
 
     if (startDay - endDay > 0) {
       alert('시작 날짜와 종료 날짜를 제대로 적어주세요.');
@@ -81,7 +97,7 @@ const EditForm = (props) => {
             type="text"
             onChange={setProjectValues}
             defaultValue={props.project.title}
-            maxlength="20"
+            maxLength="20"
           />
         </FloatingLabel>
       </Form.Group>
@@ -96,7 +112,7 @@ const EditForm = (props) => {
             type="text"
             onChange={setProjectValues}
             defaultValue={props.project.content}
-            maxlength="400"
+            maxLength="400"
           />
         </FloatingLabel>
       </Form.Group>

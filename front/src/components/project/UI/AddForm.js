@@ -58,6 +58,13 @@ const AddForm = (props) => {
       errorModalContext.setModalText(
         `${err.message} // 프로젝트 데이터를 전송하는 과정에 문제가 발생했습니다.`
       );
+    } finally {
+      setDataValues({
+        title: '',
+        content: '',
+        startDay: '',
+        endDay: '',
+      });
     }
   };
 
@@ -83,7 +90,8 @@ const AddForm = (props) => {
             type="text"
             placeholder="프로젝트 제목"
             onChange={setProjectValues}
-            maxlength="20"
+            value={dataValues.title}
+            maxLength="20"
           />
         </FloatingLabel>
       </Form.Group>
@@ -98,7 +106,8 @@ const AddForm = (props) => {
             type="text"
             placeholder="상세 내역"
             onChange={setProjectValues}
-            maxlength="400"
+            value={dataValues.content}
+            maxLength="400"
           />
         </FloatingLabel>
       </Form.Group>
@@ -107,11 +116,17 @@ const AddForm = (props) => {
           <Form.Control
             type="date"
             name="startDay"
+            value={dataValues.startDay}
             onChange={setProjectValues}
           />
         </Col>
         <Col className="col-auto">
-          <Form.Control type="date" name="endDay" onChange={setProjectValues} />
+          <Form.Control
+            type="date"
+            name="endDay"
+            onChange={setProjectValues}
+            value={dataValues.endDay}
+          />
         </Col>
       </Form.Group>
       <CheckButton
