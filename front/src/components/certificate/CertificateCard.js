@@ -1,12 +1,12 @@
-import CertificateEditForm from './CertificateEditForm';
-import { Button, Overlay, Tooltip, Card, Col } from 'react-bootstrap';
-import * as Api from '../../api';
-import { useState, useContext, useRef, useEffect } from 'react';
-import { UserStateContext } from '../../App';
-import displayToggleCss from '../../styles/displayToggle.css';
-import '../../styles/tooltip.css';
-import { useLocation } from 'react-router';
-import ErrorModalContext from '../stores/ErrorModalContext';
+import CertificateEditForm from "./CertificateEditForm";
+import { Button, Overlay, Tooltip, Card, Col } from "react-bootstrap";
+import * as Api from "../../api";
+import { useState, useContext, useRef, useEffect } from "react";
+import { UserStateContext } from "../../App";
+import displayToggleCss from "../../styles/displayToggle.css";
+import "../../styles/tooltip.css";
+import { useLocation } from "react-router";
+import ErrorModalContext from "../stores/ErrorModalContext";
 
 const CertificateCard = (props) => {
   const userState = useContext(UserStateContext);
@@ -19,15 +19,15 @@ const CertificateCard = (props) => {
   const arr = props.arr;
   const setArr = props.setArr;
   const idx = props.idx;
-
   const [isConfirm, setConfirm] = useState(false);
   const target = useRef(null);
 
   let { state } = useLocation();
-  if (state === null || typeof state === 'object') {
+  if (state === null || typeof state === "object") {
     state = id;
   }
 
+  console.log(props.ele, state, "rererer");
   useEffect(() => {
     const timer = setTimeout(() => {
       setConfirm(false);
@@ -43,9 +43,9 @@ const CertificateCard = (props) => {
   const confirmDelete = async (e) => {
     try {
       const eleID = e.target.parentNode.parentNode.id;
-      await Api.delete('certificate', eleID);
+      await Api.delete("certificate", eleID);
 
-      const getRes = await Api.get('certificates', id);
+      const getRes = await Api.get("certificates", id);
       const datas = getRes.data;
       let dataArr = [];
 

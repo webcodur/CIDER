@@ -214,8 +214,8 @@ class userAuthService {
     }
     const profileImagePath = user.profileImage.path;
     const serverPort = process.env.SERVER_PORT || 5000;
-    const serverUrl = `http://kdt-ai5-team04.elicecoding.com:${serverPort}`; // VM일 때 상황 고려해야 함
-    // const serverUrl = `http://localhost:${serverPort}`; // VM일 때 상황 고려해야 함
+    // const serverUrl = `http://kdt-ai5-team04.elicecoding.com:${serverPort}`; // VM일 때 상황 고려해야 함
+    const serverUrl = `http://localhost:${serverPort}`; // VM일 때 상황 고려해야 함
     return serverUrl + profileImagePath;
   }
 
