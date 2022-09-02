@@ -24,7 +24,7 @@ const Education = ({ isEditable, portfolioOwnerId }) => {
   const confirmAddEducation = (targetEducation) => {
     const resultEducations = [...educations, targetEducation];
     setEducations([...resultEducations]);
-    setIsAdding(false);
+    // setIsAdding(false);
   };
 
   const cancelAddEducation = () => {
