@@ -6,6 +6,10 @@
   .apear {
     display: inline;
   }
+  .juscenter {
+    display: flex;
+    justify-content: center;
+  }
 }
 @font-face {
   font-family: "Elice Digital";
