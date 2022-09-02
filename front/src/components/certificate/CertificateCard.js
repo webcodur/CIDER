@@ -5,6 +5,7 @@ import { useState, useContext, useRef, useEffect } from "react";
 import { UserStateContext } from "../../App";
 import displayToggleCss from "../../styles/displayToggle.css";
 import "../../styles/tooltip.css";
+import "../../styles/index.css";
 import { useLocation } from "react-router";
 import ErrorModalContext from "../stores/ErrorModalContext";
 
@@ -82,7 +83,7 @@ const CertificateCard = (props) => {
       ) : (
         <div className="mb-4">
           <div className="align-items-center row" id={arr[idx][0]}>
-            <Col>
+            <Col id="widthx" style={{ width: "584px" }}>
               {arr[idx][1]} <br />
               <span className="text-muted">{arr[idx][2]}</span> <br />
               <span className="text-muted">{arr[idx][3]}</span>

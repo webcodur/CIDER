@@ -1,11 +1,11 @@
 import { Col, Card } from "react-bootstrap";
 import EditDeleteButton from "./EditDeleteButton";
-
+import "../../../styles/index.css";
 const ListForm = (props) => {
   return (
     <div className="mb-4">
       <div className="align-items-center row">
-        <Col>
+        <Col id="widthx" style={{ width: "584px" }}>
           {props.project.title} <br />
           <span className="text-muted">{props.project.content}</span> <br />
           <span className="text-muted">{`${

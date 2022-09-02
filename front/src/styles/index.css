@@ -10,17 +10,21 @@
     display: flex;
     justify-content: center;
   }
+  .widthx {
+    width: auto;
+  }
 }
+
 @font-face {
-  font-family: 'Elice Digital';
+  font-family: "Elice Digital";
   src: url(./EliceDigitalBaeum_Regular.ttf);
 }
 html,
 body {
-  font-family: 'Elice Digital';
+  font-family: "Elice Digital";
 }
 .elice {
-  font-family: 'Elice Digital';
+  font-family: "Elice Digital";
 }
 .alwaysnone {
   display: none;
